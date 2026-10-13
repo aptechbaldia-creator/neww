@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Market Directory - FreshFind</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+    /* ================= THEME VARIABLES ================= */
+    :root {
+        --bg-main: #ffffff;
+        --bg-secondary: #f8fbf9;
+        --bg-card: #ffffff;
+        --text-primary: #18352a;
+        --text-secondary: #687870;
+        --text-muted: #78877f;
+        --border-color: #e4ebe6;
+        --nav-bg: #ffffff;
+        --footer-bg: #18352a;
+        --footer-text: #b5c5bd;
+        --primary-green: #3b9b63;
+        --primary-hover: #287b4b;
+        --chat-bg: #ffffff;
+        --chat-msg-bg: #f1f6f3;
+    }
+
+    [data-theme="dark"] {
+        --bg-main: #121e18;
+        --bg-secondary: #1a2a22;
+        --bg-card: #1f332a;
+        --text-primary: #f0f7f3;
+        --text-secondary: #a3b8ac;
+        --text-muted: #83988b;
+        --border-color: #2a4237;
+        --nav-bg: #16261f;
+        --footer-bg: #0b1410;
+        --footer-text: #8fa397;
+        --chat-bg: #1f332a;
+        --chat-msg-bg: #294237;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg-main);
+        color: var(--text-primary);
+        transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    button, input, select {
+        font-family: inherit;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+        width: 100%;
+        height: 78px;
+        padding: 0 7%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--nav-bg);
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        transition: background 0.3s ease;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 24px;
+        font-weight: 800;
+        color: var(--text-primary);
+    }
+
+    .logo i {
+        color: var(--primary-green);
+        font-size: 27px;
+    }
+
+    .logo span span {
+        color: var(--primary-green);
+    }
+
+    nav {
+        display: flex;
+        gap: 30px;
+    }
+
+    nav a {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        position: relative;
+        padding: 8px 0;
+        transition: 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+        color: var(--primary-green);
+    }
+
+    nav a::after {
+        content: "";
+        position: absolute;
+        height: 2px;
+        width: 0;
+        left: 0;
+        bottom: 0;
+        background: var(--primary-green);
+        transition: 0.3s ease;
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+        width: 100%;
+    }
+
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .bookmark-btn,
+    .theme-btn,
+    .menu-btn {
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--border-color);
+        background: var(--bg-card);
+        border-radius: 10px;
+        color: var(--text-primary);
+        transition: 0.3s;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bookmark-btn:hover,
+    .theme-btn:hover {
+        background: #eef8f1;
+        color: var(--primary-green);
+        transform: translateY(-2px);
+    }
+
+    [data-theme="dark"] .bookmark-btn:hover,
+    [data-theme="dark"] .theme-btn:hover {
+        background: #253d32;
+    }
+
+    .badge-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: var(--primary-green);
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-btn {
+        border: none;
+        background: var(--primary-green);
+        color: white;
+        padding: 11px 20px;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .login-btn:hover {
+        background: var(--primary-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(59, 155, 99, 0.25);
+    }
+
+    .menu-btn {
+        display: none;
+    }
+
+    /* ================= PAGE HEADER (WITH IMAGE BACKGROUND) ================= */
+
+    .page-header {
+        position: relative;
+        padding: 100px 7%;
+        text-align: center;
+        background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)), 
+                    url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80');
+        background-size: cover;
+        background-position: center;
+        color: #ffffff;
+    }
+
+    .page-header h1 {
+        font-size: 42px;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .page-header p {
+        color: #f0f0f0;
+        font-size: 16px;
+        font-weight: 500;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    /* ================= MARKETS CONTENT ================= */
+
+    .directory-container {
+        padding: 60px 7%;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .market-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .market-card {
+        background: var(--bg-card);
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid var(--border-color);
+        transition: 0.35s;
+    }
+
+    .market-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 18px 40px rgba(35, 80, 50, 0.12);
+    }
+
+    .card-image {
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .open-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: var(--bg-card);
+        color: var(--primary-green);
+        padding: 7px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .card-bookmark {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        width: 38px;
+        height: 38px;
+        border: none;
+        border-radius: 50%;
+        background: var(--bg-card);
+        color: var(--text-primary);
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card-bookmark:hover, .card-bookmark.active {
+        background: var(--primary-green);
+        color: white;
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .card-content h3 {
+        font-size: 18px;
+        color: var(--text-primary);
+    }
+
+    .location, .time {
+        color: var(--text-muted);
+        font-size: 12px;
+        margin-top: 8px;
+    }
+
+    .location i, .time i {
+        color: var(--primary-green);
+        margin-right: 5px;
+    }
+
+    .description {
+        color: var(--text-secondary);
+        font-size: 13px;
+        line-height: 1.6;
+        margin: 12px 0;
+    }
+
+    /* ================= FOOTER (FIXED) ================= */
+
+    footer {
+        background: var(--footer-bg);
+        color: #ffffff;
+        padding: 60px 7% 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 40px;
+    }
+
+    .footer-brand .logo {
+        color: #ffffff;
+    }
+
+    .footer-brand p {
+        color: var(--footer-text);
+        max-width: 350px;
+        line-height: 1.7;
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    .footer-links {
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+    }
+
+    .footer-links h3 {
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .footer-links a {
+        color: var(--footer-text);
+        font-size: 14px;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--primary-green);
+    }
+
+    .copyright {
+        max-width: 1200px;
+        margin: 45px auto 0;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        color: var(--footer-text);
+        font-size: 13px;
+        text-align: center;
+    }
+
+    @media (max-width: 950px) {
+        .navbar { padding: 0 4%; }
+        nav {
+            position: absolute;
+            top: 78px;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            flex-direction: column;
+            gap: 0;
+            padding: 15px 7%;
+            border-bottom: 1px solid var(--border-color);
+            display: none;
+        }
+        nav.show { display: flex; }
+        nav a { padding: 13px 0; }
+        .menu-btn { display: flex; }
+        .market-grid { grid-template-columns: 1fr 1fr; }
+        
+        .footer-content {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .market-grid { grid-template-columns: 1fr; }
+        .login-btn { display: none; }
+        .page-header h1 { font-size: 32px; }
+
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+    }
+    </style>
+
+<style id="freshfind-shared-theme">
+html[data-theme="dark"] body{background:#0c1712 !important;color:#eff8f2 !important}
+html[data-theme="dark"] .navbar,html[data-theme="dark"] footer{background:#0b1410 !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] .navbar a,html[data-theme="dark"] .nav-link,html[data-theme="dark"] .footer-links a,html[data-theme="dark"] .footer-text,html[data-theme="dark"] .copyright,html[data-theme="dark"] .small.text-secondary{color:#a8bbb0 !important}
+html[data-theme="dark"] .nav-link.active,html[data-theme="dark"] .nav-link:hover{color:#58bd7f !important}
+html[data-theme="dark"] .product-card,html[data-theme="dark"] .market-card,html[data-theme="dark"] .stat-card,html[data-theme="dark"] .filter-bar,html[data-theme="dark"] .info-card,html[data-theme="dark"] .form-card,html[data-theme="dark"] .modal-content{background:#14241c !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="dark"] select,html[data-theme="dark"] .form-control{background:#12231a !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::placeholder{color:#8fa397 !important}
+.freshfind-theme-toggle{width:40px;height:40px;border:1px solid currentColor;border-radius:10px;background:transparent;color:inherit;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+.freshfind-theme-toggle:hover{transform:translateY(-2px)}
+</style>
+
+<style id="freshfind-ai-chatbot">
+    /* ================= AI CHATBOT ================= */
+    .chatbot-btn {
+        position: fixed;
+        right: 25px;
+        bottom: 25px;
+        width: 60px;
+        height: 60px;
+        border: none;
+        border-radius: 50%;
+        background: var(--primary-green);
+        color: white;
+        font-size: 22px;
+        z-index: 2000;
+        box-shadow: 0 12px 35px rgba(59, 155, 99, 0.35);
+        transition: 0.3s ease;
+    }
+
+    .chatbot-btn:hover {
+        transform: scale(1.08) rotate(4deg);
+        background: var(--primary-hover);
+    }
+
+    .chatbot {
+        position: fixed;
+        right: 25px;
+        bottom: 98px;
+        width: 370px;
+        max-width: calc(100vw - 30px);
+        height: 560px;
+        background: var(--chat-bg);
+        border-radius: 20px;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+        overflow: hidden;
+        display: none;
+        flex-direction: column;
+        z-index: 1999;
+        border: 1px solid var(--border-color);
+        animation: chatIn .25s ease;
+    }
+
+    .chatbot.show { display: flex; }
+
+    @keyframes chatIn {
+        from { opacity: 0; transform: translateY(15px) scale(.97); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .chat-header {
+        background: linear-gradient(135deg, var(--primary-green), #287b4b);
+        color: white;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .chat-profile {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+    }
+
+    .chat-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,.18);
+        border: 1px solid rgba(255,255,255,.25);
+    }
+
+    .chat-header div.info {
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .chat-header small { opacity: .85; }
+
+    .chat-status {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 10px;
+    }
+
+    .chat-status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #b8ffd0;
+        box-shadow: 0 0 8px #b8ffd0;
+    }
+
+    .chat-header button {
+        border: none;
+        background: transparent;
+        color: white;
+        font-size: 18px;
+        width: 34px;
+        height: 34px;
+        border-radius: 8px;
+    }
+
+    .chat-header button:hover { background: rgba(255,255,255,.14); }
+
+    .chat-body {
+        flex: 1;
+        padding: 16px;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+        background: var(--chat-bg);
+    }
+
+    .chat-message {
+        display: flex;
+        margin-bottom: 12px;
+    }
+
+    .chat-message.bot { justify-content: flex-start; }
+    .chat-message.user { justify-content: flex-end; }
+
+    .chat-bubble {
+        max-width: 84%;
+        padding: 11px 13px;
+        border-radius: 14px;
+        font-size: 13px;
+        line-height: 1.55;
+        word-wrap: break-word;
+    }
+
+    .chat-message.bot .chat-bubble {
+        background: var(--chat-msg-bg);
+        color: var(--text-primary);
+        border-bottom-left-radius: 5px;
+    }
+
+    .chat-message.user .chat-bubble {
+        background: var(--primary-green);
+        color: white;
+        border-bottom-right-radius: 5px;
+    }
+
+    .chat-bubble strong { font-weight: 800; }
+    .chat-bubble ul { padding-left: 18px; margin: 7px 0; }
+    .chat-bubble li { margin: 3px 0; }
+
+    .quick-questions {
+        padding: 0 16px 10px;
+        display: flex;
+        gap: 7px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .quick-question {
+        flex: 0 0 auto;
+        border: 1px solid var(--border-color);
+        background: var(--bg-card);
+        padding: 8px 10px;
+        border-radius: 20px;
+        color: var(--text-primary);
+        font-size: 11px;
+        transition: .25s;
+    }
+
+    .quick-question:hover {
+        border-color: var(--primary-green);
+        color: var(--primary-green);
+        transform: translateY(-1px);
+    }
+
+    .chat-input-area {
+        padding: 12px;
+        border-top: 1px solid var(--border-color);
+        background: var(--chat-bg);
+    }
+
+    .chat-input-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 13px;
+        padding: 5px 6px 5px 12px;
+    }
+
+    .chat-input-wrap:focus-within {
+        border-color: var(--primary-green);
+        box-shadow: 0 0 0 3px rgba(59,155,99,.10);
+    }
+
+    #chatInput {
+        width: 100%;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: var(--text-primary);
+        font-size: 13px;
+        padding: 8px 0;
+    }
+
+    #chatInput::placeholder { color: var(--text-muted); }
+
+    .send-chat-btn {
+        width: 38px;
+        height: 38px;
+        flex: 0 0 38px;
+        border: none;
+        border-radius: 10px;
+        background: var(--primary-green);
+        color: white;
+        transition: .2s;
+    }
+
+    .send-chat-btn:hover {
+        background: var(--primary-hover);
+        transform: scale(1.04);
+    }
+
+    .typing-bubble {
+        display: inline-flex;
+        gap: 4px;
+        padding: 12px 14px;
+    }
+
+    .typing-bubble span {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--text-muted);
+        animation: typing 1s infinite;
+    }
+
+    .typing-bubble span:nth-child(2) { animation-delay: .15s; }
+    .typing-bubble span:nth-child(3) { animation-delay: .3s; }
+
+    @keyframes typing {
+        0%, 60%, 100% { transform: translateY(0); opacity: .45; }
+        30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+
+    @media (max-width: 600px) {
+        .chatbot {
+            right: 15px;
+            left: 15px;
+            width: auto;
+        }
+
+        .chatbot-btn {
+            right: 18px;
+            bottom: 18px;
+        }
+
+    }
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR (Index.html Jaisa) ================= -->
+
+<header class="navbar">
+
+    <div class="logo">
+        <i class="fa-solid fa-leaf"></i>
+        <span>Fresh<span>Find</span></span>
+    </div>
+
+    <nav id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="market.html" class="active">Market Directory</a>
+        <a href="producesguide.html">Produce Guide</a>
+        <a href="favourite.html"> Favourite</a>
+        <a href="budget.html">Budget Basket</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+    
+    </nav>
+
+    <div class="nav-actions">
+        <!-- Bookmark / Favourite Button -->
+        <button class="bookmark-btn" id="navBookmarkBtn" title="View Bookmarks" onclick="window.location.href='market.html?view=bookmarks'">
+            <i class="fa-regular fa-bookmark"></i>
+            <span class="badge-count" id="bookmarkCount">0</span>
+        </button>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button class="theme-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode">
+            <i class="fa-regular fa-moon" id="themeIcon"></i>
+        </button>
+
+        <button class="login-btn" >Login</button>
+
+        <button class="menu-btn" id="menuBtn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+</header>
+
+
+<!-- ================= PAGE HEADER WITH BACKGROUND IMAGE ================= -->
+
+<section class="page-header">
+    <h1>Market Directory</h1>
+    <p>Explore local markets and discover fresh products near you</p>
+</section>
+
+
+<!-- ================= MARKETS LIST ================= -->
+
+<section class="directory-container">
+
+    <div class="market-grid">
+
+        <!-- CARD 1 -->
+        <div class="market-card" id="clifton-farmers-market">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=700&q=80" alt="Clifton Farmers Market">
+                <span class="open-badge">Open Today</span>
+                <button class="card-bookmark" onclick="toggleBookmark(event, 'Clifton Farmers Market')">
+                    <i class="fa-regular fa-bookmark"></i>
+                </button>
+            </div>
+            <div class="card-content">
+                <h3>Clifton Farmers Market</h3>
+                <p class="location"><i class="fa-solid fa-location-dot"></i> Clifton, Karachi</p>
+                <p class="time"><i class="fa-regular fa-clock"></i> Sat - Sun · 8:00 AM - 2:00 PM</p>
+                <p class="description">Fresh organic vegetables, fruits, and locally grown farm products in Clifton.</p>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="market-card" id="zamzama-organic-bazaar">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=700&q=80" alt="Zamzama Organic Bazaar">
+                <span class="open-badge">Open Today</span>
+                <button class="card-bookmark" onclick="toggleBookmark(event, 'Zamzama Organic Bazaar')">
+                    <i class="fa-regular fa-bookmark"></i>
+                </button>
+            </div>
+            <div class="card-content">
+                <h3>Zamzama Organic Bazaar</h3>
+                <p class="location"><i class="fa-solid fa-location-dot"></i> Clifton, Karachi</p>
+                <p class="time"><i class="fa-regular fa-clock"></i> Saturday · 9:00 AM - 3:00 PM</p>
+                <p class="description">Seasonal fruits, organic vegetables, and fresh herbs right at Zamzama.</p>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="market-card" id="do-darya-fresh-hub">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1533900298318-6b8da08a523e?auto=format&fit=crop&w=700&q=80" alt="Do Darya Fresh Hub">
+                <span class="open-badge">Open Today</span>
+                <button class="card-bookmark" onclick="toggleBookmark(event, 'Do Darya Fresh Hub')">
+                    <i class="fa-regular fa-bookmark"></i>
+                </button>
+            </div>
+            <div class="card-content">
+                <h3>Do Darya Fresh Hub</h3>
+                <p class="location"><i class="fa-solid fa-location-dot"></i> Clifton, Karachi</p>
+                <p class="time"><i class="fa-regular fa-clock"></i> Sunday · 7:00 AM - 1:00 PM</p>
+                <p class="description">Coastal area farmers bringing fresh seasonal produce and dairy items.</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AI CHATBOT ================= -->
+
+<button class="chatbot-btn" id="chatbotBtn" onclick="toggleChatbot()" aria-label="Open FreshFind AI Assistant">
+    <i class="fa-solid fa-robot"></i>
+</button>
+
+<div class="chatbot" id="chatbot" aria-label="FreshFind AI Assistant">
+
+    <div class="chat-header">
+        <div class="chat-profile">
+            <div class="chat-avatar"><i class="fa-solid fa-robot"></i></div>
+            <div class="info">
+                <strong>FreshFind AI</strong>
+                <div class="chat-status">
+                    <span class="chat-status-dot"></span>
+                    Online • Market Assistant
+                </div>
+            </div>
+        </div>
+
+        <button id="closeChat" onclick="toggleChatbot()" aria-label="Close chatbot">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div class="chat-body" id="chatBody">
+        <div class="chat-message bot">
+            <div class="chat-bubble">
+                Hi! 👋 I'm <strong>FreshFind AI</strong>.<br>
+                I can help you find markets, check opening days, explore seasonal produce, and navigate FreshFind.
+            </div>
+        </div>
+    </div>
+
+    <div class="quick-questions">
+        <button class="quick-question" onclick="askChatbot('Find a market near me')">📍 Find a market</button>
+        <button class="quick-question" onclick="askChatbot('What produce is in season?')">🥕 Seasonal produce</button>
+        <button class="quick-question" onclick="askChatbot('What markets are open today?')">🕒 Open today</button>
+        <button class="quick-question" onclick="askChatbot('Tell me about FreshFind')">✨ About FreshFind</button>
+    </div>
+
+    <div class="chat-input-area">
+        <form class="chat-input-wrap" id="chatForm">
+            <input id="chatInput" type="text" autocomplete="off"
+                   placeholder="Ask me anything about FreshFind...">
+            <button class="send-chat-btn" type="submit" aria-label="Send message">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">
+            <div class="logo">
+                <i class="fa-solid fa-leaf"></i>
+                <span>Fresh<span>Find</span></span>
+            </div>
+            <p>Discover fresh local produce and farmers markets near you.</p>
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="index.html">Home</a>
+            <a href="market.html">Market Directory</a>
+            <a href="producesguide.html">Produce Guide</a>
+        </div>
+        <div class="footer-links">
+            <h3>Support</h3>
+            <a href="contact.html">Contact Us</a>
+            <a href="contact.html">Help Center</a>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>© 2026 FreshFind. All Rights Reserved.</p>
+    </div>
+</footer>
+
+
+<script>
+
+// Bookmarking System
+let bookmarkCount = 0;
+function toggleBookmark(event, marketName) {
+    event.stopPropagation();
+    const btn = event.currentTarget;
+    const icon = btn.querySelector("i");
+    
+    if (icon.classList.contains("fa-regular")) {
+        icon.classList.remove("fa-regular");
+        icon.classList.add("fa-solid");
+        btn.classList.add("active");
+        bookmarkCount++;
+        alert(marketName + " added to your bookmarks!");
+    } else {
+        icon.classList.remove("fa-solid");
+        icon.classList.add("fa-regular");
+        btn.classList.remove("active");
+        bookmarkCount--;
+        alert(marketName + " removed from bookmarks.");
+    }
+    
+    document.getElementById("bookmarkCount").innerText = bookmarkCount;
+}
+
+
+// FreshFind AI Chatbot
+function toggleChatbot() {
+    const chatbot = document.getElementById("chatbot");
+    chatbot.classList.toggle("show");
+
+    if (chatbot.classList.contains("show")) {
+        setTimeout(() => document.getElementById("chatInput")?.focus(), 120);
+    }
+}
+
+function addChatMessage(message, sender = "bot") {
+    const body = document.getElementById("chatBody");
+    const row = document.createElement("div");
+    row.className = "chat-message " + sender;
+
+    const bubble = document.createElement("div");
+    bubble.className = "chat-bubble";
+    bubble.innerHTML = message;
+
+    row.appendChild(bubble);
+    body.appendChild(row);
+    body.scrollTop = body.scrollHeight;
+}
+
+function showTyping() {
+    const body = document.getElementById("chatBody");
+    const row = document.createElement("div");
+    row.className = "chat-message bot";
+    row.id = "typingIndicator";
+
+    row.innerHTML = `
+        <div class="chat-bubble typing-bubble">
+            <span></span><span></span><span></span>
+        </div>`;
+    body.appendChild(row);
+    body.scrollTop = body.scrollHeight;
+}
+
+function hideTyping() {
+    document.getElementById("typingIndicator")?.remove();
+}
+
+function getAIResponse(question) {
+    const q = question.toLowerCase().trim();
+
+    if (q.includes("market") && (q.includes("near") || q.includes("find") || q.includes("location"))) {
+        return `📍 <strong>Let's find a market for you.</strong><br>
+        FreshFind currently highlights markets in Clifton, Karachi. You can use the Market Directory to search by area, day, and produce.
+        <br><br><button class="quick-question" onclick="window.location.href='market.html'">Open Market Directory →</button>`;
+    }
+
+    if (q.includes("open") || q.includes("today")) {
+        return `🕒 <strong>Markets open today</strong><br>
+        FreshFind has a dedicated view for markets marked as open today.
+        <br><br><button class="quick-question" onclick="window.location.href='market.html?open=today'">View Open Markets →</button>`;
+    }
+
+    if (q.includes("season") || q.includes("produce") || q.includes("fruit") || q.includes("vegetable")) {
+        return `🥕 <strong>Fresh seasonal picks</strong><br>
+        The home page currently features:
+        <ul>
+            <li>🍅 Tomatoes</li>
+            <li>🍎 Apples</li>
+            <li>🥕 Carrots</li>
+            <li>🌿 Fresh Herbs</li>
+        </ul>
+        <button class="quick-question" onclick="window.location.href='producesguide.html'">Explore Produce Guide →</button>`;
+    }
+
+    if (q.includes("clifton")) {
+        return `📍 <strong>Clifton Farmers Market</strong><br>
+        Fresh organic vegetables, fruits, and locally grown farm products.<br>
+        🕒 Sat - Sun · 8:00 AM - 2:00 PM
+        <br><br><button class="quick-question" onclick="window.location.href='market.html?id=clifton-farmers-market'">View Market →</button>`;
+    }
+
+    if (q.includes("zamzama")) {
+        return `📍 <strong>Zamzama Organic Bazaar</strong><br>
+        Seasonal fruits, organic vegetables, and fresh herbs.<br>
+        🕒 Saturday · 9:00 AM - 3:00 PM
+        <br><br><button class="quick-question" onclick="window.location.href='market.html?id=zamzama-organic-bazaar'">View Market →</button>`;
+    }
+
+    if (q.includes("do darya")) {
+        return `📍 <strong>Do Darya Fresh Hub</strong><br>
+        Seasonal produce and dairy items from local farmers.<br>
+        🕒 Sunday · 7:00 AM - 1:00 PM
+        <br><br><button class="quick-question" onclick="window.location.href='market.html?id=do-darya-fresh-hub'">View Market →</button>`;
+    }
+
+    if (q.includes("about") || q.includes("freshfind") || q.includes("what can you")) {
+        return `✨ <strong>About FreshFind</strong><br>
+        FreshFind helps you discover local farmers markets and fresh seasonal produce in one place.
+        You can search markets by area, day, or produce and save your favourite markets.`;
+    }
+
+    if (q.includes("favourite") || q.includes("favorite") || q.includes("bookmark")) {
+        return `🔖 <strong>Your saved markets</strong><br>
+        Use the bookmark icon on a market card to save it. Your saved markets are available from the Favourite/Bookmarks section.`;
+    }
+
+    if (q.includes("hello") || q.includes("hi") || q.includes("hey") || q.includes("salam")) {
+        return `👋 Hello! Welcome to FreshFind. What would you like to discover today?`;
+    }
+
+    if (q.includes("help")) {
+        return `🤖 <strong>I can help with:</strong>
+        <ul>
+            <li>Finding a market</li>
+            <li>Checking open markets</li>
+            <li>Seasonal produce</li>
+            <li>Market information</li>
+            <li>FreshFind navigation</li>
+        </ul>`;
+    }
+
+    return `🤔 I can help with FreshFind's markets and produce. Try asking:
+        <br><br>• "Find a market near me"<br>
+        • "What produce is in season?"<br>
+        • "What markets are open today?"`;
+}
+
+function askChatbot(question) {
+    const input = document.getElementById("chatInput");
+    if (input) input.value = question;
+    sendChatMessage(question);
+}
+
+function sendChatMessage(question) {
+    const cleanQuestion = question.trim();
+    if (!cleanQuestion) return;
+
+    addChatMessage(cleanQuestion, "user");
+    document.getElementById("chatInput").value = "";
+    showTyping();
+
+    setTimeout(() => {
+        hideTyping();
+        addChatMessage(getAIResponse(cleanQuestion), "bot");
+    }, 550);
+}
+
+const chatForm = document.getElementById("chatForm");
+if (chatForm) {
+    chatForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        sendChatMessage(document.getElementById("chatInput").value);
+    });
+}
+</script>
+
+
+
+<script id="freshfind-shared-functionality">
+(function(){
+"use strict";
+const routes={"Home":"index.html","Find a Market":"market.html","Market Directory":"market.html","Produce Guide":"producesguide.html","Produce":"producesguide.html","Markets":"market.html","About":"about.html","About Us":"about.html","Contact Us":"contact.html","Favourites":"favourite.html","Bookmarks":"market.html?view=bookmarks","Help Center":"contact.html"};
+
+function getTheme(){
+  try { return localStorage.getItem("freshfind-theme") || localStorage.getItem("theme") || "light"; }
+  catch(e){ return "light"; }
+}
+function setTheme(theme){
+  theme=theme==="dark"?"dark":"light";
+  document.documentElement.setAttribute("data-theme",theme);
+  document.body.classList.toggle("dark",theme==="dark");
+  try {
+    localStorage.setItem("freshfind-theme",theme);
+    localStorage.removeItem("theme");
+  } catch(e){}
+  updateThemeButtons(theme);
+}
+function updateThemeButtons(theme){
+  document.querySelectorAll("#themeBtn,#themeToggleBtn,.freshfind-theme-toggle").forEach(function(btn){
+    const icon=btn.querySelector("i");
+    if(icon){ icon.className=theme==="dark"?"fa-solid fa-sun":"fa-regular fa-moon"; }
+    btn.setAttribute("aria-label",theme==="dark"?"Switch to light mode":"Switch to dark mode");
+    btn.title=theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode";
+  });
+}
+function bindThemeButton(btn){
+  if(!btn||btn.dataset.themeBound)return;
+  btn.dataset.themeBound="1";
+  btn.addEventListener("click",function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
+  });
+}
+function addThemeButton(){
+  let btn=document.querySelector("#themeBtn,#themeToggleBtn,.freshfind-theme-toggle");
+  if(btn){ bindThemeButton(btn); return; }
+  const navActions=document.querySelector(".nav-actions");
+  if(navActions){
+    btn=document.createElement("button");
+    btn.type="button"; btn.className="freshfind-theme-toggle";
+    navActions.insertBefore(btn,navActions.firstChild); bindThemeButton(btn); return;
+  }
+  const collapse=document.querySelector(".navbar .navbar-collapse");
+  if(collapse){
+    btn=document.createElement("button");
+    btn.type="button"; btn.className="freshfind-theme-toggle";
+    const basket=collapse.querySelector(".basket-btn,.nav-btn");
+    collapse.insertBefore(btn,basket||collapse.firstChild); bindThemeButton(btn);
+  }
+}
+function fixLinks(){
+  document.querySelectorAll("a").forEach(function(a){
+    const t=(a.textContent||"").replace(/\s+/g," ").trim();
+    if(routes[t]&&(a.getAttribute("href")==="#"||a.classList.contains("nav-link"))) a.setAttribute("href",routes[t]);
+  });
+  document.querySelectorAll("a.navbar-brand,.logo").forEach(function(a){if((a.getAttribute("href")||"#")==="#")a.setAttribute("href","index.html")});
+  document.querySelectorAll("a.season-btn").forEach(function(a){if(a.getAttribute("href")==="#")a.setAttribute("href","#seasonal")});
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  fixLinks();
+  addThemeButton();
+  setTheme(getTheme());
+  document.querySelectorAll("button.login-btn").forEach(function(btn){btn.onclick=function(){window.location.href="login.html"}});
+  document.querySelectorAll("nav a,.nav-links a").forEach(function(a){a.addEventListener("click",function(){const m=document.querySelector("#navMenu,#navLinks");if(m)m.classList.remove("show","open")})});
+});
+
+window.addEventListener("storage",function(e){
+  if(e.key==="freshfind-theme") setTheme(e.newValue||"light");
+});
+})();
+</script>
+
+</body>
+</html>

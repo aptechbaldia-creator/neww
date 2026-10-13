@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — FreshFind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root{
+    --bg:#f7faf8; --surface:#fff; --surface-2:#edf7f0; --ink:#153126;
+    --muted:#718079; --line:#dfeae3; --green:#39a566; --green-2:#227d4b;
+    --lime:#b9e88d; --dark:#10241b; --shadow:0 24px 70px rgba(22,62,42,.11);
+}
+[data-theme="dark"]{
+    --bg:#0c1712; --surface:#14241c; --surface-2:#193126; --ink:#eff8f2;
+    --muted:#9eb2a6; --line:#294237; --green:#55c47e; --green-2:#39a566;
+    --lime:#8dcc67; --dark:#07100c; --shadow:0 24px 70px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;background:var(--bg);color:var(--ink);transition:.3s}
+button,input,textarea{font:inherit} button{cursor:pointer} a{text-decoration:none;color:inherit}
+
+.navbar{
+    height:76px;padding:0 6.5%;display:flex;align-items:center;justify-content:space-between;
+    background:rgba(255,255,255,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:1000;
+}
+[data-theme="dark"] .navbar{background:rgba(20,36,28,.88)}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Plus Jakarta Sans";font-weight:800;font-size:23px}
+.logo-mark{width:39px;height:39px;border-radius:13px;display:grid;place-items:center;color:white;
+    background:linear-gradient(135deg,var(--green),#1f7d4a);box-shadow:0 9px 20px rgba(57,165,102,.22)}
+.logo span span{color:var(--green)}
+nav{display:flex;gap:27px}
+nav a{font-size:13px;font-weight:700;color:var(--muted);padding:9px 0;position:relative}
+nav a:hover,nav a.active{color:var(--green)}
+nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--green);border-radius:4px}
+.nav-actions{display:flex;align-items:center;gap:9px}
+.icon-btn,.menu-btn{width:40px;height:40px;border:1px solid var(--line);background:var(--surface);
+    color:var(--ink);border-radius:12px;display:grid;place-items:center;position:relative}
+.icon-btn:hover,.menu-btn:hover{border-color:var(--green);color:var(--green);transform:translateY(-2px)}
+.badge{position:absolute;right:-5px;top:-5px;width:18px;height:18px;border-radius:50%;
+    background:var(--green);color:#fff;font-size:9px;display:grid;place-items:center;font-weight:800}
+.login-btn{border:0;border-radius:12px;padding:11px 18px;background:var(--dark);color:#fff;font-weight:700}
+.login-btn:hover{background:var(--green);transform:translateY(-2px)}
+.menu-btn{display:none}
+
+.hero{
+    min-height:430px;padding:86px 6.5% 72px;position:relative;overflow:hidden;color:white;
+    background:linear-gradient(115deg,rgba(9,31,21,.96),rgba(25,76,47,.84)),
+    url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85') center/cover;
+}
+.hero:before{content:"";position:absolute;width:440px;height:440px;border-radius:50%;right:-100px;top:-180px;
+    background:rgba(185,232,141,.12);filter:blur(2px)}
+.hero-inner{max-width:1200px;margin:auto;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid rgba(255,255,255,.2);
+    border-radius:99px;background:rgba(255,255,255,.08);font-size:11px;letter-spacing:1.6px;font-weight:800}
+.eyebrow i{color:var(--lime)}
+.hero h1{font-family:"Plus Jakarta Sans";font-size:clamp(40px,6vw,68px);line-height:1.02;max-width:760px;margin:22px 0 18px;letter-spacing:-2.5px}
+.hero h1 em{font-style:normal;color:var(--lime)}
+.hero p{max-width:610px;color:#dce9e1;font-size:16px;line-height:1.75}
+.hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.hero-badges span{padding:9px 13px;border-radius:10px;background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.15);font-size:12px;color:#eaf5ee}
+.hero-badges i{color:var(--lime);margin-right:6px}
+
+.contact-wrap{max-width:1200px;margin:-54px auto 0;padding:0 6.5% 75px;position:relative;z-index:2}
+.main-grid{display:grid;grid-template-columns:.83fr 1.17fr;gap:22px}
+.info-card,.form-card{background:var(--surface);border:1px solid var(--line);border-radius:25px;box-shadow:var(--shadow)}
+.info-card{padding:31px}
+.card-kicker{color:var(--green);font-size:11px;letter-spacing:1.5px;font-weight:800}
+.info-card h2,.form-card h2{font-family:"Plus Jakarta Sans";font-size:28px;line-height:1.2;margin-top:9px}
+.info-card>p,.form-card>p{color:var(--muted);font-size:13px;line-height:1.7;margin-top:10px}
+.info-list{margin-top:27px;display:grid;gap:15px}
+.info-item{display:flex;gap:13px;align-items:flex-start;padding:13px;border-radius:15px;background:var(--surface-2)}
+.info-icon{width:42px;height:42px;flex:0 0 42px;border-radius:12px;display:grid;place-items:center;
+    color:var(--green);background:var(--surface);border:1px solid var(--line)}
+.info-item h3{font-size:13px;margin:2px 0 4px}.info-item p{font-size:12px;color:var(--muted);line-height:1.5}
+.social{border-top:1px solid var(--line);margin-top:24px;padding-top:21px}
+.social h3{font-size:13px;margin-bottom:12px}.socials{display:flex;gap:8px}
+.socials a{width:37px;height:37px;border-radius:11px;border:1px solid var(--line);display:grid;place-items:center;color:var(--muted)}
+.socials a:hover{background:var(--green);border-color:var(--green);color:white;transform:translateY(-2px)}
+
+.map-box{margin-top:18px;overflow:hidden;border-radius:18px;border:1px solid var(--line);height:180px;position:relative}
+.map-box iframe{width:100%;height:100%;border:0;display:block}
+.map-label{position:absolute;left:12px;top:12px;background:var(--surface);color:var(--ink);padding:7px 10px;
+    border-radius:9px;font-size:11px;font-weight:800;box-shadow:0 7px 20px rgba(0,0,0,.12);z-index:1}
+
+.form-card{padding:34px}
+.form-head{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}
+.form-mark{width:48px;height:48px;border-radius:15px;background:var(--surface-2);color:var(--green);display:grid;place-items:center;font-size:19px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:27px}
+.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}
+.field label{font-size:11px;font-weight:800;letter-spacing:.2px}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);
+    border-radius:13px;padding:13px 14px;outline:none;font-size:13px;transition:.25s}
+.field input{height:47px}.field textarea{min-height:135px;resize:vertical}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(57,165,102,.11)}
+.submit-row{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:19px}
+.submit-btn{border:0;border-radius:13px;background:linear-gradient(135deg,var(--green),var(--green-2));color:white;
+    padding:13px 19px;font-weight:800;display:inline-flex;gap:8px;align-items:center;box-shadow:0 12px 25px rgba(57,165,102,.2)}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 15px 30px rgba(57,165,102,.27)}
+.secure-note{font-size:11px;color:var(--muted)}.secure-note i{color:var(--green);margin-right:4px}
+
+.help{padding:72px 6.5%;background:var(--surface-2)}
+.help-inner{max-width:1200px;margin:auto;text-align:center}.help-inner h2{font-family:"Plus Jakarta Sans";font-size:32px;margin-top:8px}
+.help-inner>p{color:var(--muted);font-size:13px;margin-top:8px}
+.help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:29px}
+.help-card{background:var(--surface);border:1px solid var(--line);border-radius:19px;padding:25px 20px;text-align:left;transition:.25s}
+.help-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.help-icon{width:45px;height:45px;border-radius:13px;background:var(--surface-2);color:var(--green);display:grid;place-items:center}
+.help-card h3{font-size:15px;margin-top:15px}.help-card p{font-size:12px;color:var(--muted);line-height:1.65;margin-top:6px}
+
+footer{background:var(--dark);color:white;padding:48px 6.5% 20px}
+.footer-content{max-width:1200px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:50px}
+.footer-brand p{color:#9fb1a7;max-width:360px;font-size:12px;line-height:1.7;margin-top:12px}
+.footer-links{display:flex;flex-direction:column;gap:11px}.footer-links h3{font-size:13px;margin-bottom:3px}
+.footer-links a{font-size:12px;color:#9fb1a7}.footer-links a:hover{color:#fff;transform:translateX(3px)}
+.copyright{max-width:1200px;margin:36px auto 0;padding-top:17px;border-top:1px solid #2b4739;color:#83998d;font-size:11px}
+
+@media(max-width:950px){
+    .navbar{padding:0 4%} nav{position:absolute;top:76px;left:0;right:0;background:var(--surface);display:none;
+        flex-direction:column;gap:0;padding:10px 7%;border-bottom:1px solid var(--line)} nav.show{display:flex}
+    nav a{padding:12px 0}.menu-btn{display:grid}.main-grid{grid-template-columns:1fr}.contact-wrap{margin-top:-35px}
+}
+@media(max-width:650px){
+    .navbar{height:68px}.logo{font-size:19px}.logo-mark{width:35px;height:35px}.login-btn{display:none}
+    .hero{min-height:410px;padding:70px 5% 75px}.hero h1{font-size:42px;letter-spacing:-1.8px}.hero p{font-size:14px}
+    .contact-wrap{padding:0 5% 55px}.info-card,.form-card{padding:23px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}
+    .submit-row{align-items:flex-start;flex-direction:column}.help{padding:55px 5%}.help-grid{grid-template-columns:1fr}
+    .footer-content{grid-template-columns:1fr;gap:28px}
+}
+</style>
+
+<style id="freshfind-shared-theme">
+html[data-theme="dark"] body{background:#0c1712 !important;color:#eff8f2 !important}
+html[data-theme="dark"] .navbar,html[data-theme="dark"] footer{background:#0b1410 !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] .navbar a,html[data-theme="dark"] .nav-link,html[data-theme="dark"] .footer-links a,html[data-theme="dark"] .footer-text,html[data-theme="dark"] .copyright,html[data-theme="dark"] .small.text-secondary{color:#a8bbb0 !important}
+html[data-theme="dark"] .nav-link.active,html[data-theme="dark"] .nav-link:hover{color:#58bd7f !important}
+html[data-theme="dark"] .product-card,html[data-theme="dark"] .market-card,html[data-theme="dark"] .stat-card,html[data-theme="dark"] .filter-bar,html[data-theme="dark"] .info-card,html[data-theme="dark"] .form-card,html[data-theme="dark"] .modal-content{background:#14241c !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="dark"] select,html[data-theme="dark"] .form-control{background:#12231a !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::placeholder{color:#8fa397 !important}
+.freshfind-theme-toggle{width:40px;height:40px;border:1px solid currentColor;border-radius:10px;background:transparent;color:inherit;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+.freshfind-theme-toggle:hover{transform:translateY(-2px)}
+</style>
+</head>
+
+<body>
+<header class="navbar">
+    <a class="logo" href="index.html">
+        <span class="logo-mark"><i class="fa-solid fa-leaf"></i></span>
+        <span>Fresh<span>Find</span></span>
+    </a>
+    <nav id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="market.html">Market Directory</a>
+        <a href="producesguide.html">Produce Guide</a>
+        <a href="budget.html">Budget Basket</a>
+        <a href="favourite.html"> Favourite</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html" class="active">Contact Us</a>
+        
+    </nav>
+    <div class="nav-actions">
+        <button class="icon-btn" title="View Bookmarks" onclick="location.href='market.html?view=bookmarks'">
+            <i class="fa-regular fa-bookmark"></i><span class="badge" id="bookmarkCount">0</span>
+        </button>
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle dark mode">
+            <i class="fa-regular fa-moon" id="themeIcon"></i>
+        </button>
+        <button class="login-btn" >Login</button>
+        <button class="menu-btn" id="menuBtn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-inner">
+        <span class="eyebrow"><i class="fa-solid fa-sparkles"></i> LET'S TALK FRESH</span>
+        <h1>Have a question?<br><em>We’re all ears.</em></h1>
+        <p>Whether you found a new local market, need a little help, or simply want to say hello — send us a message. The FreshFind team is here for you.</p>
+        <div class="hero-badges">
+            <span><i class="fa-solid fa-bolt"></i> Quick response</span>
+            <span><i class="fa-solid fa-shield-halved"></i> Your message stays private</span>
+            <span><i class="fa-solid fa-leaf"></i> Built for local discovery</span>
+        </div>
+    </div>
+</section>
+
+<main class="contact-wrap">
+    <div class="main-grid">
+        <aside class="info-card">
+            <span class="card-kicker">GET IN TOUCH</span>
+            <h2>Let’s make FreshFind better.</h2>
+            <p>Got a market to suggest, a question about the directory, or an idea for the site? We’d love to hear it.</p>
+
+            <div class="info-list">
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div><h3>Our Location</h3><p>Clifton, Karachi, Pakistan</p></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div><h3>Email Us</h3><p>07fazalsubhan@gmail.com</p></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                    <div><h3>Call Us</h3><p>+92 3702910621</p></div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-regular fa-clock"></i></div>
+                    <div><h3>Working Hours</h3><p>Monday – Saturday<br>9:00 AM – 6:00 PM</p></div>
+                </div>
+            </div>
+
+            <!-- <div class="social">
+                <h3>Follow FreshFind</h3>
+                <div class="socials">
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div> -->
+            <div class="social">
+    <h3>Follow FreshFind</h3>
+
+    <div class="socials">
+        <a href="https://www.facebook.com/YourFreshFindPage"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Facebook"
+           title="Follow us on Facebook">
+            <i class="fa-brands fa-facebook-f"></i>
+        </a>
+
+        <a href="https://www.instagram.com/YourFreshFindPage"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Instagram"
+           title="Follow us on Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+
+        <a href="https://twitter.com/YourFreshFindPage"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Twitter"
+           title="Follow us on Twitter">
+            <i class="fa-brands fa-twitter"></i>
+        </a>
+
+        <a href="https://www.linkedin.com/company/YourFreshFindPage"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="LinkedIn"
+           title="Follow us on LinkedIn">
+            <i class="fa-brands fa-linkedin-in"></i>
+        </a>
+    </div>
+</div>
+
+            <!-- Map is intentionally embedded with an iframe tag as requested. -->
+            <div class="map-box">
+                <span class="map-label"><i class="fa-solid fa-location-dot"></i> Clifton, Karachi</span>
+                <iframe
+                    title="FreshFind location map"
+                    src="https://www.google.com/maps?q=Clifton%2C%20Karachi%2C%20Pakistan&output=embed"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </aside>
+
+        <section class="form-card">
+            <div class="form-head">
+                <div>
+                    <span class="card-kicker">DROP US A LINE</span>
+                    <h2>Send us a message</h2>
+                    <p>Tell us what’s on your mind. We’ll get back to you as soon as possible.</p>
+                </div>
+                <div class="form-mark"><i class="fa-regular fa-paper-plane"></i></div>
+            </div>
+
+            <form id="contactForm">
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="name">FULL NAME</label>
+                        <input id="name" type="text" placeholder="e.g. Alex Khan" required>
+                    </div>
+                    <div class="field">
+                        <label for="email">EMAIL ADDRESS</label>
+                        <input id="email" type="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="field">
+                        <label for="phone">PHONE NUMBER</label>
+                        <input id="phone" type="tel" placeholder="+92 300 0000000">
+                    </div>
+                    <div class="field">
+                        <label for="subject">SUBJECT</label>
+                        <input id="subject" type="text" placeholder="What can we help with?" required>
+                    </div>
+                    <div class="field full">
+                        <label for="message">YOUR MESSAGE</label>
+                        <textarea id="message" placeholder="Write your message here..." required></textarea>
+                    </div>
+                </div>
+                <div class="submit-row">
+                    <button class="submit-btn" type="submit"><i class="fa-solid fa-paper-plane"></i> Send Message</button>
+                    <span class="secure-note"><i class="fa-solid fa-lock"></i> We respect your privacy.</span>
+                </div>
+            </form>
+        </section>
+    </div>
+</main>
+
+<section class="help">
+    <div class="help-inner">
+        <span class="card-kicker">NEED A QUICK ANSWER?</span>
+        <h2>Maybe we can point you there.</h2>
+        <p>Explore the parts of FreshFind made for your next local discovery.</p>
+        <div class="help-grid">
+            <a class="help-card" href="market.html">
+                <div class="help-icon"><i class="fa-solid fa-store"></i></div>
+                <h3>Market Information</h3>
+                <p>Browse farmers markets and discover useful local details.</p>
+            </a>
+            <a class="help-card" href="producesguide.html">
+                <div class="help-icon"><i class="fa-solid fa-leaf"></i></div>
+                <h3>Produce Guide</h3>
+                <p>Learn about seasonal fruits, vegetables, herbs and fresh produce.</p>
+            </a>
+            <a class="help-card" href="about.html">
+                <div class="help-icon"><i class="fa-solid fa-circle-question"></i></div>
+                <h3>About FreshFind</h3>
+                <p>See what FreshFind is about and how the project brings local discovery together.</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">
+            <div class="logo" style="color:#fff">
+                <span class="logo-mark"><i class="fa-solid fa-leaf"></i></span>
+                <span>Fresh<span>Find</span></span>
+            </div>
+            <p>Discover fresh local produce and farmers markets near you — simple, useful, and made with care.</p>
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <a href="index.html">Home</a><a href="market.html">Market Directory</a><a href="producesguide.html">Produce Guide</a><a href="about.html">About Us</a>
+        </div>
+        <div class="footer-links">
+            <h3>Support</h3>
+            <a href="contact.html">Contact Us</a><a href="contact.html">Help Center</a><a href="market.html?view=bookmarks">Bookmarks</a>
+        </div>
+    </div>
+    <div class="copyright">© 2026 FreshFind. All Rights Reserved.</div>
+</footer>
+
+<script>
+
+const menuBtn=document.getElementById("menuBtn"),navMenu=document.getElementById("navMenu");
+menuBtn.addEventListener("click",()=>navMenu.classList.toggle("show"));
+
+document.getElementById("contactForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    const name=document.getElementById("name").value.trim();
+    const email=document.getElementById("email").value.trim();
+    const subject=document.getElementById("subject").value.trim();
+    const message=document.getElementById("message").value.trim();
+    if(!name||!email||!subject||!message){alert("Please fill in all required fields.");return;}
+    alert(`Thanks, ${name}! Your message has been submitted successfully.`);
+    this.reset();
+});
+
+const savedBookmarks=JSON.parse(localStorage.getItem("freshfindBookmarks")||"[]");
+document.getElementById("bookmarkCount").textContent=savedBookmarks.length;
+</script>
+
+
+<script id="freshfind-shared-functionality">
+(function(){
+"use strict";
+const routes={"Home":"index.html","Find a Market":"market.html","Market Directory":"market.html","Produce Guide":"producesguide.html","Produce":"producesguide.html","Markets":"market.html","About":"about.html","About Us":"about.html","Contact Us":"contact.html","Favourites":"favourite.html","Bookmarks":"market.html?view=bookmarks","Help Center":"contact.html"};
+
+function getTheme(){
+  try { return localStorage.getItem("freshfind-theme") || localStorage.getItem("theme") || "light"; }
+  catch(e){ return "light"; }
+}
+function setTheme(theme){
+  theme=theme==="dark"?"dark":"light";
+  document.documentElement.setAttribute("data-theme",theme);
+  document.body.classList.toggle("dark",theme==="dark");
+  try {
+    localStorage.setItem("freshfind-theme",theme);
+    localStorage.removeItem("theme");
+  } catch(e){}
+  updateThemeButtons(theme);
+}
+function updateThemeButtons(theme){
+  document.querySelectorAll("#themeBtn,#themeToggleBtn,.freshfind-theme-toggle").forEach(function(btn){
+    const icon=btn.querySelector("i");
+    if(icon){ icon.className=theme==="dark"?"fa-solid fa-sun":"fa-regular fa-moon"; }
+    btn.setAttribute("aria-label",theme==="dark"?"Switch to light mode":"Switch to dark mode");
+    btn.title=theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode";
+  });
+}
+function bindThemeButton(btn){
+  if(!btn||btn.dataset.themeBound)return;
+  btn.dataset.themeBound="1";
+  btn.addEventListener("click",function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
+  });
+}
+function addThemeButton(){
+  let btn=document.querySelector("#themeBtn,#themeToggleBtn,.freshfind-theme-toggle");
+  if(btn){ bindThemeButton(btn); return; }
+  const navActions=document.querySelector(".nav-actions");
+  if(navActions){
+    btn=document.createElement("button");
+    btn.type="button"; btn.className="freshfind-theme-toggle";
+    navActions.insertBefore(btn,navActions.firstChild); bindThemeButton(btn); return;
+  }
+  const collapse=document.querySelector(".navbar .navbar-collapse");
+  if(collapse){
+    btn=document.createElement("button");
+    btn.type="button"; btn.className="freshfind-theme-toggle";
+    const basket=collapse.querySelector(".basket-btn,.nav-btn");
+    collapse.insertBefore(btn,basket||collapse.firstChild); bindThemeButton(btn);
+  }
+}
+function fixLinks(){
+  document.querySelectorAll("a").forEach(function(a){
+    const t=(a.textContent||"").replace(/\s+/g," ").trim();
+    if(routes[t]&&(a.getAttribute("href")==="#"||a.classList.contains("nav-link"))) a.setAttribute("href",routes[t]);
+  });
+  document.querySelectorAll("a.navbar-brand,.logo").forEach(function(a){if((a.getAttribute("href")||"#")==="#")a.setAttribute("href","index.html")});
+  document.querySelectorAll("a.season-btn").forEach(function(a){if(a.getAttribute("href")==="#")a.setAttribute("href","#seasonal")});
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  fixLinks();
+  addThemeButton();
+  setTheme(getTheme());
+  document.querySelectorAll("button.login-btn").forEach(function(btn){btn.onclick=function(){window.location.href="login.html"}});
+  document.querySelectorAll("nav a,.nav-links a").forEach(function(a){a.addEventListener("click",function(){const m=document.querySelector("#navMenu,#navLinks");if(m)m.classList.remove("show","open")})});
+});
+
+window.addEventListener("storage",function(e){
+  if(e.key==="freshfind-theme") setTheme(e.newValue||"light");
+});
+})();
+</script>
+
+</body>
+</html>

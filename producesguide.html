@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Produce Guide | FreshFind</title>
+    <meta name="description" content="FreshFind Produce Guide — explore seasonal fruits, vegetables, herbs and berries, and find them at local farmers markets.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --green-dark: #12372a;
+            --green: #2f7d4a;
+            --green-light: #e9f7ed;
+            --mint: #f3fbf5;
+            --lime: #a8d96c;
+            --cream: #fffdf7;
+            --text: #183027;
+            --muted: #718078;
+            --border: #e5eee8;
+            --shadow: 0 18px 50px rgba(18,55,42,.08);
+            --shadow-hover: 0 24px 60px rgba(18,55,42,.14);
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            font-family: "DM Sans", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 8% 8%, rgba(168,217,108,.10), transparent 24%),
+                radial-gradient(circle at 92% 16%, rgba(47,125,74,.07), transparent 22%),
+                var(--cream);
+        }
+
+        .container { max-width: 1180px; }
+
+        button:focus-visible, a:focus-visible {
+            outline: 3px solid rgba(47,125,74,.45);
+            outline-offset: 2px;
+        }
+
+        
+
+        .navbar {
+            background: rgba(255,255,255,.94);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+            box-shadow: 0 1px 0 rgba(18,55,42,.05);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.45rem;
+            color: var(--green-dark) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 13px;
+            background: var(--green);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(47,125,74,.2);
+        }
+
+        .nav-link {
+            color: #53625b !important;
+            font-weight: 500;
+            margin: 0 7px;
+            position: relative;
+            transition: color .2s ease;
+        }
+
+        .nav-link::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 2px;
+            width: 0;
+            height: 2px;
+            border-radius: 99px;
+            background: var(--green);
+            transform: translateX(-50%);
+            transition: width .22s ease;
+        }
+
+        .nav-link:hover, .nav-link.active { color: var(--green) !important; }
+        .nav-link:hover::after, .nav-link.active::after { width: 70%; }
+
+        .nav-btn {
+            border: none;
+            background: var(--green);
+            color: white;
+            padding: 10px 19px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: .25s;
+        }
+
+        .nav-btn:hover {
+            background: var(--green-dark);
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: calc(100vh - 76px);
+            padding: 55px 0;
+            display: flex;
+            align-items: center;
+            background:
+                radial-gradient(circle at 90% 20%, rgba(168,217,108,.28), transparent 28%),
+                radial-gradient(circle at 10% 80%, rgba(47,125,74,.10), transparent 30%),
+                linear-gradient(135deg, #f8fff9, #eef8f0);
+        }
+
+        .hero-content { position: relative; z-index: 2; }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border-radius: 50px;
+            background: white;
+            color: var(--green);
+            border: 1px solid #dceee1;
+            font-size: .84rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(2.6rem, 5vw, 4.4rem);
+            line-height: 1.05;
+            color: var(--green-dark);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span { color: var(--green); }
+
+        .hero p {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 1.08rem;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .stat-chip {
+            background: rgba(255,255,255,.85);
+            border: 1px solid #dceee1;
+            border-radius: 16px;
+            padding: 13px 20px;
+            min-width: 130px;
+            box-shadow: 0 10px 26px rgba(18,55,42,.06);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .stat-chip:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 32px rgba(18,55,42,.10);
+        }
+
+        .stat-num {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--green);
+            line-height: 1.1;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: .78rem;
+            font-weight: 600;
+        }
+
+        
+
+        .hero-visual {
+            position: relative;
+            width: 100%;
+            height: min(72vh, 620px);
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-produce-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 28px;
+            display: block;
+            border: 5px solid rgba(255,255,255,.95);
+            box-shadow: 0 25px 60px rgba(18,55,42,.18);
+            transform: none;
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+
+        .hero-visual:hover .hero-produce-photo {
+            transform: scale(1.01);
+            box-shadow: 0 30px 70px rgba(18,55,42,.23);
+        }
+
+        .hero-photo-badge {
+            position: absolute;
+            left: 10px;
+            bottom: 12px;
+            background: rgba(255,255,255,.94);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(47,125,74,.13);
+            border-radius: 16px;
+            padding: 11px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 14px 30px rgba(18,55,42,.14);
+            font-size: .86rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            z-index: 3;
+        }
+
+        .hero-photo-badge i {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        
+
+        .search-wrapper {
+            margin-top: -32px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-box {
+            background: white;
+            border: 1px solid rgba(47,125,74,.15);
+            border-radius: 20px;
+            padding: 12px;
+            box-shadow: 0 12px 35px rgba(18,55,42,.10);
+            transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+        }
+
+        .search-box:focus-within {
+            border-color: rgba(47,125,74,.42);
+            box-shadow: 0 14px 40px rgba(47,125,74,.16);
+            transform: translateY(-1px);
+        }
+
+        .search-input {
+            height: 55px;
+            border: none;
+            outline: none;
+            box-shadow: none !important;
+            font-size: 1rem;
+        }
+
+        .search-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--green-light);
+            color: var(--green);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-search {
+            background: var(--green);
+            border: none;
+            color: #fff;
+            padding: 12px 26px;
+            border-radius: 14px;
+            font-weight: 700;
+            transition: .25s;
+        }
+
+        .btn-search:hover {
+            background: var(--green-dark);
+            color: #fff;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 24px rgba(47,125,74,.28);
+        }
+
+        
+
+        .section { padding: 75px 0; }
+
+        .section-title {
+            font-family: "Playfair Display", serif;
+            color: var(--green-dark);
+            font-size: 2.4rem;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle { color: var(--muted); }
+
+        .category-scroll {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 35px 0;
+        }
+
+        .category-btn {
+            border: 1px solid var(--border);
+            background: white;
+            color: #5b6c63;
+            border-radius: 50px;
+            padding: 10px 18px;
+            font-weight: 600;
+            transition: all .22s ease;
+        }
+
+        .category-btn:hover {
+            background: var(--green);
+            color: white;
+            border-color: var(--green);
+            transform: translateY(-2px);
+        }
+
+        .category-btn.active {
+            background: var(--green);
+            color: white;
+            border-color: var(--green);
+            box-shadow: 0 8px 22px rgba(47,125,74,.18);
+        }
+
+        
+
+        .produce-section {
+            margin-bottom: 58px;
+            scroll-margin-top: 110px;
+        }
+
+        .produce-section:last-child { margin-bottom: 20px; }
+
+        .produce-section-heading {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+            padding: 16px 18px;
+            background: rgba(255,255,255,.6);
+            border: 1px solid rgba(18,55,42,.07);
+            border-radius: 20px;
+            box-shadow: 0 8px 28px rgba(18,55,42,.045);
+        }
+
+        .produce-section-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: var(--green-light);
+            font-size: 1.45rem;
+            flex: 0 0 48px;
+        }
+
+        .produce-section-heading h2 {
+            margin: 0;
+            color: var(--green-dark);
+            font-family: "Playfair Display", serif;
+            font-size: clamp(1.6rem, 3vw, 2.1rem);
+            line-height: 1.1;
+        }
+
+        .produce-section-heading p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: .92rem;
+        }
+
+        .produce-section-count {
+            margin-left: auto;
+            white-space: nowrap;
+            color: var(--green);
+            background: var(--green-light);
+            border: 1px solid #d6eadc;
+            border-radius: 999px;
+            padding: 7px 12px;
+            font-size: .82rem;
+            font-weight: 700;
+        }
+
+        
+
+        .produce-card {
+            background: rgba(255,255,255,.96);
+            border: 1px solid rgba(18,55,42,.08);
+            border-radius: 20px;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow);
+            transition: transform .3s cubic-bezier(.2,.7,.3,1), box-shadow .3s ease, border-color .3s ease;
+            animation: cardIn .6s cubic-bezier(.2,.7,.3,1) backwards;
+        }
+
+        .produce-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(47,125,74,.2);
+        }
+
+        @keyframes cardIn {
+            from { opacity: 0; transform: translateY(26px) scale(.98); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        
+
+        .produce-image {
+            position: relative;
+            height: 255px;               
+            overflow: hidden;
+            background: #eef6f0;
+            flex: 0 0 auto;
+        }
+
+        
+        .produce-image::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: linear-gradient(100deg, #edf5ef 30%, #f8fdf9 50%, #edf5ef 70%);
+            background-size: 220% 100%;
+            animation: shimmer 1.3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to { background-position: -220% 0; }
+        }
+
+        
+        .produce-image::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(180deg, rgba(18,55,42,0) 55%, rgba(18,55,42,.35));
+            pointer-events: none;
+        }
+
+        .produce-image img {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            opacity: 0;
+            transform: scale(1.04);
+            
+            filter: saturate(1.22) contrast(1.08) brightness(1.02);
+            transition:
+                opacity .6s ease,
+                transform .7s cubic-bezier(.2,.8,.2,1),
+                filter .5s ease;
+        }
+
+        .produce-image img.loaded {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .produce-card:hover .produce-image img {
+            transform: scale(1.09);
+            filter: saturate(1.35) contrast(1.12) brightness(1.03);
+        }
+
+        
+        .fallback-emoji {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(5.5rem, 10vw, 7rem);
+            line-height: 1;
+            text-shadow: 0 18px 32px rgba(18,55,42,.25);
+            background:
+                radial-gradient(circle at 50% 40%, rgba(255,255,255,.85), rgba(255,255,255,0) 62%),
+                linear-gradient(160deg, #dcf2e2 0%, #bce0c6 100%);
+        }
+
+        .produce-image.img-fallback .fallback-emoji { display: flex; }
+        .produce-image.img-fallback::before { animation: none; }
+
+        .season-badge {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            z-index: 3;
+            padding: 7px 11px;
+            border-radius: 50px;
+            background: rgba(255,255,255,.93);
+            color: var(--green);
+            font-size: .75rem;
+            font-weight: 700;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 5px 16px rgba(0,0,0,.10);
+        }
+
+        .season-badge i { margin-right: 5px; }
+
+        .bookmark {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            z-index: 3;
+            width: 39px;
+            height: 39px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255,255,255,.95);
+            color: #728078;
+            transition: transform .2s ease, color .2s ease;
+        }
+
+        .bookmark:hover,
+        .bookmark.saved { color: var(--green); transform: scale(1.08); }
+
+        .produce-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 22px 22px;
+        }
+
+        .produce-category {
+            color: var(--green);
+            font-size: .75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .produce-name {
+            color: var(--green-dark);
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin: 7px 0 9px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .produce-icon {
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 11px;
+            background: var(--green-light);
+            font-size: 1.15rem;
+        }
+
+        .produce-description {
+            color: var(--muted);
+            font-size: .88rem;
+            line-height: 1.55;
+            margin-bottom: 2px;
+        }
+
+        .details-list {
+            list-style: none;
+            margin: 15px 0 0;
+            padding: 13px 0 0;
+            border-top: 1px dashed var(--border);
+            display: grid;
+            gap: 7px;
+        }
+
+        .detail-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            color: #66756d;
+            font-size: .76rem;
+            line-height: 1.42;
+        }
+
+        .detail-line i { color: var(--green); width: 16px; margin-top: 2px; }
+        .detail-label { color: var(--green-dark); font-weight: 700; }
+
+        .produce-footer {
+            margin-top: auto;
+            padding-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .availability-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: 50px;
+            background: var(--green-light);
+            color: var(--green);
+            font-size: .72rem;
+            font-weight: 700;
+        }
+
+        .market-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--green);
+            font-weight: 700;
+            font-size: .85rem;
+            text-decoration: none;
+        }
+
+        .market-link:hover { color: var(--green-dark); }
+
+        .market-link .arrow { transition: transform .25s ease; }
+        .market-link:hover .arrow { transform: translateX(5px); }
+
+        .produce-count {
+            color: var(--muted);
+            font-size: .85rem;
+            margin-top: 10px;
+        }
+
+        .produce-count #produceCount { font-weight: 800; color: var(--green); }
+
+        
+
+        .season-banner {
+            background: var(--green-dark);
+            border-radius: 28px;
+            padding: 45px;
+            color: white;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 70px rgba(18,55,42,.25);
+        }
+
+        .season-banner::after {
+            content: "";
+            width: 300px;
+            height: 300px;
+            position: absolute;
+            right: -100px;
+            top: -120px;
+            border-radius: 50%;
+            background: rgba(168,217,108,.15);
+        }
+
+        .season-banner::before {
+            content: "";
+            width: 220px;
+            height: 220px;
+            position: absolute;
+            left: -80px;
+            bottom: -100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.05);
+        }
+
+        .season-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 14px;
+            border-radius: 50px;
+            background: rgba(168,217,108,.18);
+            color: var(--lime);
+            font-weight: 700;
+            font-size: .8rem;
+            margin-bottom: 16px;
+        }
+
+        .season-banner h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 2.2rem;
+        }
+
+        .season-banner p { color: #cbdcd1; max-width: 600px; }
+
+        .season-btn {
+            display: inline-block;
+            background: var(--lime);
+            color: #173522;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-weight: 700;
+            margin-top: 12px;
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+
+        .season-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(168,217,108,.3);
+            color: #173522;
+        }
+
+        .season-emojis { font-size: 92px; line-height: 1; position: relative; z-index: 2; }
+        .season-emojis span { display: inline-block; animation: float 4.5s ease-in-out infinite; }
+        .season-emojis span:nth-child(1) { animation-delay: 0s; }
+        .season-emojis span:nth-child(2) { animation-delay: .7s; }
+        .season-emojis span:nth-child(3) { animation-delay: 1.4s; }
+
+    
+
+        #backToTop {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: none;
+            background: var(--green);
+            color: #fff;
+            box-shadow: 0 12px 30px rgba(47,125,74,.35);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(12px);
+            transition: .3s;
+            z-index: 900;
+        }
+
+        #backToTop.show { opacity: 1; visibility: visible; transform: none; }
+        #backToTop:hover { background: var(--green-dark); transform: translateY(-3px); }
+
+        
+
+        footer {
+            background: #10291f;
+            color: #d6e2db;
+            padding: 45px 0;
+            margin-top: 70px;
+        }
+
+        .footer-logo { color: white; font-size: 1.35rem; font-weight: 700; }
+        .footer-text { color: #9eb2a7; max-width: 450px; line-height: 1.7; }
+
+        .footer-links a {
+            color: #aebfb5;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: .9rem;
+            transition: color .2s;
+        }
+
+        .footer-links a:hover { color: white; }
+
+        .footer-social { margin-top: 18px; }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,.08);
+            color: #cfe0d6;
+            margin-right: 10px;
+            transition: .25s;
+        }
+
+        .footer-social a:hover { background: var(--green); color: #fff; transform: translateY(-3px); }
+
+
+
+        .top-strip {
+            background: var(--green-dark);
+            color: #e4f0e8;
+            font-size: .78rem;
+            padding: 8px 0;
+        }
+        .top-strip .container {
+            display:flex; justify-content:space-between; align-items:center; gap:16px;
+        }
+        .top-strip span { display:inline-flex; align-items:center; gap:7px; }
+        .top-strip i { color: var(--lime); }
+
+        .navbar { z-index: 1000; }
+        .navbar-brand .brand-copy { display:flex; flex-direction:column; line-height:1; }
+        .navbar-brand .brand-tagline {
+            font-size:.56rem; letter-spacing:.12em; text-transform:uppercase;
+            color:var(--muted); font-weight:700; margin-top:5px;
+        }
+        .nav-btn { display:inline-flex; align-items:center; gap:7px; }
+        .saved-count {
+            display:none; min-width:20px; height:20px; padding:0 5px; border-radius:99px;
+            align-items:center; justify-content:center; background:#fff; color:var(--green);
+            font-size:.68rem; font-weight:800;
+        }
+        .saved-count.show { display:inline-flex; }
+
+        .hero { min-height: 510px; display:flex; align-items:center; }
+        .hero::before {
+            content:""; position:absolute; width:420px; height:420px; border-radius:50%;
+            right:-160px; bottom:-210px; background:rgba(168,217,108,.13);
+            filter:blur(2px);
+        }
+        .hero .container { position:relative; z-index:2; }
+        .hero-actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:30px; }
+        .hero-primary, .hero-secondary {
+            display:inline-flex; align-items:center; gap:9px; padding:13px 20px;
+            border-radius:13px; text-decoration:none; font-weight:700; transition:.25s;
+        }
+        .hero-primary { background:var(--green); color:#fff; box-shadow:0 12px 28px rgba(47,125,74,.22); }
+        .hero-primary:hover { background:var(--green-dark); color:#fff; transform:translateY(-2px); }
+        .hero-secondary { background:#fff; color:var(--green-dark); border:1px solid var(--border); }
+        .hero-secondary:hover { color:var(--green); border-color:#bcdcc7; transform:translateY(-2px); }
+
+        .hero-note {
+            display:flex; align-items:center; gap:8px; margin-top:18px; color:var(--muted);
+            font-size:.78rem;
+        }
+
+        .hero-visual::after {
+            content:"LOCAL • FRESH • SEASONAL"; position:absolute; right:5px; bottom:2px;
+            padding:8px 12px; border-radius:99px; background:#fff; color:var(--green);
+            font-size:.65rem; font-weight:800; letter-spacing:.12em;
+            box-shadow:0 8px 22px rgba(18,55,42,.08);
+        }
+
+        .search-wrapper { margin-top:-38px; }
+        .search-meta {
+            display:flex; justify-content:space-between; align-items:center; gap:12px;
+            padding:7px 5px 0; color:var(--muted); font-size:.75rem;
+        }
+        .search-meta strong { color:var(--green); }
+        .clear-search { border:0; background:transparent; color:var(--green); font-weight:700; display:none; }
+        .clear-search.show { display:block; }
+
+        .category-scroll {
+            position:sticky; top:76px; z-index:50; padding:11px 0;
+            background:rgba(255,253,247,.88); backdrop-filter:blur(12px);
+        }
+        .category-btn { box-shadow:0 3px 12px rgba(18,55,42,.03); }
+
+        .produce-card { position:relative; }
+        .produce-card::after {
+            content:""; position:absolute; inset:0; border-radius:20px; pointer-events:none;
+            box-shadow:inset 0 0 0 1px rgba(255,255,255,.45); opacity:.7;
+        }
+        .produce-image { height:245px; }
+        .quick-view {
+            position:absolute; right:15px; bottom:15px; z-index:4;
+            border:0; border-radius:10px; padding:8px 12px; background:rgba(255,255,255,.94);
+            color:var(--green-dark); font-size:.72rem; font-weight:800;
+            opacity:0; transform:translateY(7px); transition:.25s;
+            box-shadow:0 7px 18px rgba(0,0,0,.12);
+        }
+        .produce-card:hover .quick-view, .quick-view:focus { opacity:1; transform:none; }
+        .market-link { cursor:pointer; }
+        .empty-search {
+            max-width:500px; margin:0 auto; padding:38px 20px; border:1px dashed #cfe0d5;
+            border-radius:22px; background:#fff;
+        }
+
+        .trust-row {
+            display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:32px;
+        }
+        .trust-item {
+            display:flex; align-items:center; gap:11px; padding:15px; background:#fff;
+            border:1px solid var(--border); border-radius:15px;
+        }
+        .trust-item i {
+            width:36px; height:36px; border-radius:11px; display:grid; place-items:center;
+            background:var(--green-light); color:var(--green);
+        }
+        .trust-item strong { display:block; font-size:.78rem; color:var(--green-dark); }
+        .trust-item span { display:block; color:var(--muted); font-size:.68rem; margin-top:2px; }
+
+        .modal-content { border:0; border-radius:24px; overflow:hidden; box-shadow:0 30px 90px rgba(0,0,0,.2); }
+        .modal-produce-image {
+            width:100%;
+            height:360px;
+            object-fit:contain;
+            object-position:center;
+            display:block;
+            padding:14px;
+            background:linear-gradient(145deg,#f7fbf8,#edf6f0);
+            image-rendering:auto;
+            filter:saturate(1.08) contrast(1.03);
+        }
+
+        
+        #produceModal .col-md-5 {
+            background:linear-gradient(145deg,#f7fbf8,#edf6f0);
+            min-height:360px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        #produceModal .modal-produce-image {
+            max-width:100%;
+            max-height:360px;
+        }
+        .modal-image-fallback {
+            object-fit:contain;
+            padding:55px;
+            background:linear-gradient(145deg,#edf8ef,#dcefe1);
+        }
+        .modal-icon { font-size:42px; }
+        .modal-label { color:var(--green); font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.1em; }
+        .modal-title { font-family:"Playfair Display",serif; color:var(--green-dark); }
+        .modal-detail {
+            padding:12px 14px; border-radius:13px; background:var(--mint); height:100%;
+            font-size:.78rem; color:var(--muted);
+        }
+        .modal-detail strong { color:var(--green-dark); display:block; margin-bottom:3px; }
+
+        footer { position:relative; }
+        .footer-bottom {
+            display:flex; justify-content:space-between; align-items:center; gap:15px; flex-wrap:wrap;
+        }
+
+        @media (max-width: 767px) {
+            .hero-visual { height: 320px; margin-top: 25px; }
+            .hero-produce-photo { height: 300px; width: 100%; }
+    .hero-visual { height: 300px; margin-top: 25px; }
+    .hero-produce-photo { height: 275px; width: 92%; border-radius: 24px; }
+    .hero-photo-badge { left: 2%; bottom: 2px; font-size: .78rem; padding: 9px 11px; }
+
+            #produceModal .col-md-5 {
+                min-height:260px;
+            }
+            .modal-produce-image {
+                height:260px;
+                max-height:260px;
+                padding:10px;
+            }
+
+            .top-strip .container { justify-content:center; }
+            .top-strip span:last-child { display:none; }
+            .category-scroll { top:70px; overflow-x:auto; flex-wrap:nowrap; justify-content:flex-start !important; }
+            .category-btn { white-space:nowrap; }
+            .trust-row { grid-template-columns:1fr; }
+            .hero-actions { margin-top:22px; }
+            .hero { min-height:auto; }
+        }
+
+    
+
+        @media (max-width: 991px) {
+            .hero { padding-top: 60px; }
+            .hero-visual { display: flex; }
+            .navbar-nav { padding-top: 15px; }
+        }
+
+        @media (max-width: 767px) {
+            .hero-visual {
+                height: 360px;
+                margin-top: 28px;
+            }
+            .hero-produce-photo {
+                border-radius: 22px;
+                border-width: 4px;
+            }
+            .hero-photo-badge {
+                left: 14px;
+                bottom: 14px;
+                font-size: .78rem;
+            }
+            .produce-image { height: 230px; }
+            .produce-section-heading { padding: 14px; border-radius: 16px; }
+        }
+
+        @media (max-width: 576px) {
+            .section { padding: 55px 0; }
+            .hero h1 { font-size: 2.7rem; }
+            .hero-stats { gap: 10px; }
+            .stat-chip { min-width: 105px; padding: 10px 14px; }
+            .season-banner { padding: 30px 25px; }
+            .search-box { border-radius: 15px; }
+            #backToTop { right: 16px; bottom: 16px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    
+/* FINAL HERO IMAGE FIX */
+.hero-visual{min-width:0;}
+.hero-produce-photo{background:#eef7ee;object-fit:cover;}
+@media (min-width:992px){.hero-visual{display:flex!important;visibility:visible!important;opacity:1!important;}}
+
+/* ============ FreshFind Home-style Navbar (copied from index.html) ============ */
+header.navbar {
+    width: 100%;
+    height: 78px;
+    padding: 0 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background 0.3s ease;
+}
+
+header.navbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--green-dark);
+    background: none;
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+header.navbar .logo i {
+    color: var(--green);
+    font-size: 27px;
+}
+
+header.navbar .logo span span {
+    color: var(--green);
+}
+
+header.navbar nav#navMenu {
+    display: flex;
+    gap: 30px;
+}
+
+header.navbar nav#navMenu a {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    position: relative;
+    padding: 8px 0;
+    transition: 0.3s ease;
+    margin: 0;
+}
+
+header.navbar nav#navMenu a:hover,
+header.navbar nav#navMenu a.active {
+    color: var(--green);
+}
+
+header.navbar nav#navMenu a::after {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 0;
+    left: 0;
+    bottom: 0;
+    background: var(--green);
+    transition: 0.3s ease;
+}
+
+header.navbar nav#navMenu a:hover::after,
+header.navbar nav#navMenu a.active::after {
+    width: 100%;
+}
+
+header.navbar .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header.navbar .bookmark-btn,
+header.navbar .theme-btn,
+header.navbar .menu-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border);
+    background: #ffffff;
+    border-radius: 10px;
+    color: var(--green-dark);
+    transition: 0.3s;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header.navbar .bookmark-btn:hover,
+header.navbar .theme-btn:hover {
+    background: var(--green-light);
+    color: var(--green);
+    transform: translateY(-2px);
+}
+
+header.navbar .badge-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: var(--green);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header.navbar .login-btn {
+    border: none;
+    background: var(--green);
+    color: white;
+    padding: 11px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+header.navbar .login-btn:hover {
+    background: var(--green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(47,125,74,.25);
+}
+
+header.navbar .menu-btn {
+    display: none;
+}
+
+@media (max-width: 950px) {
+    header.navbar {
+        padding: 0 4%;
+    }
+    header.navbar nav#navMenu {
+        position: absolute;
+        top: 78px;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        flex-direction: column;
+        gap: 0;
+        padding: 15px 7%;
+        border-bottom: 1px solid var(--border);
+        display: none;
+    }
+    header.navbar nav#navMenu.show {
+        display: flex;
+    }
+    header.navbar nav#navMenu a {
+        padding: 13px 0;
+    }
+    header.navbar .menu-btn {
+        display: flex;
+    }
+}
+
+@media (max-width: 600px) {
+    header.navbar .logo {
+        font-size: 20px;
+    }
+    header.navbar .login-btn {
+        display: none;
+    }
+}
+
+/* ============ FreshFind Home-style Footer (copied from index.html) ============ */
+footer.freshfind-footer {
+    background: #18352a;
+    color: #ffffff;
+    padding: 60px 7% 20px;
+    margin-top: 70px;
+}
+
+footer.freshfind-footer .footer-content {
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 60px;
+}
+
+footer.freshfind-footer .footer-logo {
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+footer.freshfind-footer .footer-logo span span { color: var(--lime); }
+
+footer.freshfind-footer .footer-brand p {
+    color: #b5c5bd;
+    max-width: 350px;
+    line-height: 1.7;
+    margin-top: 15px;
+}
+
+footer.freshfind-footer .social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+footer.freshfind-footer .social-icons a {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #29493a;
+    transition: 0.3s;
+    color: #fff;
+}
+
+footer.freshfind-footer .social-icons a:hover {
+    background: var(--green);
+    transform: translateY(-3px);
+}
+
+footer.freshfind-footer .footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+}
+
+footer.freshfind-footer .footer-links h3 {
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+footer.freshfind-footer .footer-links a {
+    color: #b5c5bd;
+    font-size: 13px;
+    transition: 0.3s;
+    text-decoration: none;
+    margin-right: 0;
+}
+
+footer.freshfind-footer .footer-links a:hover {
+    color: white;
+    transform: translateX(4px);
+}
+
+footer.freshfind-footer .copyright {
+    max-width: 1200px;
+    margin: 45px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #315144;
+    color: #b5c5bd;
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    footer.freshfind-footer .footer-content {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+}
+</style>
+
+<style id="freshfind-shared-theme">
+html[data-theme="dark"] body{background:#0c1712 !important;color:#eff8f2 !important}
+html[data-theme="dark"] header.navbar,html[data-theme="dark"] .navbar{background:#0b1410 !important;border-bottom-color:#294237 !important;box-shadow:0 1px 0 rgba(255,255,255,.04) !important}
+html[data-theme="dark"] header.navbar .logo{color:#eff8f2 !important}
+html[data-theme="dark"] header.navbar nav#navMenu a,html[data-theme="dark"] .nav-link{color:#a8bbb0 !important}
+html[data-theme="dark"] header.navbar nav#navMenu a:hover,html[data-theme="dark"] header.navbar nav#navMenu a.active,html[data-theme="dark"] .nav-link:hover,html[data-theme="dark"] .nav-link.active{color:#58bd7f !important}
+html[data-theme="dark"] header.navbar .bookmark-btn,html[data-theme="dark"] header.navbar .theme-btn,html[data-theme="dark"] header.navbar .menu-btn{background:#14241c !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] header.navbar nav#navMenu{background:#0b1410 !important;border-bottom-color:#294237 !important}
+html[data-theme="dark"] header.navbar .login-btn{color:#fff !important;background:#2f7d4a !important}
+html[data-theme="dark"] .hero{background:radial-gradient(circle at 90% 20%,rgba(168,217,108,.12),transparent 28%),radial-gradient(circle at 10% 80%,rgba(47,125,74,.12),transparent 30%),linear-gradient(135deg,#102219,#0d1b14) !important}
+html[data-theme="dark"] .hero h1,html[data-theme="dark"] .section-title,html[data-theme="dark"] .produce-section-heading h2,html[data-theme="dark"] .produce-name,html[data-theme="dark"] .detail-label,html[data-theme="dark"] .modal-title{color:#eff8f2 !important}
+html[data-theme="dark"] .hero p,html[data-theme="dark"] .section-subtitle,html[data-theme="dark"] .produce-description,html[data-theme="dark"] .detail-line,html[data-theme="dark"] .stat-label,html[data-theme="dark"] .hero-note{color:#a8bbb0 !important}
+html[data-theme="dark"] .eyebrow,html[data-theme="dark"] .stat-chip,html[data-theme="dark"] .search-box,html[data-theme="dark"] .category-btn,html[data-theme="dark"] .produce-section-heading,html[data-theme="dark"] .produce-card,html[data-theme="dark"] .trust-item,html[data-theme="dark"] .empty-search,html[data-theme="dark"] .hero-secondary,html[data-theme="dark"] .search-icon{background:#14241c !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="dark"] select,html[data-theme="dark"] .form-control{background:#12231a !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::placeholder{color:#8fa397 !important}
+html[data-theme="dark"] footer,html[data-theme="dark"] footer.freshfind-footer{background:#0b1410 !important;color:#eff8f2 !important}
+html[data-theme="dark"] footer.freshfind-footer .footer-links a,html[data-theme="dark"] footer.freshfind-footer .footer-brand p,html[data-theme="dark"] footer.freshfind-footer .copyright{color:#a8bbb0 !important}
+html[data-theme="dark"] .freshfind-theme-toggle{color:#eff8f2 !important;border-color:#486154 !important;background:#14241c !important}
+header.navbar nav#navMenu a:not(.active)::after{width:0 !important}
+header.navbar nav#navMenu a.active::after{width:100% !important}
+header.navbar nav#navMenu a{border-bottom:none !important;text-decoration:none !important}
+.freshfind-theme-toggle{width:40px;height:40px;border:1px solid currentColor;border-radius:10px;background:transparent;color:inherit;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+.freshfind-theme-toggle:hover{transform:translateY(-2px)}
+</style>
+<script>(function(){try{var t=localStorage.getItem("freshfind-theme")||localStorage.getItem("theme")||"light";document.documentElement.setAttribute("data-theme",t==="dark"?"dark":"light")}catch(e){}})();</script></head>
+
+<body>
+
+
+
+<header class="navbar">
+
+    <div class="logo">
+        <i class="fa-solid fa-leaf"></i>
+        <span>Fresh<span>Find</span></span>
+    </div>
+
+    <nav id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="market.html">Market Directory</a>
+        <a href="producesguide.html" class="active">Produce Guide</a>
+         <a href="budget.html">Budget Basket</a>
+         <a href="favourite.html"> Favourite</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+       
+    </nav>
+
+    <div class="nav-actions">
+        <!-- Bookmark / Favourite Button -->
+        <button class="bookmark-btn" id="navBookmarkBtn" title="View Bookmarks" onclick="window.location.href='market.html?view=bookmarks'">
+            <i class="fa-regular fa-bookmark"></i>
+            <span class="badge-count" id="bookmarkCount">0</span>
+        </button>
+
+        <!-- Dark / Light Theme Toggle -->
+        <button class="theme-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode">
+            <i class="fa-regular fa-moon" id="themeIcon"></i>
+        </button>
+
+        <button href="login.html" class="login-btn">Login</button>
+
+        <button class="menu-btn" id="menuBtn">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+
+</header>
+
+
+
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-lg-7 hero-content">
+                <div class="eyebrow">
+                    <i class="fa-solid fa-seedling"></i>
+                    FreshFind Produce Guide
+                </div>
+
+                <h1>Find Fresh, <span> Eat Fresh.</span></h1>
+
+                <p>
+                    Explore seasonal fruits, vegetables and herbs.
+                    Discover what's in season, learn how to pick the best of every
+                    harvest, and find the farmers markets where you can get it.
+                </p>
+
+                <div class="hero-stats">
+                    <div class="stat-chip">
+                        <span class="stat-num" id="statCount">37</span>
+                        <span class="stat-label">Produce entries</span>
+                    </div>
+                    <div class="stat-chip">
+                        <span class="stat-num">4</span>
+                        <span class="stat-label">Categories</span>
+                    </div>
+                    <div class="stat-chip">
+                        <span class="stat-num">30+</span>
+                        <span class="stat-label">Partner markets</span>
+                    </div>
+                </div>
+                <div class="hero-actions">
+                    <a class="hero-primary" href="#produce"><i class="fa-solid fa-basket-shopping"></i> Explore Produce</a>
+                    <a class="hero-secondary" href="#seasonal"><i class="fa-regular fa-calendar"></i> Seasonal Picks</a>
+                </div>
+                <div class="hero-note"><i class="fa-solid fa-circle-check"></i> Easy browsing • practical freshness tips • market-ready picks</div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="hero-visual">
+                    <img class="hero-produce-photo" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=85" alt="Fresh produce at a farmers market"
+                         loading="eager">
+                    <div class="hero-photo-badge">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+<div class="container search-wrapper">
+    <div class="search-box">
+        <div class="row align-items-center g-2">
+            <div class="col-auto">
+                <div class="search-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <div class="col">
+                <input type="text" id="searchInput" class="form-control search-input"
+                       placeholder="Search for apples, tomatoes, herbs...">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-search" type="button" onclick="searchProduce()">
+                    Search
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="search-meta">
+        <span><i class="fa-solid fa-sparkles me-1"></i> Search by <strong>name, season, taste, or use</strong></span>
+        <button class="clear-search" id="clearSearch" type="button" onclick="clearSearch()">Clear search</button>
+    </div>
+</div>
+
+
+
+<section class="section" id="produce">
+    <div class="container">
+
+        <div class="text-center">
+            <div class="eyebrow">
+                <i class="fa-solid fa-basket-shopping"></i>
+                Explore Local Produce
+            </div>
+            <h2 class="section-title">Browse the Produce Guide</h2>
+            <p class="section-subtitle">
+                Compare seasons, taste profiles, storage tips, freshness guidance
+                and the local markets where each item is listed.
+            </p>
+            <div class="trust-row text-start">
+                <div class="trust-item"><i class="fa-solid fa-calendar-check"></i><div><strong>Season-aware</strong><span>Know what is fresh</span></div></div>
+                <div class="trust-item"><i class="fa-solid fa-lightbulb"></i><div><strong>Useful tips</strong><span>Pick & store smarter</span></div></div>
+                <div class="trust-item"><i class="fa-solid fa-location-dot"></i><div><strong>Market ready</strong><span>See local availability</span></div></div>
+            </div>
+        </div>
+
+        <!-- CATEGORY FILTER -->
+        <div class="category-scroll justify-content-center">
+            <button class="category-btn active" onclick="filterProduce('all', this)">All Produce</button>
+            <button class="category-btn" onclick="filterProduce('fruit', this)">🍎 Fruits</button>
+            <button class="category-btn" onclick="filterProduce('vegetable', this)">🥬 Vegetables</button>
+            <button class="category-btn" onclick="filterProduce('herb', this)">🌿 Herbs</button>
+        </div>
+
+        
+        <div id="produceGrid"></div>
+
+        <div class="produce-count text-center" id="produceCountWrap">
+            <i class="fa-solid fa-seedling me-1"></i>
+            Showing <span id="produceCount">37</span> of
+            <span id="produceTotal">37</span> local produce entries
+        </div>
+
+        
+        <div id="noResults" class="text-center py-5" style="display:none;">
+            <div class="empty-search">
+                <div style="font-size:52px;">🧺</div>
+                <h4 class="mt-3">No produce found</h4>
+                <p class="text-muted mb-3">Try another produce name, category, season, taste or use.</p>
+                <button class="category-btn active" type="button" onclick="resetAllFilters()">Show all produce</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ================= SEASONAL SECTION ================= -->
+
+<section class="section pt-0" id="seasonal">
+    <div class="container">
+        <div class="season-banner">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <span class="season-tag"><i class="fa-solid fa-leaf"></i> Seasonal Picks</span>
+                    <h2>What's Fresh This Season?</h2>
+                    <p>
+                        Seasonal produce changes throughout the year. Explore what's
+                        growing locally and plan your next farmers market visit
+                        around what's freshest.
+                    </p>
+                    <a href="#seasonal" class="season-btn">
+                        Explore Seasonal Picks
+                        <i class="fa-solid fa-arrow-right ms-2"></i>
+                    </a>
+                </div>
+              
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="freshfind-footer">
+
+    <div class="footer-content">
+
+        <div class="footer-brand">
+
+            <div class="logo footer-logo">
+                <i class="fa-solid fa-leaf"></i>
+                <span>Fresh<span>Find</span></span>
+            </div>
+
+            <p>
+                Discover fresh local produce and farmers markets
+                near you.
+            </p>
+
+            <div class="social-icons">
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://x.com/" target="_blank" rel="noopener"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <h3>Quick Links</h3>
+
+            <a href="index.html">Home</a>
+            <a href="market.html">Market Directory</a>
+            <a href="producesguide.html">Produce Guide</a>
+            <a href="about.html">About Us</a>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <h3>Support</h3>
+
+            <a href="contact.html">Contact Us</a>
+            <a href="contact.html">Help Center</a>
+            <a href="market.html?view=bookmarks">Bookmarks</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+        <p>© 2026 FreshFind. All Rights Reserved.</p>
+    </div>
+
+</footer>
+
+
+<!-- ================= QUICK VIEW MODAL ================= -->
+<div class="modal fade" id="produceModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="row g-0">
+                <div class="col-md-5">
+                    <img id="modalImage" class="modal-produce-image" src="" alt="" data-alts="[]" onerror="modalImageFail(this)">
+                </div>
+                <div class="col-md-7">
+                    <div class="p-4 p-lg-5">
+                        <div id="modalIcon" class="modal-icon mb-2"></div>
+                        <div id="modalCategory" class="modal-label"></div>
+                        <h2 id="modalTitle" class="modal-title mt-1 mb-2"></h2>
+                        <p id="modalDescription" class="text-muted"></p>
+                        <div class="row g-2 mt-3">
+                            <div class="col-6"><div class="modal-detail"><strong>Taste</strong><span id="modalTaste"></span></div></div>
+                            <div class="col-6"><div class="modal-detail"><strong>Best for</strong><span id="modalBest"></span></div></div>
+                            <div class="col-12"><div class="modal-detail"><strong>Storage</strong><span id="modalStorage"></span></div></div>
+                            <div class="col-12"><div class="modal-detail"><strong>Freshness tip</strong><span id="modalTip"></span></div></div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <span id="modalStatus" class="availability-pill"></span>
+                            <button type="button" class="btn btn-dark rounded-3 px-4" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= BACK TO TOP ================= -->
+
+<button id="backToTop" type="button" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* ================= PRODUCE CATALOGUE ================= */
+
+const produceData = [
+
+    // FRUITS
+    { name:"Apples", category:"fruit", categoryLabel:"Fruit", icon:"🍎",
+      image:"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=1200&q=85",
+      season:"Aug – Nov", status:"In Season", markets:"4 markets",
+      description:"Crisp, naturally sweet apples from local growers.",
+      taste:"Sweet, crisp and juicy", best:"Snacking, pies & salads",
+      storage:"Refrigerate for up to 3–4 weeks", tip:"Choose firm apples with smooth skin." },
+
+    { name:"Bananas", category:"fruit", categoryLabel:"Fruit", icon:"🍌",
+      image:"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=1200&q=85",
+      season:"Year-round", status:"Available", markets:"5 markets",
+      description:"Naturally sweet bananas packed with energy and flavor.",
+      taste:"Creamy and sweet", best:"Smoothies & breakfast",
+      storage:"Keep at room temperature; refrigerate when ripe", tip:"Look for evenly yellow fruit for immediate use." },
+
+    { name:"Oranges", category:"fruit", categoryLabel:"Fruit", icon:"🍊",
+      image:"https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=1200&q=85",
+      season:"Nov – Mar", status:"In Season", markets:"6 markets",
+      description:"Juicy citrus fruit with a bright, refreshing flavor.",
+      taste:"Sweet-tart and juicy", best:"Juice, snacks & desserts",
+      storage:"Refrigerate for longer freshness", tip:"Heavy fruit often indicates good juiciness." },
+
+    /* MANGOES — nayi link + backup links ki chain (purani link dead thi) */
+    { name:"Mangoes", category:"fruit", categoryLabel:"Fruit", icon:"🥭",
+      image:"https://upload.wikimedia.org/wikipedia/commons/1/1a/Fresh_mango_fruits.jpg",
+      alts:[
+        "https://images.unsplash.com/photo-1757281096712-d0c9fb17d608?auto=format&fit=crop&fm=jpg&q=85&w=1200",
+        "https://images.unsplash.com/photo-1576186726115-4d51596775d1?auto=format&fit=crop&w=1200&q=85"
+      ],
+      season:"May – Aug", status:"In Season", markets:"7 markets",
+      description:"Fragrant, juicy mangoes with naturally sweet tropical flavor.",
+      taste:"Rich, sweet and aromatic", best:"Fresh eating & shakes",
+      storage:"Ripen at room temperature, then chill", tip:"A fragrant aroma near the stem is a useful ripeness sign." },
+
+    { name:"Grapes", category:"fruit", categoryLabel:"Fruit", icon:"🍇",
+      image:"https://images.unsplash.com/photo-1537640538966-79f369143f8f?auto=format&fit=crop&w=1200&q=85",
+      season:"Jul – Sep", status:"Seasonal", markets:"4 markets",
+      description:"Juicy grapes available in sweet red and green varieties.",
+      taste:"Sweet and crisp", best:"Snacks, salads & juices",
+      storage:"Refrigerate in a ventilated container", tip:"Look for plump grapes and fresh-looking stems." },
+
+    { name:"Apricots", category:"fruit", categoryLabel:"Fruit", icon:"🍑",
+      image:"https://ladybirdnursery.com.au/cdn/shop/files/apricot-divinity_img3.jpg?v=1765382228&width=1100",
+      alts:["https://images.unsplash.com/photo-1629828874514-5d9c3d4f8e5b?auto=format&fit=crop&w=1200&q=85"],
+      season:"Jun – Aug", status:"Seasonal", markets:"3 markets",
+      description:"Soft, fragrant peaches with a naturally sweet flavor.",
+      taste:"Soft, juicy and floral", best:"Desserts & fresh snacks",
+      storage:"Ripen at room temperature; chill when ripe", tip:"Avoid very hard or bruised fruit." },
+
+    { name:"Watermelon", category:"fruit", categoryLabel:"Fruit", icon:"🍉",
+      image:"https://images.unsplash.com/photo-1563114773-84221bd62daa?auto=format&fit=crop&w=1200&q=85",
+      season:"May – Aug", status:"Summer", markets:"5 markets",
+      description:"Refreshing, juicy watermelon perfect for warm summer days.",
+      taste:"Sweet and hydrating", best:"Fresh slices & drinks",
+      storage:"Refrigerate cut pieces", tip:"Choose an intact melon with a creamy field spot." },
+
+    { name:"Pineapple", category:"fruit", categoryLabel:"Fruit", icon:"🍍",
+      image:"https://images.unsplash.com/photo-1550258987-190a2d41a8ba?auto=format&fit=crop&w=1200&q=85",
+      season:"Apr – Jul", status:"Available", markets:"3 markets",
+      description:"Tropical pineapple with a sweet and refreshing flavor.",
+      taste:"Sweet-tart and juicy", best:"Fruit bowls & juices",
+      storage:"Refrigerate after cutting", tip:"A fresh tropical aroma near the base is a good sign." },
+
+    { name:"Melons", category:"fruit", categoryLabel:"Fruit", icon:"🍈",
+      image:"https://images.unsplash.com/photo-1571575173700-afb9492e6a50?auto=format&fit=crop&w=1200&q=85",
+      season:"Aug – Dec", status:"Seasonal", markets:"4 markets",
+      description:"Soft, juicy pears with a delicate natural sweetness.",
+      taste:"Mild, sweet and juicy", best:"Snacking & baking",
+      storage:"Ripen at room temperature, then refrigerate", tip:"Check gently around the stem for ripeness." },
+
+    
+
+    { name:"Pomegranate", category:"fruit", categoryLabel:"Fruit", icon:"❤️", image:"https://images.unsplash.com/photo-1541344999736-83eca272f6fc?auto=format&fit=crop&w=1200&q=85", season:"Sep – Feb", status:"In Season", markets:"4 markets", description:"Jewel-like arils with a bright sweet-tart flavor.", taste:"Sweet, tangy and juicy", best:"Salads, juices & snacking", storage:"Refrigerate for up to 3 weeks", tip:"Choose heavy fruit with firm, unbroken skin." },
+    { name:"Papaya", category:"fruit", categoryLabel:"Fruit", icon:"🧡", image:"https://images.unsplash.com/photo-1526318472351-c75fcf070305?auto=format&fit=crop&w=1200&q=85", season:"Year-round", status:"Available", markets:"4 markets", description:"Soft tropical fruit with a fragrant, honeyed flavor.", taste:"Sweet, soft and tropical", best:"Breakfast, smoothies & salads", storage:"Ripen at room temperature, then refrigerate", tip:"A ripe papaya gives slightly when pressed." },
+    { name:"Kiwi", category:"fruit", categoryLabel:"Fruit", icon:"🥝", image:"https://images.unsplash.com/photo-1585059895524-72359e06133a?auto=format&fit=crop&w=1200&q=85", season:"Oct – May", status:"In Season", markets:"3 markets", description:"Bright green fruit with tiny black seeds and a fresh tang.", taste:"Sweet, tangy and refreshing", best:"Fruit bowls, yogurt & smoothies", storage:"Refrigerate for 1–2 weeks", tip:"Let firm kiwis soften at room temperature." },
+    { name:"Guava", category:"fruit", categoryLabel:"Fruit", icon:"🍐", image:"https://images.unsplash.com/photo-1536511132770-e5058c7e8c46?auto=format&fit=crop&w=1200&q=85", season:"Aug – Dec", status:"In Season", markets:"3 markets", description:"Aromatic tropical fruit with a crisp center and creamy flesh.", taste:"Floral, sweet and slightly tangy", best:"Fresh eating, juice & chutney", storage:"Refrigerate ripe guavas for up to 5 days", tip:"Look for fragrant fruit with a slight give." },
+    { name:"Dragon Fruit", category:"fruit", categoryLabel:"Fruit", icon:"🌸", image:"https://images.unsplash.com/photo-1527325678964-54921661f888?auto=format&fit=crop&w=1200&q=85", season:"Jun – Oct", status:"In Season", markets:"2 markets", description:"Vibrant tropical fruit with creamy flesh and delicate sweetness.", taste:"Mild, fresh and lightly sweet", best:"Fruit bowls & smoothies", storage:"Refrigerate for up to 1 week", tip:"Choose bright skin with fresh-looking green tips." },
+
+    // VEGETABLES
+    { name:"Tomatoes", category:"vegetable", categoryLabel:"Vegetable", icon:"🍅",
+      image:"https://upload.wikimedia.org/wikipedia/commons/e/ee/Fresh_tomatoes.jpg",
+      season:"Jun – Sep", status:"In Season", markets:"6 markets",
+      description:"Juicy, vibrant tomatoes perfect for salads and sauces.",
+      taste:"Juicy, sweet and tangy", best:"Salads, sauces & sandwiches",
+      storage:"Store at room temperature for best flavor", tip:"Choose fragrant tomatoes with even color." },
+
+    { name:"Carrots", category:"vegetable", categoryLabel:"Vegetable", icon:"🥕",
+      image:"https://images.unsplash.com/photo-1445282768818-728615cc910a?auto=format&fit=crop&w=1200&q=85",
+      season:"Apr – Jul", status:"Seasonal", markets:"5 markets",
+      description:"Crunchy, naturally sweet carrots grown by local farmers.",
+      taste:"Crunchy and naturally sweet", best:"Roasting, soups & salads",
+      storage:"Refrigerate in a bag or produce drawer", tip:"Fresh green tops can indicate recently harvested carrots." },
+
+    { name:"Beetroot", category:"vegetable", categoryLabel:"Vegetable", icon:"🫜",
+      image:"https://static1.squarespace.com/static/53726d44e4b07d0c6bf0b106/537280bfe4b05ff1a083e69a/57f6e2bf3e00be2c09e9feda/1616546048546/Beautiful%2BBeets%2Bfor%2BHealthy%2BSkin.jpg?format=1500w",
+      season:"Year-round", status:"Available", markets:"8 markets",
+      description:"Versatile potatoes suitable for roasting, baking and cooking.",
+      taste:"Earthy and mild", best:"Roasting, fries & curries",
+      storage:"Store cool, dark and dry; avoid refrigeration", tip:"Avoid potatoes with green patches or heavy sprouting." },
+
+    { name:"Cucumbers", category:"vegetable", categoryLabel:"Vegetable", icon:"🥒",
+      image:"https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?auto=format&fit=crop&w=1200&q=85",
+      season:"May – Aug", status:"In Season", markets:"5 markets",
+      description:"Cool, crisp cucumbers perfect for salads and pickles.",
+      taste:"Crisp, cool and mild", best:"Salads, pickles & raita",
+      storage:"Refrigerate and use within several days", tip:"Choose firm cucumbers without soft spots." },
+{ name:"Lemons", category:"fruit", categoryLabel:"Fruit", icon:"🍋",
+      image:"https://images.unsplash.com/photo-1590502593747-42a996133562?auto=format&fit=crop&w=1200&q=85",
+      season:"Year-round", status:"Available", markets:"5 markets",
+      description:"Bright citrus lemons with a fresh, tangy flavor.",
+      taste:"Sharp, tangy and aromatic", best:"Drinks, cooking & dressings",
+      storage:"Refrigerate for extended freshness", tip:"Choose firm lemons that feel heavy for their size." },
+
+    { name:"Asparagus", category:"vegetable", categoryLabel:"Vegetable", icon:"🌱",
+      image:"https://images.unsplash.com/photo-1515471209610-dae1c92d8777?auto=format&fit=crop&w=1200&q=85",
+      season:"Jun – Sep", status:"In Season", markets:"6 markets",
+      description:"Colorful, crunchy peppers with a naturally sweet flavor.",
+      taste:"Crisp, sweet and fresh", best:"Stir-fries, salads & grilling",
+      storage:"Refrigerate in the crisper drawer", tip:"Firm, glossy peppers are generally fresher." },
+
+    { name:"Lettuce", category:"vegetable", categoryLabel:"Vegetable", icon:"🥬",
+      image:"https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?auto=format&fit=crop&w=1200&q=85",
+      season:"Mar – Jun", status:"Seasonal", markets:"5 markets",
+      description:"Fresh crisp leafy greens for salads and sandwiches.",
+      taste:"Fresh, crisp and mild", best:"Salads & wraps",
+      storage:"Refrigerate wrapped loosely to manage moisture", tip:"Look for crisp, unwilted leaves." },
+
+    { name:"Broccoli", category:"vegetable", categoryLabel:"Vegetable", icon:"🥦",
+      image:"https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=1200&q=85",
+      season:"Oct – Mar", status:"Seasonal", markets:"4 markets",
+      description:"Fresh green broccoli florets with a mild earthy taste.",
+      taste:"Mild, earthy and crisp", best:"Steaming, roasting & stir-fry",
+      storage:"Refrigerate in a loose produce bag", tip:"Tight, dark green florets are desirable." },
+
+    { name:"Cauliflower", category:"vegetable", categoryLabel:"Vegetable", icon:"🥦",
+      image:"https://image.cdn.shpy.in/437243/SKU-0009_0-1747138363907.jpg?format=webp&width=600",
+      alts:["https://images.unsplash.com/photo-1568584711271-9d6b7e4d7a9c?auto=format&fit=crop&w=1200&q=85"],
+      season:"Oct – Mar", status:"Seasonal", markets:"4 markets",
+      description:"Fresh white cauliflower with a mild, delicate flavor.",
+      taste:"Mild and slightly nutty", best:"Roasting, curries & soups",
+      storage:"Refrigerate in a perforated bag", tip:"Choose compact heads with no dark spots." },
+
+    { name:"Onions", category:"vegetable", categoryLabel:"Vegetable", icon:"🧅",
+      image:"https://images.unsplash.com/photo-1508747703725-719777637510?auto=format&fit=crop&w=1200&q=85",
+      season:"Year-round", status:"Available", markets:"8 markets",
+      description:"Fresh onions that add rich flavor to everyday cooking.",
+      taste:"Savory, sweet when cooked", best:"Curries, soups & sauces",
+      storage:"Keep dry, cool and well ventilated", tip:"Firm bulbs with dry outer skins store well." },
+
+    { name:"Garlic", category:"vegetable", categoryLabel:"Vegetable", icon:"🧄",
+      image:"https://images.unsplash.com/photo-1540148426945-6cf22a6b2383?auto=format&fit=crop&w=1200&q=85",
+      season:"Year-round", status:"Available", markets:"6 markets",
+      description:"Aromatic garlic bulbs used to enhance everyday dishes.",
+      taste:"Pungent and savory", best:"Curries, marinades & sauces",
+      storage:"Store dry and ventilated", tip:"Choose firm bulbs with intact cloves." },
+
+    { name:"Zucchini", category:"vegetable", categoryLabel:"Vegetable", icon:"🥒",
+      image:"https://static.insales-cdn.com/images/products/1/711/314909383/tsukini.jpeg",
+      season:"Jun – Aug", status:"Summer", markets:"4 markets",
+      description:"Tender summer squash with a mild and fresh flavor.",
+      taste:"Mild, tender and fresh", best:"Grilling, stir-fries & baking",
+      storage:"Refrigerate and use promptly", tip:"Smaller zucchini are often tenderer." },
+
+    { name:"Sweet Corn", category:"vegetable", categoryLabel:"Vegetable", icon:"🌽",
+      image:"https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=1200&q=85",
+      season:"Jun – Aug", status:"Summer", markets:"5 markets",
+      description:"Fresh golden corn with naturally sweet kernels.",
+      taste:"Sweet, juicy and crisp", best:"Grilling, boiling & salads",
+      storage:"Refrigerate promptly after buying", tip:"Fresh corn should have green husks and moist silk." },
+
+    { name:"Potatoes", category:"vegetable", categoryLabel:"Vegetable", icon:"🥔", image:"https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=1200&q=85", season:"Year-round", status:"Available", markets:"5 markets", description:"Versatile earthy tubers for everyday cooking.", taste:"Earthy, creamy and mild", best:"Fries, curries, mash & roasting", storage:"Keep cool, dark and dry", tip:"Avoid green patches and sprouting." },
+    { name:"Cucumbers", category:"vegetable", categoryLabel:"Vegetable", icon:"🥒", image:"https://images.unsplash.com/photo-1604977042946-1eecc30f269e?auto=format&fit=crop&w=1200&q=85", season:"Apr – Sep", status:"In Season", markets:"4 markets", description:"Cool, crisp cucumbers with high water content.", taste:"Crisp, cool and refreshing", best:"Salads, raita & pickles", storage:"Refrigerate for up to 1 week", tip:"Pick firm cucumbers with smooth skin." },
+    { name:"Bell Peppers", category:"vegetable", categoryLabel:"Vegetable", icon:"🫑", image:"https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?auto=format&fit=crop&w=1200&q=85", season:"May – Oct", status:"In Season", markets:"4 markets", description:"Colorful crunchy peppers with a naturally sweet bite.", taste:"Sweet, crisp and fresh", best:"Stir-fries, salads & roasting", storage:"Refrigerate for up to 1 week", tip:"Choose glossy, firm peppers with tight skin." },
+    { name:"Eggplant", category:"vegetable", categoryLabel:"Vegetable", icon:"🍆", image:"https://images.unsplash.com/photo-1615484477778-ca3b77940c25?auto=format&fit=crop&w=1200&q=85", season:"May – Oct", status:"In Season", markets:"3 markets", description:"Glossy purple vegetable with tender, absorbent flesh.", taste:"Mild, savory and creamy when cooked", best:"Curries, roasting & grilling", storage:"Use within 4–5 days", tip:"Choose firm eggplant with shiny skin." },
+    { name:"Broccoli", category:"vegetable", categoryLabel:"Vegetable", icon:"🥦", image:"https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=1200&q=85", season:"Oct – Mar", status:"In Season", markets:"4 markets", description:"Fresh green florets with a clean, lightly sweet flavor.", taste:"Fresh, green and mildly sweet", best:"Steaming, roasting & stir-fries", storage:"Refrigerate for up to 5 days", tip:"Choose firm, tightly packed florets." },
+
+    // HERBS
+    { name:"Fresh Basil", category:"herb", categoryLabel:"Herb", icon:"🌿",
+      image:"https://media.riverford.co.uk/images/bunched-radish-670x670-fea6bb3e5d0133c2d9a06f5ad74277d8.jpg",
+      season:"May – Sep", status:"Seasonal", markets:"4 markets",
+      description:"Aromatic green basil perfect for fresh summer dishes.",
+      taste:"Sweet, peppery and aromatic", best:"Pesto, sauces & salads",
+      storage:"Keep stems in water or loosely wrapped", tip:"Avoid blackened or wilted leaves." },
+
+    { name:"Mint", category:"herb", categoryLabel:"Herb", icon:"🌱",
+      image:"https://images.unsplash.com/photo-1628557044797-f21a177c37ec?auto=format&fit=crop&w=1200&q=85",
+      season:"Apr – Oct", status:"Available", markets:"5 markets",
+      description:"Cool, refreshing mint leaves for drinks, salads and dishes.",
+      taste:"Cool and refreshing", best:"Chutneys, drinks & salads",
+      storage:"Keep stems in a little water and refrigerate", tip:"Fresh leaves should be bright and aromatic." },
+
+
+
+    { name:"Parsley", category:"herb", categoryLabel:"Herb", icon:"🌿",
+      image:"https://images.unsplash.com/photo-1601055903647-ddf1ee9701b7?auto=format&fit=crop&w=1200&q=85",
+      season:"Mar – Oct", status:"Seasonal", markets:"3 markets",
+      description:"Bright green parsley with a fresh, clean flavor.",
+      taste:"Clean, grassy and fresh", best:"Soups, sauces & garnishing",
+      storage:"Refrigerate wrapped in a damp towel", tip:"Choose bunches with firm stems and vibrant leaves." },
+
+    { name:"Rosemary", category:"herb", categoryLabel:"Herb", icon:"🌿",
+      image:"https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=1200&q=85",
+      season:"Year-round", status:"Available", markets:"2 markets",
+      description:"Woody, fragrant rosemary for roasted dishes and breads.",
+      taste:"Piney, aromatic and savory", best:"Roasts, breads & marinades",
+      storage:"Refrigerate loosely wrapped", tip:"Fresh sprigs should be fragrant and flexible." },
+
+    { name:"Thyme", category:"herb", categoryLabel:"Herb", icon:"🌿",
+      image:"https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=1200&q=85",
+      season:"Year-round", status:"Available", markets:"2 markets",
+      description:"Delicate thyme leaves with a warm herbal aroma.",
+      taste:"Earthy, minty and aromatic", best:"Soups, sauces & roasted foods",
+      storage:"Refrigerate wrapped loosely", tip:"Choose green leaves without excessive browning." },
+
+    /* DILL — nayi link + backup (purani link dead thi) */
+    { name:"Arugula", category:"herb", categoryLabel:"Herb", icon:"🥬",
+      image:"https://images.unsplash.com/photo-1556801712-76c8eb07bbc9?auto=format&fit=crop&w=1200&q=85",
+      alts:[
+        "https://images.unsplash.com/photo-1758055660094-c0c6557f9a1f?auto=format&fit=crop&w=1200&q=85",
+        "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?auto=format&fit=crop&w=1200&q=85"
+      ],
+      season:"Mar – Sep", status:"Seasonal", markets:"2 markets",
+      description:"Feathery dill with a bright flavor for pickles and fresh dishes.",
+      taste:"Fresh, grassy and slightly citrusy", best:"Pickles, sauces & salads",
+      storage:"Refrigerate in a damp towel", tip:"Use soon after purchase for best aroma." },
+
+    { name:"Green Chives", category:"herb", categoryLabel:"Herb", icon:"🌿",
+      image:"https://images.unsplash.com/photo-1749174819949-8e906a53936b?auto=format&fit=crop&w=1200&q=85",
+      alts:["https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=85"],
+      season:"Mar – Oct", status:"Seasonal", markets:"2 markets",
+      description:"Thin, snappy chives with a mild onion freshness.",
+      taste:"Mild, oniony and fresh", best:"Garnishes, salads & egg dishes",
+      storage:"Refrigerate in a loose bag", tip:"Snip with scissors right before serving." },
+
+   
+];
+
+const categoryMeta = [
+    { key:"fruit",     label:"Fruits",     icon:"🍎", blurb:"Sweet, seasonal and picked at ripeness" },
+    { key:"vegetable", label:"Vegetables", icon:"🥬", blurb:"Fresh from local fields and greenhouses" },
+    { key:"herb",      label:"Herbs",      icon:"🌿", blurb:"Fragrant bunches for every kitchen" },
+];
+
+let currentFilter = "all";
+
+/* ================= IMAGE LOAD / FAIL (backup chain) ================= */
+
+function imgLoad(el) {
+    el.classList.add("loaded");
+}
+
+function imgFail(el) {
+    let alts = [];
+    try { alts = JSON.parse(el.dataset.alts || "[]"); } catch (e) {}
+
+    if (alts.length) {
+        // agli backup link try karo
+        el.src = alts.shift();
+        el.dataset.alts = JSON.stringify(alts);
+    } else {
+        // saari links fail — BARA bold emoji tile dikhao (chhota nahi)
+        const holder = el.closest(".produce-image");
+        if (holder) holder.classList.add("img-fallback");
+        el.remove();
+    }
+}
+
+/* ================= FILTERING & SEARCH ================= */
+
+function filterProduce(category, btn) {
+    currentFilter = category;
+    document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
+    if (btn) btn.classList.add("active");
+    applyFilters();
+}
+
+function searchProduce() { applyFilters(); }
+
+function applyFilters() {
+    const q = (document.getElementById("searchInput").value || "").trim().toLowerCase();
+    const clearBtn = document.getElementById("clearSearch");
+    if (clearBtn) clearBtn.classList.toggle("show", !!q);
+    let items = produceData;
+
+    if (currentFilter !== "all") {
+        items = items.filter(p => p.category === currentFilter);
+    }
+    if (q) {
+        items = items.filter(p =>
+            [p.name, p.categoryLabel, p.season, p.status, p.taste, p.best, p.description]
+                .some(v => (v || "").toLowerCase().includes(q))
+        );
+    }
+    renderProduce(items);
+}
+
+/* ================= RENDERING ================= */
+
+function renderProduce(items) {
+    const grid = document.getElementById("produceGrid");
+    let total = 0, cardIndex = 0;
+    const html = [];
+
+    categoryMeta.forEach(cat => {
+        const catItems = items.filter(p => p.category === cat.key);
+        if (!catItems.length) return;
+        total += catItems.length;
+
+        html.push(`
+            <div class="produce-section">
+                <div class="produce-section-heading">
+                    <div class="produce-section-icon">${cat.icon}</div>
+                    <div>
+                        <h2>${cat.label}</h2>
+                        <p>${cat.blurb}</p>
+                    </div>
+                    <span class="produce-section-count">
+                        ${catItems.length} item${catItems.length !== 1 ? "s" : ""}
+                    </span>
+                </div>
+                <div class="row g-4">
+                    ${catItems.map(p => cardHTML(p, cardIndex++)).join("")}
+                </div>
+            </div>`);
+    });
+
+    grid.innerHTML = html.join("");
+    document.getElementById("produceCount").textContent = total;
+    document.getElementById("produceCountWrap").style.display = total ? "" : "none";
+    document.getElementById("noResults").style.display = total ? "none" : "";
+}
+
+function cardHTML(p, i) {
+    const delay = Math.min(i * 55, 500);
+    const altAttr = JSON.stringify(p.alts || []);
+    return `
+    <div class="col-12 col-md-6 col-xl-4">
+        <article class="produce-card" style="animation-delay:${delay}ms">
+            <div class="produce-image">
+                <span class="fallback-emoji" aria-hidden="true">${p.icon}</span>
+                <img src="${p.image}" alt="Fresh ${p.name}"
+                     loading="lazy" decoding="async" referrerpolicy="no-referrer"
+                     data-alts='${altAttr}'
+                     onload="imgLoad(this)"
+                     onerror="imgFail(this)">
+                <span class="season-badge"><i class="fa-regular fa-calendar"></i>${p.season}</span>
+                <button class="bookmark" type="button" aria-label="Save ${p.name}"
+                        data-produce-name="${p.name.replace(/"/g, '&quot;')}"
+                        onclick="toggleBookmark(this, event)">
+                    <i class="fa-regular fa-bookmark"></i>
+                </button>
+                <button class="quick-view" type="button" onclick="openProduce('${p.name.replace(/'/g, "\\'")}', event)">
+                    Quick view <i class="fa-solid fa-arrow-up-right-from-square ms-1"></i>
+                </button>
+            </div>
+            <div class="produce-body">
+                <span class="produce-category">${p.categoryLabel}</span>
+                <h3 class="produce-name">
+                    <span class="produce-icon">${p.icon}</span>
+                    ${p.name}
+                </h3>
+                <p class="produce-description">${p.description}</p>
+                <ul class="details-list">
+                    <li class="detail-line"><i class="fa-solid fa-utensils"></i><span><span class="detail-label">Taste:</span> ${p.taste}</span></li>
+                    <li class="detail-line"><i class="fa-solid fa-plate-wheat"></i><span><span class="detail-label">Best for:</span> ${p.best}</span></li>
+                    <li class="detail-line"><i class="fa-solid fa-box-archive"></i><span><span class="detail-label">Storage:</span> ${p.storage}</span></li>
+                    <li class="detail-line"><i class="fa-solid fa-lightbulb"></i><span><span class="detail-label">Tip:</span> ${p.tip}</span></li>
+                </ul>
+                <div class="produce-footer">
+                    <span class="availability-pill"><i class="fa-solid fa-circle-check"></i>${p.status}</span>
+                    <a href="market.html" class="market-link">
+                        <i class="fa-solid fa-location-dot"></i>
+                        ${p.markets}
+                        <i class="fa-solid fa-arrow-right arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </article>
+    </div>`;
+}
+
+function getSavedProduce() {
+    try { return JSON.parse(localStorage.getItem("freshFindFavourites") || "[]"); }
+    catch (e) { return []; }
+}
+
+function saveSavedProduce(list) {
+    try { localStorage.setItem("freshFindFavourites", JSON.stringify(list)); }
+    catch (e) {}
+}
+
+function syncBookmarkButtons() {
+    const savedList = getSavedProduce();
+    document.querySelectorAll(".bookmark[data-produce-name]").forEach(function(btn) {
+        const name = btn.getAttribute("data-produce-name");
+        const saved = savedList.includes(name);
+        btn.classList.toggle("saved", saved);
+        const icon = btn.querySelector("i");
+        if (icon) icon.className = saved ? "fa-solid fa-bookmark" : "fa-regular fa-bookmark";
+        btn.setAttribute("aria-pressed", saved ? "true" : "false");
+        btn.setAttribute("aria-label", saved ? "Remove from favourites" : "Save to favourites");
+    });
+    const badge = document.getElementById("savedCount");
+    if (badge) {
+        badge.textContent = savedList.length;
+        badge.classList.toggle("show", savedList.length > 0);
+    }
+}
+
+function toggleBookmark(btn, e) {
+    if (e) { e.preventDefault(); e.stopPropagation(); }
+    const name = btn.getAttribute("data-produce-name");
+    if (!name) return;
+    let savedList = getSavedProduce();
+    const index = savedList.indexOf(name);
+    if (index === -1) savedList.push(name);
+    else savedList.splice(index, 1);
+    saveSavedProduce(savedList);
+    syncBookmarkButtons();
+}
+
+function showSavedMessage() {
+    const count = document.querySelectorAll(".bookmark.saved").length;
+    if (!count) {
+        alert("No saved produce yet. Tap the bookmark icon on any produce card to save it.");
+    } else {
+        alert(`${count} saved produce item${count === 1 ? "" : "s"} on this page.`);
+    }
+}
+
+function clearSearch() {
+    document.getElementById("searchInput").value = "";
+    currentFilter = "all";
+    document.querySelectorAll(".category-btn").forEach(b => b.classList.remove("active"));
+    document.querySelector(".category-btn").classList.add("active");
+    applyFilters();
+}
+
+function resetAllFilters() {
+    clearSearch();
+    document.getElementById("produce").scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+function openProduce(name, e) {
+    if (e) e.stopPropagation();
+    const p = produceData.find(x => x.name === name);
+    if (!p) return;
+
+    const modalImage = document.getElementById("modalImage");
+    modalImage.classList.remove("modal-image-fallback");
+    modalImage.alt = "Fresh " + p.name;
+    modalImage.dataset.alts = JSON.stringify(p.alts || []);
+    modalImage.src = p.image;
+
+    document.getElementById("modalIcon").textContent = p.icon;
+    document.getElementById("modalCategory").textContent = p.categoryLabel;
+    document.getElementById("modalTitle").textContent = p.name;
+    document.getElementById("modalDescription").textContent = p.description;
+    document.getElementById("modalTaste").textContent = p.taste;
+    document.getElementById("modalBest").textContent = p.best;
+    document.getElementById("modalStorage").textContent = p.storage;
+    document.getElementById("modalTip").textContent = p.tip;
+    document.getElementById("modalStatus").innerHTML = '<i class="fa-solid fa-circle-check"></i> ' + p.status + ' • ' + p.markets;
+
+    bootstrap.Modal.getOrCreateInstance(document.getElementById("produceModal")).show();
+}
+
+function modalImageFail(el) {
+    let alts = [];
+    try { alts = JSON.parse(el.dataset.alts || "[]"); } catch (e) {}
+
+    if (alts.length) {
+        el.src = alts.shift();
+        el.dataset.alts = JSON.stringify(alts);
+        return;
+    }
+
+    // Last visual fallback — show the matching produce emoji instead of a broken image.
+    const title = document.getElementById("modalTitle").textContent;
+    const p = produceData.find(x => x.name === title);
+    el.removeAttribute("src");
+    el.classList.add("modal-image-fallback");
+    el.alt = p ? p.name : "Produce";
+}
+
+/* ================= MOBILE MENU TOGGLE ================= */
+const menuBtn = document.getElementById("menuBtn");
+const navMenu = document.getElementById("navMenu");
+if (menuBtn && navMenu) {
+    menuBtn.addEventListener("click", () => {
+        navMenu.classList.toggle("show");
+    });
+}
+
+/* ================= INIT ================= */
+
+document.getElementById("searchInput").addEventListener("input", applyFilters);
+document.getElementById("searchInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") applyFilters();
+});
+
+document.getElementById("statCount").textContent = produceData.length;
+document.getElementById("produceTotal").textContent = produceData.length;
+applyFilters();
+syncBookmarkButtons();
+const backToTop = document.getElementById("backToTop");
+window.addEventListener("scroll", () => {
+    backToTop.classList.toggle("show", window.scrollY > 480);
+});
+backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+</script>
+
+
+
+<script id="freshfind-favourites-sync">
+window.addEventListener("storage", function(e) {
+    if (e.key === "freshFindFavourites") syncBookmarkButtons();
+});
+</script>
+
+<script id="freshfind-shared-functionality">
+(function(){
+"use strict";
+const routes={"Home":"index.html","Find a Market":"market.html","Market Directory":"market.html","Produce Guide":"producesguide.html","Produce":"producesguide.html","Markets":"market.html","About":"about.html","About Us":"about.html","Contact Us":"contact.html","Favourites":"favourite.html","Bookmarks":"market.html?view=bookmarks","Help Center":"contact.html"};
+
+function getTheme(){
+  try { return localStorage.getItem("freshfind-theme") || localStorage.getItem("theme") || "light"; }
+  catch(e){ return "light"; }
+}
+function setTheme(theme){
+  theme=theme==="dark"?"dark":"light";
+  document.documentElement.setAttribute("data-theme",theme);
+  document.body.classList.toggle("dark",theme==="dark");
+  try {
+    localStorage.setItem("freshfind-theme",theme);
+    localStorage.setItem("theme",theme);
+  } catch(e){}
+  updateThemeButtons(theme);
+}
+function updateThemeButtons(theme){
+  document.querySelectorAll("#themeBtn,#themeToggleBtn,.freshfind-theme-toggle").forEach(function(btn){
+    const icon=btn.querySelector("i");
+    if(icon){ icon.className=theme==="dark"?"fa-solid fa-sun":"fa-regular fa-moon"; }
+    btn.setAttribute("aria-label",theme==="dark"?"Switch to light mode":"Switch to dark mode");
+    btn.title=theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode";
+  });
+}
+function bindThemeButton(btn){
+  if(!btn||btn.dataset.themeBound)return;
+  btn.dataset.themeBound="1";
+  btn.addEventListener("click",function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
+  });
+}
+function addThemeButton(){
+  let btn=document.querySelector("#themeBtn,#themeToggleBtn,.freshfind-theme-toggle");
+  if(btn){ bindThemeButton(btn); return; }
+  const navActions=document.querySelector(".nav-actions");
+  if(navActions){
+    btn=document.createElement("button");
+    btn.type="button"; btn.className="freshfind-theme-toggle";
+    navActions.insertBefore(btn,navActions.firstChild); bindThemeButton(btn); return;
+  }
+  const collapse=document.querySelector(".navbar .navbar-collapse");
+  if(collapse){
+    btn=document.createElement("button");
+    btn.type="button"; btn.className="freshfind-theme-toggle";
+    const basket=collapse.querySelector(".basket-btn,.nav-btn");
+    collapse.insertBefore(btn,basket||collapse.firstChild); bindThemeButton(btn);
+  }
+}
+function fixLinks(){
+  document.querySelectorAll("a").forEach(function(a){
+    const t=(a.textContent||"").replace(/\s+/g," ").trim();
+    if(routes[t]&&(a.getAttribute("href")==="#"||a.classList.contains("nav-link"))) a.setAttribute("href",routes[t]);
+  });
+  document.querySelectorAll("a.navbar-brand,.logo").forEach(function(a){if((a.getAttribute("href")||"#")==="#")a.setAttribute("href","index.html")});
+  document.querySelectorAll("a.season-btn").forEach(function(a){if(a.getAttribute("href")==="#")a.setAttribute("href","#seasonal")});
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  fixLinks();
+  addThemeButton();
+  setTheme(getTheme());
+  document.querySelectorAll("button.login-btn").forEach(function(btn){btn.onclick=function(){window.location.href="login.html"}});
+  document.querySelectorAll("nav a,.nav-links a").forEach(function(a){a.addEventListener("click",function(){const m=document.querySelector("#navMenu,#navLinks");if(m)m.classList.remove("show","open")})});
+});
+
+window.addEventListener("storage",function(e){
+  if(e.key==="freshfind-theme") setTheme(e.newValue||"light");
+});
+})();
+</script>
+
+</body>
+</html>
+<style id="real-photo-hero-fix">
+.hero-produce-photo{object-fit:cover!important;object-position:center!important;filter:none!important;}
+.hero-visual{overflow:hidden;}
+</style>

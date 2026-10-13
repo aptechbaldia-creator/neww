@@ -1,0 +1,2458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FreshFind - My Favourites</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --green:#287a4d;
+    --dark-green:#155b36;
+    --light-green:#eaf7ef;
+    --cream:#fffaf1;
+    --orange:#f39a3f;
+    --text:#243329;
+    --muted:#758078;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:#f8faf8;
+    color:var(--text);
+}
+
+/* NAVBAR */
+
+.navbar{
+    background:rgba(255,255,255,.97);
+    box-shadow:0 4px 20px rgba(0,0,0,.06);
+    padding:15px 0;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:25px;
+    font-weight:800;
+    color:var(--green);
+    text-decoration:none;
+}
+
+.logo i{
+    background:var(--green);
+    color:white;
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.nav-link{
+    color:#4c594f!important;
+    font-weight:500;
+    margin:0 7px;
+}
+
+.nav-link:hover{
+    color:var(--green)!important;
+}
+
+/* BASKET BUTTON */
+
+.basket-btn{
+    border:none;
+    background:var(--green);
+    color:white;
+    border-radius:14px;
+    padding:11px 18px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    box-shadow:0 7px 18px rgba(40,122,77,.22);
+    transition:.25s;
+}
+
+.basket-btn:hover{
+    background:var(--dark-green);
+    transform:translateY(-2px);
+}
+
+.basket-icon{
+    position:relative;
+}
+
+.cart-count{
+    position:absolute;
+    top:-10px;
+    right:-12px;
+    background:#f04444;
+    color:white;
+    width:21px;
+    height:21px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:700;
+}
+
+/* HERO */
+
+.hero{
+    background:linear-gradient(135deg,#e9f8ed,#fffaf1);
+    padding:70px 0;
+}
+
+.hero h1{
+    font-size:48px;
+    font-weight:800;
+    line-height:1.15;
+}
+
+.hero h1 span{
+    color:var(--green);
+}
+
+.hero p{
+    color:var(--muted);
+    max-width:600px;
+    font-size:16px;
+}
+
+.hero-img{
+    width:100%;
+    height:320px;
+    object-fit:cover;
+    border-radius:30px;
+    box-shadow:0 20px 45px rgba(0,0,0,.12);
+}
+
+/* FLOATING CARD */
+
+.fresh-card{
+    background:white;
+    border-radius:20px;
+    padding:17px 20px;
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+    display:flex;
+    align-items:center;
+    gap:13px;
+    position:absolute;
+    bottom:-20px;
+    left:20px;
+}
+
+.fresh-icon{
+    width:45px;
+    height:45px;
+    border-radius:14px;
+    background:#e5f7eb;
+    color:var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+}
+
+/* STATS */
+
+.stats{
+    margin-top:-30px;
+    position:relative;
+    z-index:2;
+}
+
+.stat-card{
+    background:white;
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 8px 28px rgba(0,0,0,.07);
+    text-align:center;
+}
+
+.stat-card h3{
+    color:var(--green);
+    font-weight:800;
+    margin:0;
+}
+
+.stat-card p{
+    margin:4px 0 0;
+    color:var(--muted);
+    font-size:13px;
+}
+
+/* SECTION */
+
+.section{
+    padding:70px 0;
+}
+
+.section-title{
+    font-weight:800;
+    font-size:32px;
+}
+
+.section-subtitle{
+    color:var(--muted);
+}
+
+/* FILTER */
+
+.filter-bar{
+    background:white;
+    padding:18px;
+    border-radius:18px;
+    box-shadow:0 7px 25px rgba(0,0,0,.05);
+    margin-bottom:30px;
+}
+
+.search-box{
+    position:relative;
+}
+
+.search-box i{
+    position:absolute;
+    left:15px;
+    top:14px;
+    color:#89958d;
+}
+
+.search-box input{
+    padding-left:42px;
+    border-radius:12px;
+    border:1px solid #e0e7e2;
+    height:46px;
+}
+
+.filter-btn{
+    border:1px solid #dfe7e1;
+    background:white;
+    border-radius:10px;
+    padding:10px 16px;
+    font-weight:500;
+    margin-right:5px;
+}
+
+.filter-btn.active,
+.filter-btn:hover{
+    background:var(--green);
+    color:white;
+    border-color:var(--green);
+}
+
+/* PRODUCT CARD */
+
+.product-card{
+    background:white;
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid #edf1ee;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+    transition:.3s;
+    height:100%;
+}
+
+.product-card:hover{
+    transform:translateY(-7px);
+    box-shadow:0 18px 40px rgba(0,0,0,.11);
+}
+
+.product-img-wrap{
+    height:220px;
+    position:relative;
+    overflow:hidden;
+    background:#f4f6f3;
+}
+
+.product-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.4s;
+}
+
+.product-card:hover .product-img{
+    transform:scale(1.06);
+}
+
+.heart{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:40px;
+    height:40px;
+    border:none;
+    border-radius:50%;
+    background:white;
+    color:#e45d65;
+    box-shadow:0 4px 15px rgba(0,0,0,.12);
+}
+
+.product-body{
+    padding:20px;
+}
+
+.product-body h5{
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.product-body p{
+    color:var(--muted);
+    font-size:13px;
+}
+
+.price{
+    color:var(--green);
+    font-size:20px;
+    font-weight:800;
+}
+
+.add-btn{
+    border:none;
+    background:var(--green);
+    color:white;
+    border-radius:11px;
+    padding:10px 16px;
+    font-weight:600;
+}
+
+.add-btn:hover{
+    background:var(--dark-green);
+}
+
+.quick-btn{
+    border:1px solid #dce6df;
+    background:white;
+    color:var(--green);
+    border-radius:11px;
+    width:43px;
+}
+
+/* MARKET */
+
+.market-card{
+    background:white;
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 7px 25px rgba(0,0,0,.06);
+    height:100%;
+}
+
+.market-icon{
+    width:55px;
+    height:55px;
+    border-radius:16px;
+    background:#e9f7ee;
+    color:var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+}
+
+/* MODAL */
+
+.modal-content{
+    border:0;
+    border-radius:25px;
+    overflow:hidden;
+}
+
+.modal-header{
+    border:0;
+    background:#f4faf5;
+}
+
+.quantity-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.qty-btn{
+    width:38px;
+    height:38px;
+    border:none;
+    border-radius:10px;
+    background:#e9f6ed;
+    color:var(--green);
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* ================= CART DRAWER ================= */
+
+.offcanvas{
+    width:430px!important;
+    border:0!important;
+    box-shadow:-15px 0 45px rgba(0,0,0,.15);
+}
+
+.cart-header{
+    background:linear-gradient(135deg,#155b36,#287a4d);
+    color:white;
+    padding:24px;
+    border:0;
+}
+
+.cart-header h5{
+    font-weight:800;
+    margin:0;
+}
+
+.cart-header small{
+    opacity:.85;
+}
+
+.cart-close{
+    border:0;
+    background:rgba(255,255,255,.15);
+    color:white;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+}
+
+.cart-body{
+    padding:20px;
+    background:#f8faf8;
+    display:flex;
+    flex-direction:column;
+}
+
+.cart-items{
+    flex:1;
+    overflow-y:auto;
+}
+
+/* CART ITEM */
+
+.cart-item{
+    background:white;
+    border-radius:17px;
+    padding:12px;
+    margin-bottom:13px;
+    display:flex;
+    gap:12px;
+    box-shadow:0 5px 18px rgba(0,0,0,.06);
+    border:1px solid #edf1ee;
+}
+
+.cart-item-img{
+    width:76px;
+    height:76px;
+    object-fit:cover;
+    border-radius:13px;
+    flex-shrink:0;
+}
+
+.cart-item-info{
+    flex:1;
+}
+
+.cart-item-info h6{
+    font-size:14px;
+    font-weight:700;
+    margin:3px 0;
+}
+
+.cart-price{
+    color:var(--green);
+    font-weight:700;
+    font-size:14px;
+}
+
+.cart-unit{
+    color:#929b95;
+    font-size:11px;
+}
+
+.cart-controls{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    margin-top:8px;
+}
+
+.cart-qty-btn{
+    width:27px;
+    height:27px;
+    border:none;
+    border-radius:7px;
+    background:#edf7ef;
+    color:var(--green);
+    font-weight:bold;
+}
+
+.cart-qty{
+    font-size:13px;
+    font-weight:700;
+    min-width:20px;
+    text-align:center;
+}
+
+.remove-btn{
+    border:0;
+    background:#fff0f0;
+    color:#dc4c4c;
+    width:30px;
+    height:30px;
+    border-radius:8px;
+    margin-left:auto;
+}
+
+/* EMPTY */
+
+.empty-cart{
+    text-align:center;
+    padding:60px 20px;
+}
+
+.empty-cart-icon{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#eaf7ee;
+    color:var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    margin:0 auto 20px;
+}
+
+.empty-cart h5{
+    font-weight:800;
+}
+
+.empty-cart p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* CART FOOTER */
+
+.cart-footer{
+    background:white;
+    padding:20px;
+    border-top:1px solid #e7ece8;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:9px;
+    color:#68746c;
+}
+
+.summary-total{
+    display:flex;
+    justify-content:space-between;
+    font-size:21px;
+    font-weight:800;
+    color:#1d3024;
+    padding-top:12px;
+    border-top:1px dashed #d9e2dc;
+}
+
+.checkout-btn{
+    width:100%;
+    border:none;
+    background:var(--green);
+    color:white;
+    padding:14px;
+    border-radius:13px;
+    font-weight:700;
+    margin-top:17px;
+    transition:.25s;
+}
+
+.checkout-btn:hover{
+    background:var(--dark-green);
+    transform:translateY(-2px);
+}
+
+.clear-btn{
+    width:100%;
+    border:none;
+    background:#fff0f0;
+    color:#d64c4c;
+    padding:10px;
+    border-radius:11px;
+    font-size:13px;
+    font-weight:600;
+    margin-top:9px;
+}
+
+/* TOAST */
+
+.toast-container{
+    z-index:9999;
+}
+
+.custom-toast{
+    border:0;
+    border-radius:14px;
+    box-shadow:0 10px 35px rgba(0,0,0,.15);
+}
+
+/* FOOTER */
+
+footer{
+    background:#123d27;
+    color:white;
+    padding:45px 0 25px;
+}
+
+footer p{
+    color:#b7cbbd;
+}
+
+footer hr{
+    border-color:rgba(255,255,255,.15);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+    .hero{
+        padding:45px 0;
+    }
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .hero-img{
+        margin-top:35px;
+        height:260px;
+    }
+
+    .offcanvas{
+        width:100%!important;
+    }
+
+}
+
+</style>
+
+<style id="freshfind-shared-theme">
+html[data-theme="dark"] body{background:#0c1712 !important;color:#eff8f2 !important}
+html[data-theme="dark"] .navbar,html[data-theme="dark"] footer{background:#0b1410 !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] .navbar a,html[data-theme="dark"] .nav-link,html[data-theme="dark"] .footer-links a,html[data-theme="dark"] .footer-text,html[data-theme="dark"] .copyright,html[data-theme="dark"] .small.text-secondary{color:#a8bbb0 !important}
+html[data-theme="dark"] .nav-link.active,html[data-theme="dark"] .nav-link:hover{color:#58bd7f !important}
+html[data-theme="dark"] .product-card,html[data-theme="dark"] .market-card,html[data-theme="dark"] .stat-card,html[data-theme="dark"] .filter-bar,html[data-theme="dark"] .info-card,html[data-theme="dark"] .form-card,html[data-theme="dark"] .modal-content{background:#14241c !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="dark"] select,html[data-theme="dark"] .form-control{background:#12231a !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::placeholder{color:#8fa397 !important}
+.freshfind-theme-toggle{width:40px;height:40px;border:1px solid currentColor;border-radius:10px;background:transparent;color:inherit;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+.freshfind-theme-toggle:hover{transform:translateY(-2px)}
+</style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg">
+<div class="container">
+
+<a href="index.html" class="logo">
+    <i class="fa-solid fa-leaf"></i>
+    FreshFind
+</a>
+
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse" id="navbarNav">
+
+<ul class="navbar-nav mx-auto">
+<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="market.html">Find a Market</a></li>
+<li class="nav-item"><a class="nav-link" href="market.html">Market Directory</a></li>
+<li class="nav-item"><a class="nav-link" href="producesguide.html">Produce Guide</a></li>
+<li class="nav-item"><a class="nav-link active" href="favourite.html">Favourites</a></li>
+</ul>
+
+<!-- DARK / LIGHT MODE -->
+
+<button type="button" class="freshfind-theme-toggle" id="themeToggleBtn" title="Switch to Dark Mode" aria-label="Switch to dark mode">
+    <i class="fa-regular fa-moon" id="themeIcon"></i>
+</button>
+
+<!-- BASKET -->
+
+<button class="basket-btn" onclick="openCart()">
+
+<span class="basket-icon">
+    <i class="fa-solid fa-basket-shopping"></i>
+    <span class="cart-count" id="cartCount">0</span>
+</span>
+
+Basket
+
+</button>
+
+</div>
+</div>
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-lg-6">
+
+<span class="badge rounded-pill text-bg-success mb-3 px-3 py-2">
+    <i class="fa-solid fa-heart"></i> Your Fresh Picks
+</span>
+
+<h1>
+    My <span>Favourites</span>
+</h1>
+
+<p class="mt-3">
+    Keep your favourite local markets and fresh produce in one place.
+    Shop seasonal goodness and keep your basket ready.
+</p>
+
+</div>
+
+<div class="col-lg-6 position-relative">
+
+<img
+src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1200&q=85"
+class="hero-img"
+alt="Fresh produce">
+
+<div class="fresh-card">
+
+<div class="fresh-icon">
+<i class="fa-solid fa-leaf"></i>
+</div>
+
+<div>
+<strong>Fresh All Along</strong>
+<div class="small text-muted">Picked fresh for you</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+<div class="container">
+
+<div class="row g-3">
+
+<div class="col-md-4">
+<div class="stat-card">
+<h3>05</h3>
+<p>Saved Produce</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="stat-card">
+<h3>02</h3>
+<p>Favourite Markets</p>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="stat-card">
+<h3 id="statBasket">0</h3>
+<p>Items in Basket</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= PRODUCE ================= -->
+
+<section class="section">
+
+<div class="container">
+
+<div class="text-center mb-4">
+
+<h2 class="section-title">Your Favourite Produce</h2>
+
+<p class="section-subtitle">
+Fresh products you can add directly to your basket.
+</p>
+
+</div>
+
+
+<!-- FILTER -->
+
+<div class="filter-bar">
+
+<div class="row g-3 align-items-center">
+
+<div class="col-lg-5">
+
+<div class="search-box">
+
+<i class="fa-solid fa-search"></i>
+
+<input
+type="text"
+id="searchInput"
+class="form-control"
+placeholder="Search your favourite produce..."
+onkeyup="filterProducts()">
+
+</div>
+
+</div>
+
+<div class="col-lg-7 text-lg-end">
+
+<button class="filter-btn active" onclick="setFilter('all',this)">
+All
+</button>
+
+<button class="filter-btn" onclick="setFilter('fruit',this)">
+Fruits
+</button>
+
+<button class="filter-btn" onclick="setFilter('vegetable',this)">
+Vegetables
+</button>
+
+<button class="filter-btn" onclick="setFilter('summer',this)">
+Summer
+</button>
+
+<button class="filter-btn" onclick="setFilter('winter',this)">
+Winter
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="row g-4" id="productGrid">
+
+
+<!-- TOMATO -->
+
+<div class="col-md-6 col-lg-4 product-item"
+data-category="vegetable summer"
+data-name="Fresh Tomatoes">
+
+<div class="product-card">
+
+<div class="product-img-wrap">
+
+<img
+src="https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=900&q=85"
+class="product-img"
+alt="Fresh Tomatoes">
+
+<button class="heart">
+<i class="fa-solid fa-heart"></i>
+</button>
+
+</div>
+
+<div class="product-body">
+
+<h5>Fresh Tomatoes</h5>
+
+<p>
+Juicy locally grown tomatoes, perfect for salads and cooking.
+</p>
+
+<div class="d-flex align-items-center justify-content-between">
+
+<div>
+<div class="price">Rs. 280</div>
+<small class="text-muted">per kg</small>
+</div>
+
+<div class="d-flex gap-2">
+
+<button
+class="quick-btn"
+onclick="openQuickView(
+'Fresh Tomatoes',
+280,
+'kg',
+'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=900&q=85'
+)">
+<i class="fa-solid fa-eye"></i>
+</button>
+
+<button
+class="add-btn"
+onclick="openAddModal(
+'Fresh Tomatoes',
+280,
+'kg',
+'https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=900&q=85'
+)">
+<i class="fa-solid fa-cart-plus"></i> Add
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<!-- STRAWBERRY -->
+
+<div class="col-md-6 col-lg-4 product-item"
+data-category="fruit winter"
+data-name="Fresh Strawberries">
+
+<div class="product-card">
+
+<div class="product-img-wrap">
+
+<img
+src="https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=900&q=85"
+class="product-img"
+alt="Fresh Strawberries">
+
+<button class="heart">
+<i class="fa-solid fa-heart"></i>
+</button>
+
+</div>
+
+<div class="product-body">
+
+<h5>Fresh Strawberries</h5>
+
+<p>
+Sweet, juicy strawberries picked during their fresh season.
+</p>
+
+<div class="d-flex align-items-center justify-content-between">
+
+<div>
+<div class="price">Rs. 650</div>
+<small class="text-muted">per kg</small>
+</div>
+
+<div class="d-flex gap-2">
+
+<button
+class="quick-btn"
+onclick="openQuickView(
+'Fresh Strawberries',
+650,
+'kg',
+'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=900&q=85'
+)">
+<i class="fa-solid fa-eye"></i>
+</button>
+
+<button
+class="add-btn"
+onclick="openAddModal(
+'Fresh Strawberries',
+650,
+'kg',
+'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=900&q=85'
+)">
+<i class="fa-solid fa-cart-plus"></i> Add
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<div class="col-md-6 col-lg-4 product-item"
+data-category="fruit winter"
+data-name="Orange">
+
+<div class="product-card">
+
+<div class="product-img-wrap">
+
+<img
+src="https://images.unsplash.com/photo-1587735243615-c03f25aaff15?auto=format&fit=crop&w=900&q=85"
+class="product-img"
+alt="Orange">
+
+<button class="heart">
+<i class="fa-solid fa-heart"></i>
+</button>
+
+</div>
+
+<div class="product-body">
+
+<h5>Orange</h5>
+
+<p>
+Fresh orange with a naturally sweet flavour.
+</p>
+
+<div class="d-flex align-items-center justify-content-between">
+
+<div>
+<div class="price">Rs. 450</div>
+<small class="text-muted">per kg</small>
+</div>
+
+<div class="d-flex gap-2">
+
+<button
+class="quick-btn"
+onclick="openQuickView(
+'Orange',
+450,
+'kg',
+'https://images.unsplash.com/photo-1587735243615-c03f25aaff15?auto=format&fit=crop&w=900&q=85'
+)">
+<i class="fa-solid fa-eye"></i>
+</button>
+
+<button
+class="add-btn"
+onclick="openAddModal(
+'Orange',
+450,
+'kg',
+'https://images.unsplash.com/photo-1587735243615-c03f25aaff15?auto=format&fit=crop&w=900&q=85'
+)">
+<i class="fa-solid fa-cart-plus"></i> Add
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+<!-- CUCUMBER -->
+
+<div class="col-md-6 col-lg-4 product-item"
+data-category="vegetable summer"
+data-name="Fresh Cucumbers">
+
+<div class="product-card">
+
+<div class="product-img-wrap">
+
+<img
+src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Cucumbers_%28Unsplash%29.jpg"
+class="product-img"
+alt="Fresh Cucumbers">
+
+<button class="heart">
+<i class="fa-solid fa-heart"></i>
+</button>
+
+</div>
+
+<div class="product-body">
+
+<h5>Fresh Cucumbers</h5>
+
+<p>
+Cool, crunchy cucumbers perfect for fresh salads.
+</p>
+
+<div class="d-flex align-items-center justify-content-between">
+
+<div>
+<div class="price">Rs. 240</div>
+<small class="text-muted">per kg</small>
+</div>
+
+<div class="d-flex gap-2">
+
+<button
+class="quick-btn"
+onclick="openQuickView(
+'Fresh Cucumbers',
+240,
+'kg',
+'https://upload.wikimedia.org/wikipedia/commons/c/ca/Cucumbers_%28Unsplash%29.jpg'
+)">
+<i class="fa-solid fa-eye"></i>
+</button>
+
+<button
+class="add-btn"
+onclick="openAddModal(
+'Fresh Cucumbers',
+240,
+'kg',
+'https://upload.wikimedia.org/wikipedia/commons/c/ca/Cucumbers_%28Unsplash%29.jpg'
+)">
+<i class="fa-solid fa-cart-plus"></i> Add
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= MARKETS ================= -->
+
+<section class="section pt-0">
+
+<div class="container">
+
+<div class="text-center mb-5">
+
+<h2 class="section-title">Favourite Markets</h2>
+
+<p class="section-subtitle">
+Discover fresh produce from local farmers.
+</p>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-6">
+
+<div class="market-card">
+
+<div class="d-flex gap-3">
+
+<div class="market-icon">
+<i class="fa-solid fa-store"></i>
+</div>
+
+<div>
+
+<h5 class="fw-bold">Green Valley Farmers Market</h5>
+
+<p class="mb-1">
+<i class="fa-solid fa-location-dot"></i>
+Gulshan Market Area
+</p>
+
+<p class="text-muted small">
+Saturday • 8:00 AM – 2:00 PM
+</p>
+
+</div>
+
+</div>
+
+<hr>
+
+<a
+href="https://maps.google.com"
+target="_blank"
+class="btn btn-outline-success w-100">
+<i class="fa-solid fa-location-arrow"></i>
+View Location
+</a>
+
+</div>
+
+</div>
+
+
+<div class="col-md-6">
+
+<div class="market-card">
+
+<div class="d-flex gap-3">
+
+<div class="market-icon">
+<i class="fa-solid fa-store"></i>
+</div>
+
+<div>
+
+<h5 class="fw-bold">Fresh Roots Community Market</h5>
+
+<p class="mb-1">
+<i class="fa-solid fa-location-dot"></i>
+Clifton Market Area
+</p>
+
+<p class="text-muted small">
+Sunday • 9:00 AM – 3:00 PM
+</p>
+
+</div>
+
+</div>
+
+<hr>
+
+<a
+href="https://maps.google.com"
+target="_blank"
+class="btn btn-outline-success w-100">
+<i class="fa-solid fa-location-arrow"></i>
+View Location
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- ADD TO BASKET MODAL -->
+<!-- ================================================= -->
+
+<div class="modal fade" id="addModal" tabindex="-1">
+
+<div class="modal-dialog modal-dialog-centered">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5 class="modal-title fw-bold">
+<i class="fa-solid fa-basket-shopping text-success"></i>
+Add to Basket
+</h5>
+
+<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+</div>
+
+<div class="modal-body p-4">
+
+<div class="row align-items-center">
+
+<div class="col-5">
+
+<img id="addImage"
+src=""
+class="img-fluid rounded-4"
+style="height:150px;width:100%;object-fit:cover;">
+
+</div>
+
+<div class="col-7">
+
+<h5 id="addName" class="fw-bold"></h5>
+
+<div class="text-success fw-bold fs-5">
+Rs. <span id="addPrice"></span>
+</div>
+
+<small class="text-muted">
+per <span id="addUnit"></span>
+</small>
+
+<div class="quantity-box mt-3">
+
+<button class="qty-btn" onclick="changeAddQuantity(-1)">
+−
+</button>
+
+<strong id="addQuantity">1</strong>
+
+<button class="qty-btn" onclick="changeAddQuantity(1)">
++
+</button>
+
+</div>
+
+<div class="mt-3 fw-bold">
+Total: Rs. <span id="addTotal">0</span>
+</div>
+
+</div>
+
+</div>
+
+<button
+class="checkout-btn mt-4"
+onclick="confirmAddToBasket()">
+
+<i class="fa-solid fa-cart-plus"></i>
+Add to Basket
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- QUICK VIEW MODAL -->
+<!-- ================================================= -->
+
+<div class="modal fade" id="quickModal" tabindex="-1">
+
+<div class="modal-dialog modal-dialog-centered">
+
+<div class="modal-content">
+
+<div class="modal-body p-4">
+
+<div class="row align-items-center">
+
+<div class="col-md-6">
+
+<img
+id="quickImage"
+src=""
+style="width:100%;height:300px;object-fit:contain;border-radius:20px;">
+
+</div>
+
+<div class="col-md-6">
+
+<h3 id="quickName" class="fw-bold"></h3>
+
+<p class="text-muted">
+Fresh locally sourced produce.
+</p>
+
+<div class="price">
+Rs. <span id="quickPrice"></span>
+</div>
+
+<small class="text-muted">
+per <span id="quickUnit"></span>
+</small>
+
+<div class="quantity-box mt-4">
+
+<button class="qty-btn" onclick="changeQuantity(-1)">
+−
+</button>
+
+<strong id="quantity">1</strong>
+
+<button class="qty-btn" onclick="changeQuantity(1)">
++
+</button>
+
+</div>
+
+<button
+class="checkout-btn"
+onclick="addQuickToCart()">
+
+<i class="fa-solid fa-cart-plus"></i>
+Add to Basket
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- CART OFFCANVAS -->
+<!-- ================================================= -->
+
+<div
+class="offcanvas offcanvas-end"
+tabindex="-1"
+id="cartCanvas">
+
+<div class="offcanvas-header cart-header">
+
+<div>
+
+<h5>
+<i class="fa-solid fa-basket-shopping"></i>
+My Basket
+</h5>
+
+<small id="cartSubtitle">
+Your fresh picks are waiting
+</small>
+
+</div>
+
+<button
+type="button"
+class="cart-close"
+onclick="closeCart()">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+
+<div class="offcanvas-body cart-body p-0">
+
+<div
+id="cartItems"
+class="cart-items p-3">
+
+</div>
+
+
+<div class="cart-footer">
+
+<div class="summary-row">
+
+<span>Items</span>
+
+<strong id="cartItemCount">
+0
+</strong>
+
+</div>
+
+<div class="summary-row">
+
+<span>Delivery</span>
+
+<span class="text-success fw-semibold">
+Free
+</span>
+
+</div>
+
+<div class="summary-total">
+
+<span>Total</span>
+
+<span>
+Rs. <span id="cartSubtotal">0</span>
+</span>
+
+</div>
+
+<button
+class="checkout-btn"
+onclick="checkout()">
+
+<i class="fa-solid fa-lock"></i>
+Proceed to Checkout
+
+</button>
+
+<button
+class="clear-btn"
+onclick="clearBasket()">
+
+<i class="fa-solid fa-trash"></i>
+Clear Basket
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+<div
+id="toast"
+class="toast custom-toast"
+role="alert">
+
+<div class="toast-body d-flex align-items-center gap-3">
+
+<div
+style="width:38px;height:38px;border-radius:10px;background:#e7f7ec;color:#287a4d;display:flex;align-items:center;justify-content:center;">
+
+<i class="fa-solid fa-check"></i>
+
+</div>
+
+<div>
+
+<strong id="toastTitle">
+Added!
+</strong>
+
+<div
+id="toastMessage"
+class="small text-muted">
+Product added to your basket.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="container">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<h4 class="fw-bold">
+<i class="fa-solid fa-leaf"></i>
+FreshFind
+</h4>
+
+<p class="mt-3">
+Connecting you with fresh local produce and farmers markets.
+</p>
+
+</div>
+
+<div class="col-md-6 text-md-end">
+
+<p class="mb-1">
+Fresh All Along
+</p>
+
+<p class="small">
+© 2026 FreshFind. All rights reserved.
+</p>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="text-center small">
+Made for fresh food lovers.
+</div>
+
+</div>
+
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+/* ============================================
+   CART DATA
+============================================ */
+
+let cart = JSON.parse(localStorage.getItem("freshFindCart")) || [];
+
+let addProductData = null;
+let addQuantity = 1;
+
+let quickProductData = null;
+let quickQuantity = 1;
+
+
+/* ============================================
+   SAVE CART
+============================================ */
+
+function saveCart(){
+
+    localStorage.setItem(
+        "freshFindCart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+/* ============================================
+   OPEN CART
+============================================ */
+
+function openCart(){
+
+    updateCart();
+
+    const cartElement =
+        document.getElementById("cartCanvas");
+
+    const cartInstance =
+        bootstrap.Offcanvas.getOrCreateInstance(cartElement);
+
+    cartInstance.show();
+
+}
+
+
+/* ============================================
+   CLOSE CART
+============================================ */
+
+function closeCart(){
+
+    const cartElement =
+        document.getElementById("cartCanvas");
+
+    const cartInstance =
+        bootstrap.Offcanvas.getOrCreateInstance(cartElement);
+
+    cartInstance.hide();
+
+}
+
+
+/* ============================================
+   ADD MODAL
+============================================ */
+
+function openAddModal(name,price,unit,image){
+
+    addProductData = {
+        name:name,
+        price:price,
+        unit:unit,
+        image:image
+    };
+
+    addQuantity = 1;
+
+    document.getElementById("addName").innerText = name;
+
+    document.getElementById("addPrice").innerText =
+        price.toLocaleString();
+
+    document.getElementById("addUnit").innerText =
+        unit;
+
+    document.getElementById("addImage").src =
+        image;
+
+    document.getElementById("addQuantity").innerText =
+        addQuantity;
+
+    updateAddTotal();
+
+    const modal =
+        bootstrap.Modal.getOrCreateInstance(
+            document.getElementById("addModal")
+        );
+
+    modal.show();
+
+}
+
+
+/* ============================================
+   CHANGE ADD QUANTITY
+============================================ */
+
+function changeAddQuantity(amount){
+
+    addQuantity += amount;
+
+    if(addQuantity < 1){
+        addQuantity = 1;
+    }
+
+    if(addQuantity > 20){
+        addQuantity = 20;
+    }
+
+    document.getElementById("addQuantity").innerText =
+        addQuantity;
+
+    updateAddTotal();
+
+}
+
+
+/* ============================================
+   ADD TOTAL
+============================================ */
+
+function updateAddTotal(){
+
+    if(!addProductData) return;
+
+    const total =
+        addProductData.price * addQuantity;
+
+    document.getElementById("addTotal").innerText =
+        total.toLocaleString();
+
+}
+
+
+/* ============================================
+   CONFIRM ADD
+============================================ */
+
+function confirmAddToBasket(){
+
+    if(!addProductData) return;
+
+    addProduct(
+        addProductData.name,
+        addProductData.price,
+        addProductData.unit,
+        addProductData.image,
+        addQuantity
+    );
+
+    const modal =
+        bootstrap.Modal.getOrCreateInstance(
+            document.getElementById("addModal")
+        );
+
+    modal.hide();
+
+    showToast(
+        "Added to Basket",
+        addProductData.name +
+        " added successfully."
+    );
+
+    /*
+       Automatically open basket so user
+       can immediately see the product.
+    */
+
+    setTimeout(function(){
+
+        openCart();
+
+    },400);
+
+}
+
+
+/* ============================================
+   ADD PRODUCT
+============================================ */
+
+function addProduct(name,price,unit,image,qty=1){
+
+    const existing =
+        cart.find(item => item.name === name);
+
+    if(existing){
+
+        existing.qty += qty;
+
+    }else{
+
+        cart.push({
+            name:name,
+            price:price,
+            unit:unit,
+            image:image,
+            qty:qty
+        });
+
+    }
+
+    saveCart();
+
+    updateCart();
+
+}
+
+
+/* ============================================
+   UPDATE CART
+============================================ */
+
+function updateCart(){
+
+    const container =
+        document.getElementById("cartItems");
+
+    const count =
+        document.getElementById("cartCount");
+
+    const statBasket =
+        document.getElementById("statBasket");
+
+    const itemCount =
+        document.getElementById("cartItemCount");
+
+    const subtotal =
+        document.getElementById("cartSubtotal");
+
+    const subtitle =
+        document.getElementById("cartSubtitle");
+
+
+    let totalItems = 0;
+    let totalPrice = 0;
+
+
+    cart.forEach(item => {
+
+        totalItems += item.qty;
+
+        totalPrice +=
+            item.price * item.qty;
+
+    });
+
+
+    count.innerText = totalItems;
+
+    statBasket.innerText = totalItems;
+
+    itemCount.innerText = totalItems;
+
+    subtotal.innerText =
+        totalPrice.toLocaleString();
+
+
+    if(cart.length === 0){
+
+        subtitle.innerText =
+            "Your basket is empty";
+
+        container.innerHTML = `
+
+        <div class="empty-cart">
+
+            <div class="empty-cart-icon">
+                <i class="fa-solid fa-basket-shopping"></i>
+            </div>
+
+            <h5>Your basket is empty</h5>
+
+            <p>
+                Add some fresh produce and
+                it will appear here.
+            </p>
+
+            <button
+            class="btn btn-success rounded-pill px-4"
+            onclick="closeCart(); scrollToProduce();">
+
+                <i class="fa-solid fa-leaf"></i>
+                Browse Produce
+
+            </button>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    subtitle.innerText =
+        totalItems +
+        (totalItems === 1
+        ? " item in your basket"
+        : " items in your basket");
+
+
+    container.innerHTML = "";
+
+
+    cart.forEach((item,index) => {
+
+        const itemTotal =
+            item.price * item.qty;
+
+
+        container.innerHTML += `
+
+        <div class="cart-item">
+
+            <img
+            src="${item.image}"
+            class="cart-item-img"
+            alt="${item.name}">
+
+            <div class="cart-item-info">
+
+                <h6>
+                    ${item.name}
+                </h6>
+
+                <div class="cart-price">
+                    Rs. ${itemTotal.toLocaleString()}
+                </div>
+
+                <div class="cart-unit">
+                    Rs. ${item.price.toLocaleString()} / ${item.unit}
+                </div>
+
+                <div class="cart-controls">
+
+                    <button
+                    class="cart-qty-btn"
+                    onclick="changeCartQuantity(${index},-1)">
+                        −
+                    </button>
+
+                    <span class="cart-qty">
+                        ${item.qty}
+                    </span>
+
+                    <button
+                    class="cart-qty-btn"
+                    onclick="changeCartQuantity(${index},1)">
+                        +
+                    </button>
+
+                    <button
+                    class="remove-btn"
+                    onclick="removeCartItem(${index})"
+                    title="Remove">
+
+                        <i class="fa-solid fa-trash"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+/* ============================================
+   CART QUANTITY
+============================================ */
+
+function changeCartQuantity(index,amount){
+
+    cart[index].qty += amount;
+
+    if(cart[index].qty <= 0){
+
+        cart.splice(index,1);
+
+    }
+
+    saveCart();
+
+    updateCart();
+
+}
+
+
+/* ============================================
+   REMOVE
+============================================ */
+
+function removeCartItem(index){
+
+    const removed =
+        cart[index].name;
+
+    cart.splice(index,1);
+
+    saveCart();
+
+    updateCart();
+
+    showToast(
+        "Removed",
+        removed + " removed from basket."
+    );
+
+}
+
+
+/* ============================================
+   CLEAR
+============================================ */
+
+function clearBasket(){
+
+    if(cart.length === 0){
+        return;
+    }
+
+    cart = [];
+
+    saveCart();
+
+    updateCart();
+
+    showToast(
+        "Basket Cleared",
+        "All products have been removed."
+    );
+
+}
+
+
+/* ============================================
+   QUICK VIEW
+============================================ */
+
+function openQuickView(name,price,unit,image){
+
+    quickProductData = {
+        name:name,
+        price:price,
+        unit:unit,
+        image:image
+    };
+
+    quickQuantity = 1;
+
+    document.getElementById("quickName").innerText =
+        name;
+
+    document.getElementById("quickPrice").innerText =
+        price.toLocaleString();
+
+    document.getElementById("quickUnit").innerText =
+        unit;
+
+    document.getElementById("quickImage").src =
+        image;
+
+    document.getElementById("quantity").innerText =
+        quickQuantity;
+
+
+    bootstrap.Modal.getOrCreateInstance(
+        document.getElementById("quickModal")
+    ).show();
+
+}
+
+
+/* ============================================
+   QUICK QUANTITY
+============================================ */
+
+function changeQuantity(amount){
+
+    quickQuantity += amount;
+
+    if(quickQuantity < 1){
+        quickQuantity = 1;
+    }
+
+    if(quickQuantity > 20){
+        quickQuantity = 20;
+    }
+
+    document.getElementById("quantity").innerText =
+        quickQuantity;
+
+}
+
+
+/* ============================================
+   QUICK ADD
+============================================ */
+
+function addQuickToCart(){
+
+    if(!quickProductData) return;
+
+    addProduct(
+        quickProductData.name,
+        quickProductData.price,
+        quickProductData.unit,
+        quickProductData.image,
+        quickQuantity
+    );
+
+    bootstrap.Modal.getOrCreateInstance(
+        document.getElementById("quickModal")
+    ).hide();
+
+    showToast(
+        "Added to Basket",
+        quickProductData.name +
+        " added successfully."
+    );
+
+    setTimeout(function(){
+
+        openCart();
+
+    },400);
+
+}
+
+
+/* ============================================
+   FILTER
+============================================ */
+
+let currentFilter = "all";
+
+
+function setFilter(filter,button){
+
+    currentFilter = filter;
+
+    document.querySelectorAll(".filter-btn")
+    .forEach(btn => {
+
+        btn.classList.remove("active");
+
+    });
+
+    button.classList.add("active");
+
+    filterProducts();
+
+}
+
+
+/* ============================================
+   SEARCH + FILTER
+============================================ */
+
+function filterProducts(){
+
+    const search =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+
+    document.querySelectorAll(".product-item")
+    .forEach(card => {
+
+        const name =
+            card.dataset.name.toLowerCase();
+
+        const categories =
+            card.dataset.category.toLowerCase();
+
+
+        const matchesSearch =
+            name.includes(search);
+
+
+        const matchesFilter =
+            currentFilter === "all" ||
+            categories.includes(currentFilter);
+
+
+        if(matchesSearch && matchesFilter){
+
+            card.style.display = "";
+
+        }else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* ============================================
+   SCROLL PRODUCE
+============================================ */
+
+function scrollToProduce(){
+
+    document.getElementById("productGrid")
+    .scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ============================================
+   CHECKOUT
+============================================ */
+
+function checkout(){
+
+    if(cart.length === 0){
+
+        showToast(
+            "Basket Empty",
+            "Please add some products first."
+        );
+
+        return;
+
+    }
+
+    showToast(
+        "Checkout",
+        "Checkout is ready for the next step."
+    );
+
+}
+
+
+/* ============================================
+   TOAST
+============================================ */
+
+function showToast(title,message){
+
+    document.getElementById("toastTitle")
+        .innerText = title;
+
+    document.getElementById("toastMessage")
+        .innerText = message;
+
+
+    const toast =
+        bootstrap.Toast.getOrCreateInstance(
+            document.getElementById("toast"),
+            {
+                delay:3000
+            }
+        );
+
+    toast.show();
+
+}
+
+
+/* ============================================
+   INITIALIZE
+============================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        updateCart();
+
+    }
+);
+
+
+/* ============================================
+   UPDATE IF LOCALSTORAGE CHANGES
+============================================ */
+
+window.addEventListener(
+    "storage",
+    function(){
+
+        cart =
+            JSON.parse(
+                localStorage.getItem("freshFindCart")
+            ) || [];
+
+        updateCart();
+
+    }
+);
+
+</script>
+
+
+
+<script id="freshfind-produce-favourites">
+(function(){
+  "use strict";
+  const KEY="freshFindFavourites";
+  function getSaved(){try{return JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){return[]}}
+  function setSaved(v){try{localStorage.setItem(KEY,JSON.stringify(v))}catch(e){}}
+  function sync(){
+    const saved=getSaved();
+    document.querySelectorAll(".product-item").forEach(function(item){
+      const title=item.querySelector("h5"), heart=item.querySelector(".heart");
+      if(!title||!heart)return;
+      const name=title.textContent.trim(), active=saved.includes(name);
+      heart.classList.toggle("active",active);
+      heart.setAttribute("aria-pressed",active?"true":"false");
+      heart.title=active?"Remove from favourites":"Add to favourites";
+      heart.onclick=function(e){
+        e.preventDefault();e.stopPropagation();
+        let list=getSaved(), i=list.indexOf(name);
+        if(i===-1)list.push(name);else list.splice(i,1);
+        setSaved(list);sync();
+        if(typeof showToast==="function")showToast(i===-1?"Favourite Added":"Favourite Removed",name);
+      };
+    });
+  }
+  document.addEventListener("DOMContentLoaded",sync);
+  window.addEventListener("storage",function(e){if(e.key===KEY)sync()});
+})();
+</script>
+
+<script id="freshfind-shared-functionality">
+(function(){
+"use strict";
+const routes={"Home":"index.html","Find a Market":"market.html","Market Directory":"market.html","Produce Guide":"producesguide.html","Produce":"producesguide.html","Markets":"market.html","About":"about.html","About Us":"about.html","Contact Us":"contact.html","Favourites":"favourite.html","Bookmarks":"market.html?view=bookmarks","Help Center":"contact.html"};
+
+function getTheme(){
+  try { return localStorage.getItem("freshfind-theme") || localStorage.getItem("theme") || "light"; }
+  catch(e){ return "light"; }
+}
+function setTheme(theme){
+  theme=theme==="dark"?"dark":"light";
+  document.documentElement.setAttribute("data-theme",theme);
+  document.body.classList.toggle("dark",theme==="dark");
+  try {
+    localStorage.setItem("freshfind-theme",theme);
+    localStorage.removeItem("theme");
+  } catch(e){}
+  updateThemeButtons(theme);
+}
+function updateThemeButtons(theme){
+  document.querySelectorAll("#themeBtn,#themeToggleBtn,.freshfind-theme-toggle").forEach(function(btn){
+    const icon=btn.querySelector("i");
+    if(icon){ icon.className=theme==="dark"?"fa-solid fa-sun":"fa-regular fa-moon"; }
+    btn.setAttribute("aria-label",theme==="dark"?"Switch to light mode":"Switch to dark mode");
+    btn.title=theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode";
+  });
+}
+function bindThemeButton(btn){
+  if(!btn||btn.dataset.themeBound)return;
+  btn.dataset.themeBound="1";
+  btn.addEventListener("click",function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
+  });
+}
+function addThemeButton(){
+  let btn=document.querySelector("#themeBtn,#themeToggleBtn,.freshfind-theme-toggle");
+  if(btn){ bindThemeButton(btn); return; }
+  const navActions=document.querySelector(".nav-actions");
+  if(navActions){
+    btn=document.createElement("button");
+    btn.type="button"; btn.className="freshfind-theme-toggle";
+    navActions.insertBefore(btn,navActions.firstChild); bindThemeButton(btn); return;
+  }
+  const collapse=document.querySelector(".navbar .navbar-collapse");
+  if(collapse){
+    btn=document.createElement("button");
+    btn.type="button"; btn.className="freshfind-theme-toggle";
+    const basket=collapse.querySelector(".basket-btn,.nav-btn");
+    collapse.insertBefore(btn,basket||collapse.firstChild); bindThemeButton(btn);
+  }
+}
+function fixLinks(){
+  document.querySelectorAll("a").forEach(function(a){
+    const t=(a.textContent||"").replace(/\s+/g," ").trim();
+    if(routes[t]&&(a.getAttribute("href")==="#"||a.classList.contains("nav-link"))) a.setAttribute("href",routes[t]);
+  });
+  document.querySelectorAll("a.navbar-brand,.logo").forEach(function(a){if((a.getAttribute("href")||"#")==="#")a.setAttribute("href","index.html")});
+  document.querySelectorAll("a.season-btn").forEach(function(a){if(a.getAttribute("href")==="#")a.setAttribute("href","#seasonal")});
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  fixLinks();
+  addThemeButton();
+  setTheme(getTheme());
+  document.querySelectorAll("button.login-btn").forEach(function(btn){btn.onclick=function(){window.location.href="login.html"}});
+  document.querySelectorAll("nav a,.nav-links a").forEach(function(a){a.addEventListener("click",function(){const m=document.querySelector("#navMenu,#navLinks");if(m)m.classList.remove("show","open")})});
+});
+
+window.addEventListener("storage",function(e){
+  if(e.key==="freshfind-theme") setTheme(e.newValue||"light");
+});
+})();
+</script>
+
+</body>
+</html>

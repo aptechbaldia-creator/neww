@@ -1,0 +1,2881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FreshFind | Smart Budget Basket</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           THEME VARIABLES
+        ===================================================== */
+
+        :root {
+            --bg-main: #f5faf6;
+            --bg-secondary: #f8fbf9;
+            --bg-card: #ffffff;
+
+            --text-primary: #18352a;
+            --text-secondary: #687870;
+            --text-muted: #78877f;
+
+            --border-color: #e4ebe6;
+            --nav-bg: #ffffff;
+
+            --primary-green: #3b9b63;
+            --primary-hover: #287b4b;
+
+            --orange: #ff9f1c;
+            --danger: #dc3545;
+
+            --footer-bg: #18352a;
+            --footer-text: #b5c5bd;
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #0c1712;
+            --bg-secondary: #122019;
+            --bg-card: #14241c;
+
+            --text-primary: #eff8f2;
+            --text-secondary: #a8bbb0;
+            --text-muted: #8fa397;
+
+            --border-color: #294237;
+            --nav-bg: #0b1410;
+
+            --primary-green: #58bd7f;
+            --primary-hover: #3b9b63;
+
+            --footer-bg: #0b1410;
+            --footer-text: #8fa397;
+        }
+
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg-main);
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* =====================================================
+           NAVBAR - SAME AS INDEX PAGE
+        ===================================================== */
+
+        .navbar {
+            width: 100%;
+            height: 78px;
+            padding: 0 7%;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            transition: background 0.3s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            font-size: 24px;
+            font-weight: 800;
+
+            color: var(--text-primary);
+        }
+
+        .logo i {
+            color: var(--primary-green);
+            font-size: 27px;
+        }
+
+        .logo span span {
+            color: var(--primary-green);
+        }
+
+        .navbar nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar nav a {
+            font-size: 14px;
+            font-weight: 600;
+
+            color: var(--text-secondary);
+
+            position: relative;
+            padding: 8px 0;
+
+            transition: 0.3s ease;
+        }
+
+        .navbar nav a:hover,
+        .navbar nav a.active {
+            color: var(--primary-green);
+        }
+
+        .navbar nav a::after {
+            content: "";
+
+            position: absolute;
+            height: 2px;
+            width: 0;
+
+            left: 0;
+            bottom: 0;
+
+            background: var(--primary-green);
+
+            transition: 0.3s ease;
+        }
+
+        .navbar nav a:hover::after,
+        .navbar nav a.active::after {
+            width: 100%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bookmark-btn,
+        .theme-btn,
+        .menu-btn {
+            width: 40px;
+            height: 40px;
+
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+
+            border-radius: 10px;
+
+            color: var(--text-primary);
+
+            transition: 0.3s;
+
+            position: relative;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bookmark-btn:hover,
+        .theme-btn:hover {
+            background: #eef8f1;
+            color: var(--primary-green);
+            transform: translateY(-2px);
+        }
+
+        [data-theme="dark"] .bookmark-btn:hover,
+        [data-theme="dark"] .theme-btn:hover {
+            background: #253d32;
+        }
+
+        .badge-count {
+            position: absolute;
+
+            top: -5px;
+            right: -5px;
+
+            background: var(--primary-green);
+            color: white;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            border-radius: 50%;
+
+            width: 18px;
+            height: 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-btn {
+            border: none;
+
+            background: var(--primary-green);
+            color: white;
+
+            padding: 11px 20px;
+
+            border-radius: 10px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-hover);
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(59, 155, 99, 0.25);
+        }
+
+        .menu-btn {
+            display: none;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .hero {
+            min-height: 430px;
+
+            background:
+                linear-gradient(
+                    rgba(0,70,35,0.65),
+                    rgba(0,50,25,0.7)
+                ),
+                url("https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1800&q=85");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            color: white;
+
+            padding: 50px 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+
+            animation:
+                fadeUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #ffd166;
+        }
+
+        .hero p {
+            font-size: 19px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+
+        /* =====================================================
+           BUDGET BOX
+        ===================================================== */
+
+        .budget-box {
+            background: var(--bg-card);
+
+            width: min(650px, 95%);
+
+            margin: -55px auto 40px;
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            position: relative;
+            z-index: 10;
+
+            box-shadow:
+                0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .budget-box h2 {
+            color: var(--primary-green);
+            margin-bottom: 8px;
+        }
+
+        .budget-box p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .budget-input {
+            display: flex;
+            gap: 12px;
+        }
+
+        .budget-input input {
+            flex: 1;
+
+            padding: 16px;
+
+            border: 2px solid var(--border-color);
+
+            border-radius: 12px;
+
+            outline: none;
+
+            font-size: 17px;
+
+            background: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .budget-input input:focus {
+            border-color: var(--primary-green);
+        }
+
+        .budget-input input::placeholder {
+            color: var(--text-muted);
+        }
+
+
+        /* =====================================================
+           BUTTONS
+        ===================================================== */
+
+        .btn {
+            border: none;
+
+            background: var(--primary-green);
+            color: white;
+
+            padding: 14px 23px;
+
+            border-radius: 12px;
+
+            font-size: 15px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: var(--primary-hover);
+
+            transform: translateY(-2px);
+        }
+
+        .btn.orange {
+            background: var(--orange);
+        }
+
+        .btn.orange:hover {
+            background: #e88900;
+        }
+
+        .btn.danger {
+            background: var(--danger);
+        }
+
+        .btn.dark {
+            background: #27352d;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .container {
+            width: min(1200px, 92%);
+            margin: auto;
+        }
+
+
+        /* =====================================================
+           SUMMARY
+        ===================================================== */
+
+        .summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 35px;
+        }
+
+        .summary-card {
+            background: var(--bg-card);
+
+            padding: 23px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.07);
+
+            border-left:
+                5px solid var(--primary-green);
+
+            transition: 0.3s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .summary-card h4 {
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .summary-card strong {
+            font-size: 26px;
+            color: var(--primary-green);
+        }
+
+        .summary-card:nth-child(2) {
+            border-color: var(--orange);
+        }
+
+        .summary-card:nth-child(2) strong {
+            color: var(--orange);
+        }
+
+        .summary-card:nth-child(3) {
+            border-color: #20c997;
+        }
+
+        .summary-card:nth-child(3) strong {
+            color: #20c997;
+        }
+
+        .summary-card:nth-child(4) {
+            border-color: #6f42c1;
+        }
+
+        .summary-card:nth-child(4) strong {
+            color: #6f42c1;
+        }
+
+
+        /* =====================================================
+           RECOMMENDATION
+        ===================================================== */
+
+        .recommendation {
+            display: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #198754,
+                    #20a464
+                );
+
+            color: white;
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            margin-bottom: 30px;
+
+            animation:
+                fadeUp 0.6s ease;
+        }
+
+        .recommendation-content {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .recommendation h2 {
+            margin-bottom: 7px;
+        }
+
+        .recommendation p {
+            opacity: 0.9;
+        }
+
+        .recommendation-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+
+        /* =====================================================
+           LAYOUT
+        ===================================================== */
+
+        .main-layout {
+            display: grid;
+
+            grid-template-columns:
+                1fr 370px;
+
+            gap: 30px;
+
+            align-items: start;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            color: var(--primary-green);
+            font-size: 30px;
+        }
+
+        .section-title p {
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+
+        /* =====================================================
+           BASKET
+        ===================================================== */
+
+        .basket {
+            background: var(--bg-card);
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.08);
+
+            position: sticky;
+            top: 100px;
+        }
+
+        .basket-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .basket-header h2 {
+            color: var(--primary-green);
+        }
+
+        .basket-count {
+            background: #e9f7ef;
+            color: var(--primary-green);
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            font-weight: bold;
+        }
+
+        [data-theme="dark"] .basket-count {
+            background: #233b2e;
+        }
+
+        .empty-basket {
+            text-align: center;
+
+            padding: 40px 15px;
+
+            color: var(--text-muted);
+        }
+
+        .empty-basket .emoji {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .basket-item {
+            display: flex;
+
+            gap: 12px;
+
+            padding: 14px 0;
+
+            border-bottom:
+                1px solid var(--border-color);
+        }
+
+        .basket-item img {
+            width: 65px;
+            height: 65px;
+
+            border-radius: 12px;
+
+            object-fit: cover;
+        }
+
+        .basket-info {
+            flex: 1;
+        }
+
+        .basket-info h4 {
+            margin-bottom: 4px;
+        }
+
+        .basket-price {
+            color: var(--primary-green);
+
+            font-weight: bold;
+
+            margin-bottom: 8px;
+        }
+
+        .quantity {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+        .quantity button {
+            width: 28px;
+            height: 28px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #e9f7ef;
+
+            color: var(--primary-green);
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .quantity button:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        [data-theme="dark"] .quantity button {
+            background: #233b2e;
+        }
+
+        .remove-btn {
+            border: none;
+
+            background: transparent;
+
+            color: var(--danger);
+
+            cursor: pointer;
+
+            font-size: 18px;
+        }
+
+        .basket-total {
+            margin-top: 20px;
+
+            padding-top: 18px;
+
+            border-top:
+                2px solid var(--border-color);
+        }
+
+        .total-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-bottom: 10px;
+        }
+
+        .total-row.final {
+            font-size: 22px;
+
+            font-weight: bold;
+
+            color: var(--primary-green);
+        }
+
+        .basket-actions {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 18px;
+        }
+
+        .basket-actions .btn {
+            flex: 1;
+        }
+
+
+        /* =====================================================
+           PRODUCE GRID
+        ===================================================== */
+
+        .customize-section {
+            display: none;
+
+            margin-top: 35px;
+
+            animation:
+                fadeUp 0.6s ease;
+        }
+
+        .produce-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 22px;
+        }
+
+        .produce-card {
+            background: var(--bg-card);
+
+            border-radius: 18px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,0.08);
+
+            transition: 0.35s;
+
+            border: 1px solid var(--border-color);
+        }
+
+        .produce-card:hover {
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 15px 35px rgba(0,0,0,0.14);
+        }
+
+        .produce-card img {
+            width: 100%;
+            height: 190px;
+
+            object-fit: cover;
+        }
+
+        .produce-body {
+            padding: 18px;
+        }
+
+        .produce-body h3 {
+            margin-bottom: 7px;
+        }
+
+        .produce-body p {
+            color: var(--text-secondary);
+
+            font-size: 14px;
+
+            margin-bottom: 12px;
+
+            line-height: 1.5;
+        }
+
+        .produce-price {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: var(--primary-green);
+
+            font-size: 20px;
+
+            font-weight: bold;
+        }
+
+        .unit {
+            color: var(--text-muted);
+
+            font-size: 13px;
+        }
+
+        .add-btn {
+            width: 100%;
+        }
+
+        .add-btn:disabled {
+            background: #adb5bd;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           MESSAGE
+        ===================================================== */
+
+        .message {
+            display: none;
+
+            padding: 14px 18px;
+
+            border-radius: 12px;
+
+            margin-bottom: 20px;
+
+            font-weight: 600;
+        }
+
+        .message.success {
+            display: block;
+
+            background: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .message.error {
+            display: block;
+
+            background: #f8d7da;
+            color: #842029;
+        }
+
+
+        /* =====================================================
+           FOOTER - SAME STYLE AS INDEX
+        ===================================================== */
+
+        footer {
+            background: var(--footer-bg);
+
+            color: white;
+
+            padding:
+                60px 7% 20px;
+
+            margin-top: 70px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+
+            margin: auto;
+
+            display: grid;
+
+            grid-template-columns:
+                2fr 1fr 1fr;
+
+            gap: 60px;
+        }
+
+        .footer-logo {
+            color: white;
+        }
+
+        .footer-brand p {
+            color: var(--footer-text);
+
+            max-width: 350px;
+
+            line-height: 1.7;
+
+            margin-top: 15px;
+        }
+
+        .social-icons {
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 36px;
+            height: 36px;
+
+            display: grid;
+
+            place-items: center;
+
+            border-radius: 50%;
+
+            background: #29493a;
+
+            color: white;
+
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary-green);
+
+            transform: translateY(-3px);
+        }
+
+        .footer-links {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 13px;
+        }
+
+        .footer-links h3 {
+            margin-bottom: 5px;
+        }
+
+        .footer-links a {
+            color: var(--footer-text);
+
+            font-size: 13px;
+
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+
+            transform: translateX(4px);
+        }
+
+        .copyright {
+            max-width: 1200px;
+
+            margin: 45px auto 0;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid #315144;
+
+            color: var(--footer-text);
+
+            font-size: 12px;
+        }
+
+
+        /* =====================================================
+           ANIMATION
+        ===================================================== */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .basket {
+                position: static;
+                order: -1;
+            }
+
+            .summary {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .produce-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 950px) {
+
+            .navbar {
+                padding: 0 4%;
+            }
+
+            .navbar nav {
+                position: absolute;
+
+                top: 78px;
+                left: 0;
+
+                width: 100%;
+
+                background: var(--nav-bg);
+
+                flex-direction: column;
+
+                gap: 0;
+
+                padding: 15px 7%;
+
+                border-bottom:
+                    1px solid var(--border-color);
+
+                display: none;
+            }
+
+            .navbar nav.show {
+                display: flex;
+            }
+
+            .navbar nav a {
+                padding: 13px 0;
+            }
+
+            .menu-btn {
+                display: flex;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .login-btn {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .budget-input {
+                flex-direction: column;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .produce-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .recommendation-content {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .recommendation-buttons {
+                width: 100%;
+            }
+
+            .recommendation-buttons .btn {
+                flex: 1;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+
+                gap: 35px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar">
+
+    <div class="logo">
+
+        <i class="fa-solid fa-leaf"></i>
+
+        <span>
+            Fresh<span>Find</span>
+        </span>
+
+    </div>
+
+
+    <nav id="navMenu">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="market.html">
+            Market Directory
+        </a>
+
+        <a href="producesguide.html">
+            Produce Guide
+        </a>
+        <a
+            href="budget.html"
+            class="active"
+        >
+            Budget Basket
+        </a>
+        <a href="favourite.html">
+            Favourite
+        </a>
+         <a href="about.html">
+            About Us
+        </a>
+        <a href="contact.html">
+            Contact Us
+        </a>
+
+    </nav>
+
+
+    <div class="nav-actions">
+
+        <!-- Bookmark -->
+
+        <button
+            type="button"
+            class="bookmark-btn"
+            id="navBookmarkBtn"
+            title="View Bookmarks"
+            onclick="window.location.href='market.html?view=bookmarks'"
+        >
+
+            <i class="fa-regular fa-bookmark"></i>
+
+            <span
+                class="badge-count"
+                id="bookmarkCount"
+            >
+                0
+            </span>
+
+        </button>
+
+
+        <!-- Theme -->
+
+        <button
+            type="button"
+            class="theme-btn"
+            id="themeToggleBtn"
+            title="Toggle Dark/Light Mode"
+        >
+
+            <i
+                class="fa-regular fa-moon"
+                id="themeIcon"
+            ></i>
+
+        </button>
+
+
+        <!-- Login -->
+
+        <button
+            type="button"
+            class="login-btn"
+            onclick="window.location.href='login.html'"
+        >
+            Login
+        </button>
+
+
+        <!-- Mobile Menu -->
+
+        <button
+            type="button"
+            class="menu-btn"
+            id="menuBtn"
+        >
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Build Your
+            <span>Smart Basket</span>
+            🧺
+        </h1>
+
+        <p>
+            Enter your budget and FreshFind will create a recommended
+            farmers-market basket for you automatically.
+            Don't like it? Customize it your way!
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BUDGET INPUT
+===================================================== -->
+
+<div class="budget-box">
+
+    <h2>
+        💰 What's Your Budget?
+    </h2>
+
+    <p>
+        Enter your available budget and we'll create a basket
+        within your limit.
+    </p>
+
+    <div class="budget-input">
+
+        <input
+            type="number"
+            id="budgetInput"
+            placeholder="Enter budget e.g. 1000"
+            min="50"
+        >
+
+        <button
+            class="btn"
+            onclick="setBudget()"
+        >
+            Create Basket
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+    <!-- MESSAGE -->
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary">
+
+        <div class="summary-card">
+
+            <h4>
+                Your Budget
+            </h4>
+
+            <strong id="budgetAmount">
+                Rs. 0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <h4>
+                Spent
+            </h4>
+
+            <strong id="spentAmount">
+                Rs. 0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <h4>
+                Remaining
+            </h4>
+
+            <strong id="remainingAmount">
+                Rs. 0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <h4>
+                Items
+            </h4>
+
+            <strong id="itemCount">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         RECOMMENDATION
+    ===================================================== -->
+
+    <section
+        class="recommendation"
+        id="recommendation"
+    >
+
+        <div class="recommendation-content">
+
+            <div>
+
+                <h2>
+                    ✨ Your Recommended Basket
+                </h2>
+
+                <p id="recommendationText">
+                    We've selected produce based on your budget.
+                </p>
+
+            </div>
+
+
+            <div class="recommendation-buttons">
+
+                <button
+                    class="btn orange"
+                    onclick="customizeBasket()"
+                >
+                    ✏️ Customize Basket
+                </button>
+
+                <button
+                    class="btn dark"
+                    onclick="newRecommendation()"
+                >
+                    🔄 New Recommendation
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         MAIN LAYOUT
+    ===================================================== -->
+
+    <div class="main-layout">
+
+
+        <!-- CUSTOMIZE -->
+
+        <section
+            class="customize-section"
+            id="customizeSection"
+        >
+
+            <div class="section-title">
+
+                <h2>
+                    🥬 Customize Your Basket
+                </h2>
+
+                <p>
+                    Add the produce you like.
+                    Your budget will always be protected.
+                </p>
+
+            </div>
+
+
+            <div
+                class="produce-grid"
+                id="produceGrid"
+            ></div>
+
+        </section>
+
+
+        <!-- BASKET -->
+
+        <aside class="basket">
+
+            <div class="basket-header">
+
+                <h2>
+                    🧺 My Basket
+                </h2>
+
+                <span
+                    class="basket-count"
+                    id="basketCount"
+                >
+                    0 items
+                </span>
+
+            </div>
+
+
+            <div id="basketItems">
+
+                <div class="empty-basket">
+
+                    <div class="emoji">
+                        🛒
+                    </div>
+
+                    <p>
+                        Enter your budget to create your basket.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="basket-total">
+
+                <div class="total-row">
+
+                    <span>
+                        Budget
+                    </span>
+
+                    <strong id="basketBudget">
+                        Rs. 0
+                    </strong>
+
+                </div>
+
+
+                <div class="total-row">
+
+                    <span>
+                        Spent
+                    </span>
+
+                    <strong id="basketSpent">
+                        Rs. 0
+                    </strong>
+
+                </div>
+
+
+                <div class="total-row final">
+
+                    <span>
+                        Remaining
+                    </span>
+
+                    <strong id="basketRemaining">
+                        Rs. 0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="basket-actions">
+
+                <button
+                    class="btn danger"
+                    onclick="clearBasket()"
+                >
+                    Clear
+                </button>
+
+                <button
+                    class="btn"
+                    onclick="confirmBasket()"
+                >
+                    ✓ Confirm
+                </button>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="footer-content">
+
+
+        <div class="footer-brand">
+
+            <div class="logo footer-logo">
+
+                <i class="fa-solid fa-leaf"></i>
+
+                <span>
+                    Fresh<span>Find</span>
+                </span>
+
+            </div>
+
+
+            <p>
+                Discover fresh local produce and farmers markets
+                near you.
+            </p>
+
+
+            <div class="social-icons">
+
+                <a
+                    href="https://www.facebook.com/"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a
+                    href="https://www.instagram.com/"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a
+                    href="https://x.com/"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="market.html">
+                Market Directory
+            </a>
+
+            <a href="producesguide.html">
+                Produce Guide
+            </a>
+
+            <a href="about.html">
+                About Us
+            </a>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <h3>
+                Support
+            </h3>
+
+            <a href="contact.html">
+                Contact Us
+            </a>
+
+            <a href="contact.html">
+                Help Center
+            </a>
+
+            <a href="market.html?view=bookmarks">
+                Bookmarks
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="copyright">
+
+        <p>
+            © 2026 FreshFind. All Rights Reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
+     BUDGET JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    /* =====================================================
+       PRODUCE DATA
+    ===================================================== */
+
+    const produce = [
+
+        {
+            id: 1,
+            name: "Spinach",
+            price: 100,
+            unit: "1 bunch",
+            category: "Vegetables",
+            image: "https://images.unsplash.com/photo-1576045057995-568f588f82fb?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 2,
+            name: "Potatoes",
+            price: 120,
+            unit: "1 kg",
+            category: "Vegetables",
+            image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 3,
+            name: "Tomatoes",
+            price: 150,
+            unit: "1 kg",
+            category: "Vegetables",
+            image: "https://images.unsplash.com/photo-1546094096-0df4bcaaa337?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 4,
+            name: "Carrots",
+            price: 140,
+            unit: "1 kg",
+            category: "Vegetables",
+            image: "https://images.unsplash.com/photo-1445282768818-728615cc910a?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 5,
+            name: "Cucumbers",
+            price: 130,
+            unit: "1 kg",
+            category: "Vegetables",
+            image: "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 6,
+            name: "Onions",
+            price: 160,
+            unit: "1 kg",
+            category: "Vegetables",
+            image: "https://images.unsplash.com/photo-1508747703725-719777637510?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 7,
+            name: "Apples",
+            price: 250,
+            unit: "1 kg",
+            category: "Fruits",
+            image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 8,
+            name: "Bananas",
+            price: 180,
+            unit: "1 dozen",
+            category: "Fruits",
+            image: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 9,
+            name: "Oranges",
+            price: 280,
+            unit: "1 kg",
+            category: "Fruits",
+            image: "https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 10,
+            name: "Lemons",
+            price: 200,
+            unit: "1 kg",
+            category: "Fruits",
+            image: "https://images.unsplash.com/photo-1590502593747-42a996133562?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 11,
+            name: "Mangoes",
+            price: 350,
+            unit: "1 kg",
+            category: "Fruits",
+            image: "https://images.unsplash.com/photo-1553279768-865429fa0078?auto=format&fit=crop&w=800&q=85"
+        },
+
+        {
+            id: 12,
+            name: "Strawberries",
+            price: 450,
+            unit: "500 g",
+            category: "Fruits",
+            image: "https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=800&q=85"
+        }
+
+    ];
+
+
+    /* =====================================================
+       VARIABLES
+    ===================================================== */
+
+    let budget = 0;
+
+    let basket = [];
+
+    let customizeMode = false;
+
+
+    /* =====================================================
+       SET BUDGET
+    ===================================================== */
+
+    function setBudget() {
+
+        const input =
+            document.getElementById("budgetInput");
+
+        const value =
+            Number(input.value);
+
+        if (!value || value < 50) {
+
+            showMessage(
+                "Please enter a budget of at least Rs. 50.",
+                "error"
+            );
+
+            return;
+        }
+
+        budget = value;
+
+        basket = [];
+
+        customizeMode = false;
+
+        document.getElementById(
+            "budgetAmount"
+        ).textContent =
+            formatMoney(budget);
+
+        document.getElementById(
+            "basketBudget"
+        ).textContent =
+            formatMoney(budget);
+
+        generateRecommendedBasket();
+
+        document.getElementById(
+            "recommendation"
+        ).style.display = "block";
+
+        document.getElementById(
+            "customizeSection"
+        ).style.display = "none";
+
+        showMessage(
+            "Your smart basket has been created according to your budget! 🎉",
+            "success"
+        );
+
+        window.scrollTo({
+            top:
+                document.querySelector(
+                    ".summary"
+                ).offsetTop - 80,
+
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =====================================================
+       GENERATE RECOMMENDED BASKET
+    ===================================================== */
+
+    function generateRecommendedBasket() {
+
+        basket = [];
+
+        const priorityOrder = [
+            1,
+            2,
+            3,
+            4,
+            5,
+            8,
+            7,
+            6,
+            9,
+            10,
+            11,
+            12
+        ];
+
+        let remaining = budget;
+
+
+        /* FIRST PASS */
+
+        for (let id of priorityOrder) {
+
+            const item =
+                produce.find(
+                    p => p.id === id
+                );
+
+            if (!item) continue;
+
+            if (item.price <= remaining) {
+
+                basket.push({
+                    ...item,
+                    quantity: 1
+                });
+
+                remaining -= item.price;
+            }
+
+            if (basket.length >= 6) {
+                break;
+            }
+
+        }
+
+
+        /* SMALL BUDGET */
+
+        if (basket.length === 0) {
+
+            const cheapest =
+                [...produce]
+                    .sort(
+                        (a, b) =>
+                            a.price - b.price
+                    )[0];
+
+            if (
+                cheapest.price <= budget
+            ) {
+
+                basket.push({
+                    ...cheapest,
+                    quantity: 1
+                });
+
+            }
+
+        }
+
+
+        /* SECOND PASS */
+
+        let changed = true;
+
+        while (changed) {
+
+            changed = false;
+
+            const extraOrder = [
+                2,
+                3,
+                4,
+                5,
+                1,
+                8,
+                7
+            ];
+
+            for (
+                let id of extraOrder
+            ) {
+
+                const item =
+                    produce.find(
+                        p => p.id === id
+                    );
+
+                if (!item) continue;
+
+                const current =
+                    basket.find(
+                        b => b.id === id
+                    );
+
+                if (
+                    current &&
+                    item.price <= remaining
+                ) {
+
+                    if (
+                        current.quantity < 3
+                    ) {
+
+                        current.quantity++;
+
+                        remaining -=
+                            item.price;
+
+                        changed = true;
+                    }
+
+                }
+
+            }
+
+        }
+
+        renderBasket();
+
+        renderSummary();
+
+    }
+
+
+    /* =====================================================
+       DISPLAY PRODUCE
+    ===================================================== */
+
+    function displayProduce() {
+
+        const grid =
+            document.getElementById(
+                "produceGrid"
+            );
+
+        grid.innerHTML = "";
+
+        produce.forEach(item => {
+
+            const existing =
+                basket.find(
+                    b => b.id === item.id
+                );
+
+            const quantity =
+                existing
+                    ? existing.quantity
+                    : 0;
+
+            const remainingBudget =
+                budget - calculateTotal();
+
+            const canAdd =
+                remainingBudget >= item.price;
+
+            grid.innerHTML += `
+
+                <div class="produce-card">
+
+                    <img
+                        src="${item.image}"
+                        alt="${item.name}"
+                    >
+
+                    <div class="produce-body">
+
+                        <h3>
+                            ${item.name}
+                        </h3>
+
+                        <p>
+                            Fresh
+                            ${item.category.toLowerCase()}
+                            available from local markets.
+                        </p>
+
+                        <div class="produce-price">
+
+                            <span class="price">
+                                Rs. ${item.price}
+                            </span>
+
+                            <span class="unit">
+                                ${item.unit}
+                            </span>
+
+                        </div>
+
+                        ${
+                            quantity > 0
+                            ?
+                            `
+                                <button
+                                    class="btn add-btn"
+                                    onclick="addToBasket(${item.id})"
+                                    ${!canAdd ? "disabled" : ""}
+                                >
+                                    🧺 In Basket: ${quantity}
+                                </button>
+                            `
+                            :
+                            `
+                                <button
+                                    class="btn add-btn"
+                                    onclick="addToBasket(${item.id})"
+                                    ${!canAdd ? "disabled" : ""}
+                                >
+                                    + Add to Basket
+                                </button>
+                            `
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+        });
+
+    }
+
+
+    /* =====================================================
+       ADD TO BASKET
+    ===================================================== */
+
+    function addToBasket(id) {
+
+        if (budget <= 0) {
+
+            showMessage(
+                "Please enter your budget first.",
+                "error"
+            );
+
+            return;
+        }
+
+        const item =
+            produce.find(
+                p => p.id === id
+            );
+
+        if (!item) return;
+
+        const total =
+            calculateTotal();
+
+        if (
+            total + item.price >
+            budget
+        ) {
+
+            showMessage(
+                `You only have ${formatMoney(
+                    budget - total
+                )} remaining.`,
+                "error"
+            );
+
+            return;
+        }
+
+        const existing =
+            basket.find(
+                b => b.id === id
+            );
+
+        if (existing) {
+
+            existing.quantity++;
+
+        } else {
+
+            basket.push({
+                ...item,
+                quantity: 1
+            });
+
+        }
+
+        renderBasket();
+
+        renderSummary();
+
+        displayProduce();
+
+    }
+
+
+    /* =====================================================
+       REMOVE ONE
+    ===================================================== */
+
+    function removeOne(id) {
+
+        const item =
+            basket.find(
+                b => b.id === id
+            );
+
+        if (!item) return;
+
+        item.quantity--;
+
+        if (item.quantity <= 0) {
+
+            basket =
+                basket.filter(
+                    b => b.id !== id
+                );
+
+        }
+
+        renderBasket();
+
+        renderSummary();
+
+        displayProduce();
+
+    }
+
+
+    /* =====================================================
+       ADD ONE
+    ===================================================== */
+
+    function addOne(id) {
+
+        addToBasket(id);
+
+    }
+
+
+    /* =====================================================
+       REMOVE ITEM
+    ===================================================== */
+
+    function removeItem(id) {
+
+        basket =
+            basket.filter(
+                item => item.id !== id
+            );
+
+        renderBasket();
+
+        renderSummary();
+
+        displayProduce();
+
+    }
+
+
+    /* =====================================================
+       CLEAR BASKET
+    ===================================================== */
+
+    function clearBasket() {
+
+        basket = [];
+
+        renderBasket();
+
+        renderSummary();
+
+        displayProduce();
+
+        showMessage(
+            "Basket cleared. You can customize it again.",
+            "success"
+        );
+
+    }
+
+
+    /* =====================================================
+       CALCULATE TOTAL
+    ===================================================== */
+
+    function calculateTotal() {
+
+        return basket.reduce(
+            (total, item) =>
+                total +
+                (
+                    item.price *
+                    item.quantity
+                ),
+
+            0
+        );
+
+    }
+
+
+    /* =====================================================
+       ITEM COUNT
+    ===================================================== */
+
+    function calculateItemCount() {
+
+        return basket.reduce(
+            (total, item) =>
+                total + item.quantity,
+
+            0
+        );
+
+    }
+
+
+    /* =====================================================
+       RENDER BASKET
+    ===================================================== */
+
+    function renderBasket() {
+
+        const container =
+            document.getElementById(
+                "basketItems"
+            );
+
+        if (basket.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="empty-basket">
+
+                    <div class="emoji">
+                        🛒
+                    </div>
+
+                    <p>
+                        Your basket is empty.
+                    </p>
+
+                </div>
+
+            `;
+
+        } else {
+
+            container.innerHTML = "";
+
+            basket.forEach(item => {
+
+                const itemTotal =
+                    item.price *
+                    item.quantity;
+
+                container.innerHTML += `
+
+                    <div class="basket-item">
+
+                        <img
+                            src="${item.image}"
+                            alt="${item.name}"
+                        >
+
+                        <div class="basket-info">
+
+                            <h4>
+                                ${item.name}
+                            </h4>
+
+                            <div class="basket-price">
+                                Rs. ${itemTotal}
+                            </div>
+
+                            <div class="quantity">
+
+                                <button
+                                    onclick="removeOne(${item.id})"
+                                >
+                                    −
+                                </button>
+
+                                <strong>
+                                    ${item.quantity}
+                                </strong>
+
+                                <button
+                                    onclick="addOne(${item.id})"
+                                >
+                                    +
+                                </button>
+
+                                <button
+                                    class="remove-btn"
+                                    onclick="removeItem(${item.id})"
+                                    title="Remove item"
+                                >
+                                    ✕
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+        const count =
+            calculateItemCount();
+
+        document.getElementById(
+            "basketCount"
+        ).textContent =
+            `${count} ${
+                count === 1
+                    ? "item"
+                    : "items"
+            }`;
+
+    }
+
+
+    /* =====================================================
+       SUMMARY
+    ===================================================== */
+
+    function renderSummary() {
+
+        const spent =
+            calculateTotal();
+
+        const remaining =
+            budget - spent;
+
+        const itemCount =
+            calculateItemCount();
+
+        document.getElementById(
+            "spentAmount"
+        ).textContent =
+            formatMoney(spent);
+
+        document.getElementById(
+            "remainingAmount"
+        ).textContent =
+            formatMoney(remaining);
+
+        document.getElementById(
+            "itemCount"
+        ).textContent =
+            itemCount;
+
+        document.getElementById(
+            "basketBudget"
+        ).textContent =
+            formatMoney(budget);
+
+        document.getElementById(
+            "basketSpent"
+        ).textContent =
+            formatMoney(spent);
+
+        document.getElementById(
+            "basketRemaining"
+        ).textContent =
+            formatMoney(remaining);
+
+    }
+
+
+    /* =====================================================
+       CUSTOMIZE
+    ===================================================== */
+
+    function customizeBasket() {
+
+        if (budget <= 0) {
+
+            showMessage(
+                "Please enter your budget first.",
+                "error"
+            );
+
+            return;
+        }
+
+        customizeMode = true;
+
+        document.getElementById(
+            "customizeSection"
+        ).style.display =
+            "block";
+
+        document.getElementById(
+            "customizeSection"
+        ).scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        displayProduce();
+
+        showMessage(
+            "Customize mode enabled! Add or remove whatever you like. ✏️",
+            "success"
+        );
+
+    }
+
+
+    /* =====================================================
+       NEW RECOMMENDATION
+    ===================================================== */
+
+    function newRecommendation() {
+
+        if (budget <= 0) return;
+
+        generateRecommendedBasket();
+
+        customizeMode = false;
+
+        document.getElementById(
+            "customizeSection"
+        ).style.display =
+            "none";
+
+        showMessage(
+            "Fresh recommendation generated! 🔄",
+            "success"
+        );
+
+    }
+
+
+    /* =====================================================
+       CONFIRM
+    ===================================================== */
+
+    function confirmBasket() {
+
+        if (budget <= 0) {
+
+            showMessage(
+                "Please enter a budget first.",
+                "error"
+            );
+
+            return;
+        }
+
+        if (basket.length === 0) {
+
+            showMessage(
+                "Your basket is empty.",
+                "error"
+            );
+
+            return;
+        }
+
+        const total =
+            calculateTotal();
+
+        showMessage(
+            `Basket confirmed! Total: ${formatMoney(
+                total
+            )}. Remaining: ${formatMoney(
+                budget - total
+            )} 🎉`,
+            "success"
+        );
+
+    }
+
+
+    /* =====================================================
+       MONEY
+    ===================================================== */
+
+    function formatMoney(amount) {
+
+        return "Rs. " +
+            Number(amount)
+                .toLocaleString("en-PK");
+
+    }
+
+
+    /* =====================================================
+       MESSAGE
+    ===================================================== */
+
+    function showMessage(
+        text,
+        type
+    ) {
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+        message.textContent =
+            text;
+
+        message.className =
+            `message ${type}`;
+
+        setTimeout(() => {
+
+            message.className =
+                "message";
+
+        }, 4000);
+
+    }
+
+
+    /* =====================================================
+       ENTER KEY
+    ===================================================== */
+
+    document
+        .getElementById("budgetInput")
+        .addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    setBudget();
+
+                }
+
+            }
+        );
+
+</script>
+
+
+<!-- =====================================================
+     SHARED NAVBAR FUNCTIONALITY
+===================================================== -->
+
+<script>
+
+    /* ================= MOBILE MENU ================= */
+
+    const menuBtn =
+        document.getElementById("menuBtn");
+
+    const navMenu =
+        document.getElementById("navMenu");
+
+    if (
+        menuBtn &&
+        navMenu
+    ) {
+
+        menuBtn.addEventListener(
+            "click",
+            function() {
+
+                navMenu.classList.toggle(
+                    "show"
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ================= THEME ================= */
+
+    function getTheme() {
+
+        try {
+
+            return (
+                localStorage.getItem(
+                    "freshfind-theme"
+                ) || "light"
+            );
+
+        } catch (e) {
+
+            return "light";
+
+        }
+
+    }
+
+
+    function setTheme(theme) {
+
+        theme =
+            theme === "dark"
+                ? "dark"
+                : "light";
+
+        document.documentElement
+            .setAttribute(
+                "data-theme",
+                theme
+            );
+
+        const icon =
+            document.getElementById(
+                "themeIcon"
+            );
+
+        if (icon) {
+
+            icon.className =
+                theme === "dark"
+                    ? "fa-solid fa-sun"
+                    : "fa-regular fa-moon";
+
+        }
+
+        try {
+
+            localStorage.setItem(
+                "freshfind-theme",
+                theme
+            );
+
+        } catch (e) {}
+
+    }
+
+
+    const themeToggle =
+        document.getElementById(
+            "themeToggleBtn"
+        );
+
+
+    if (themeToggle) {
+
+        themeToggle.addEventListener(
+            "click",
+            function() {
+
+                const current =
+                    document.documentElement
+                        .getAttribute(
+                            "data-theme"
+                        );
+
+                setTheme(
+                    current === "dark"
+                        ? "light"
+                        : "dark"
+                );
+
+            }
+        );
+
+    }
+
+
+    setTheme(
+        getTheme()
+    );
+
+
+    /* ================= BOOKMARK COUNT ================= */
+
+    const bookmarkCount =
+        document.getElementById(
+            "bookmarkCount"
+        );
+
+    if (bookmarkCount) {
+
+        const saved =
+            Number(
+                localStorage.getItem(
+                    "freshfind-bookmark-count"
+                )
+            ) || 0;
+
+        bookmarkCount.textContent =
+            saved;
+
+    }
+
+
+    /* ================= CLOSE MOBILE MENU ================= */
+
+    document
+        .querySelectorAll(
+            "#navMenu a"
+        )
+        .forEach(
+            function(link) {
+
+                link.addEventListener(
+                    "click",
+                    function() {
+
+                        navMenu.classList.remove(
+                            "show"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us | FreshFind</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    :root{
+      --bg:#f7faf8;
+      --surface:#ffffff;
+      --surface-2:#edf7f0;
+      --ink:#153126;
+      --muted:#718079;
+      --line:#dfeae3;
+      --green:#39a566;
+      --green-2:#227d4b;
+      --lime:#b9e88d;
+      --dark:#10241b;
+      --shadow:0 18px 50px rgba(21,49,38,.10);
+      --radius:24px;
+    }
+
+    body.dark{
+      --bg:#0c1712;
+      --surface:#12231a;
+      --surface-2:#183024;
+      --ink:#effaf3;
+      --muted:#a8bbb0;
+      --line:#274337;
+      --green:#58bd7f;
+      --green-2:#8bd7a7;
+      --lime:#c5ee9f;
+      --dark:#07100b;
+      --shadow:0 18px 50px rgba(0,0,0,.28);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"DM Sans",sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      line-height:1.6;
+      transition:background .25s,color .25s;
+    }
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .container{width:min(1160px,92%);margin:auto}
+
+    /* NAVBAR */
+    .navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,.88);
+      border-bottom:1px solid var(--line);
+      backdrop-filter:blur(16px);
+      margin: 20px 20px;
+      border: none;
+    }
+    body.dark .navbar{background:rgba(12,23,18,.90)}
+
+    .nav-inner{
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+      font-size:1.2rem;
+    }
+    .brand-mark{
+      width:40px;
+      height:40px;
+      border-radius:13px 13px 13px 4px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(135deg,var(--green),var(--green-2));
+      transform:rotate(-5deg);
+      box-shadow:0 8px 20px rgba(57,165,102,.22);
+    }
+    .brand-mark i{transform:rotate(5deg)}
+
+    .nav-links{display:flex;align-items:center;gap:8px}
+    .nav-links a{
+      padding:10px 13px;
+      border-radius:12px;
+      color:var(--muted);
+      font-size:.93rem;
+      font-weight:600;
+      transition:.2s;
+    }
+    .nav-links a:hover,.nav-links a.active{
+      color:var(--green-2);
+      background:var(--surface-2);
+    }
+
+    .nav-actions{display:flex;align-items:center;gap:8px}
+    .icon-btn{
+      width:40px;height:40px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:var(--surface);
+      color:var(--ink);
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      transition:.2s;
+    }
+    .icon-btn:hover{transform:translateY(-2px);border-color:var(--green)}
+
+    .login-btn{
+      padding:10px 17px;
+      border-radius:12px;
+      background:var(--dark);
+      color:#fff;
+      font-weight:700;
+      font-size:.9rem;
+    }
+
+    .menu-btn{display:none}
+
+    /* HERO */
+    .hero{
+      position:relative;
+      min-height:470px;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      background:
+        linear-gradient(90deg,rgba(8,34,22,.92),rgba(16,55,35,.72),rgba(16,55,35,.28)),
+        url("https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1800&q=85") center/cover;
+    }
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:420px;height:420px;
+      border:1px solid rgba(185,232,141,.25);
+      border-radius:50%;
+      right:-120px;bottom:-230px;
+    }
+    .hero-content{position:relative;z-index:2;color:#fff;padding:70px 0}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:7px 12px;
+      border:1px solid rgba(185,232,141,.35);
+      border-radius:999px;
+      background:rgba(185,232,141,.10);
+      color:var(--lime);
+      font-size:.78rem;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+    .hero h1{
+      max-width:760px;
+      margin:18px 0 15px;
+      font-family:"Playfair Display",serif;
+      font-size:clamp(2.6rem,6vw,5rem);
+      line-height:1.02;
+    }
+    .hero p{
+      max-width:680px;
+      color:rgba(255,255,255,.84);
+      font-size:1.08rem;
+    }
+    .breadcrumbs{
+      margin-top:24px;
+      display:flex;
+      gap:9px;
+      align-items:center;
+      color:rgba(255,255,255,.62);
+      font-size:.85rem;
+    }
+    .breadcrumbs a:hover{color:var(--lime)}
+
+    /* INTRO */
+    section{padding:86px 0}
+    .section-head{margin-bottom:38px}
+    .section-kicker{
+      color:var(--green-2);
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+    .section-head h2{
+      font-family:"Playfair Display",serif;
+      font-size:clamp(2rem,4vw,3rem);
+      line-height:1.1;
+      margin-top:8px;
+    }
+    .section-head p{
+      max-width:720px;
+      margin-top:12px;
+      color:var(--muted);
+    }
+
+    .intro-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:26px;
+      align-items:stretch;
+    }
+    .intro-card,.purpose-card{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .intro-card{padding:38px}
+    .intro-card p{color:var(--muted);margin-bottom:17px}
+    .intro-card p:last-child{margin-bottom:0}
+
+    .purpose-card{
+      padding:38px;
+      background:linear-gradient(145deg,var(--dark),#1a4930);
+      color:#fff;
+      position:relative;
+      overflow:hidden;
+    }
+    .purpose-card::before{
+      content:"";
+      position:absolute;
+      width:190px;height:190px;
+      border-radius:50%;
+      background:rgba(185,232,141,.12);
+      right:-70px;top:-70px;
+    }
+    .purpose-icon{
+      width:54px;height:54px;
+      border-radius:17px;
+      display:grid;
+      place-items:center;
+      background:rgba(185,232,141,.14);
+      color:var(--lime);
+      font-size:1.3rem;
+      margin-bottom:25px;
+    }
+    .purpose-card h3{
+      font-family:"Playfair Display",serif;
+      font-size:2rem;
+      margin-bottom:12px;
+    }
+    .purpose-card p{color:rgba(255,255,255,.72);position:relative}
+
+    /* FEATURES */
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .feature{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:27px;
+      transition:.25s;
+    }
+    .feature:hover{
+      transform:translateY(-6px);
+      border-color:rgba(57,165,102,.45);
+      box-shadow:var(--shadow);
+    }
+    .feature-icon{
+      width:48px;height:48px;
+      border-radius:15px;
+      background:var(--surface-2);
+      color:var(--green-2);
+      display:grid;
+      place-items:center;
+      margin-bottom:19px;
+      font-size:1.05rem;
+    }
+    .feature h3{font-size:1.05rem;margin-bottom:8px}
+    .feature p{font-size:.92rem;color:var(--muted)}
+
+    /* HOW IT WORKS */
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      counter-reset:step;
+    }
+    .step{
+      position:relative;
+      padding:30px;
+      background:var(--surface-2);
+      border:1px solid var(--line);
+      border-radius:22px;
+      overflow:hidden;
+    }
+    .step-number{
+      font-family:"Playfair Display",serif;
+      font-size:4rem;
+      line-height:1;
+      color:rgba(57,165,102,.18);
+      margin-bottom:18px;
+    }
+    .step h3{margin-bottom:8px}
+    .step p{color:var(--muted);font-size:.92rem}
+
+    /* TEAM / PLATFORM */
+    .team-box{
+      background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:42px;
+      display:grid;
+      grid-template-columns:.85fr 1.15fr;
+      gap:42px;
+      align-items:center;
+    }
+    .team-box h2{
+      font-family:"Playfair Display",serif;
+      font-size:2.5rem;
+      line-height:1.1;
+      margin:8px 0 15px;
+    }
+    .team-box p{color:var(--muted)}
+    .team-points{display:grid;gap:13px}
+    .team-point{
+      display:flex;
+      gap:13px;
+      align-items:flex-start;
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:var(--surface-2);
+    }
+    .team-point i{
+      color:var(--green);
+      margin-top:4px;
+    }
+    .team-point strong{display:block;font-size:.94rem}
+    .team-point span{display:block;color:var(--muted);font-size:.86rem;margin-top:2px}
+
+    /* CTA */
+    .cta{
+      padding:0 0 86px;
+    }
+    .cta-inner{
+      border-radius:28px;
+      padding:52px;
+      color:#fff;
+      background:
+        radial-gradient(circle at 90% 20%,rgba(185,232,141,.20),transparent 27%),
+        linear-gradient(135deg,#123c28,#227d4b);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:28px;
+    }
+    .cta h2{
+      font-family:"Playfair Display",serif;
+      font-size:clamp(1.8rem,4vw,2.7rem);
+      line-height:1.1;
+    }
+    .cta p{color:rgba(255,255,255,.72);margin-top:8px}
+    .cta-buttons{display:flex;gap:10px;flex-wrap:wrap}
+    .cta-btn{
+      padding:12px 18px;
+      border-radius:13px;
+      font-weight:700;
+      background:#fff;
+      color:#153126;
+    }
+    .cta-btn.alt{
+      background:transparent;
+      color:#fff;
+      border:1px solid rgba(255,255,255,.28);
+    }
+
+    /* FOOTER */
+    footer{
+      border-top:1px solid var(--line);
+      padding:28px 0;
+      background:var(--surface);
+    }
+    .footer-inner{
+      display:grid;
+      grid-template-columns:1.2fr 1.8fr auto;
+      gap:30px;
+      align-items:center;
+      padding:8px 0 25px;
+    }
+    .footer-brand-link{
+      display:inline-flex;
+      color:var(--ink);
+    }
+    .footer-text{
+      color:var(--muted);
+      font-size:.84rem;
+      margin-top:9px;
+      max-width:330px;
+    }
+    .footer-links{
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:8px 20px;
+      color:var(--muted);
+      font-size:.84rem;
+    }
+    .footer-links a:hover{color:var(--green-2)}
+    .footer-social{
+      display:flex;
+      gap:8px;
+    }
+    .footer-social a{
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--line);
+      border-radius:11px;
+      color:var(--muted);
+      background:var(--surface);
+      transition:.2s;
+    }
+    .footer-social a:hover{
+      color:var(--green-2);
+      border-color:var(--green);
+      transform:translateY(-2px);
+    }
+    .footer-bottom{
+      border-top:1px solid var(--line);
+      padding:18px 0 2px;
+      display:flex;
+      justify-content:space-between;
+      gap:15px;
+      color:var(--muted);
+      font-size:.76rem;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .nav-links{
+        position:absolute;
+        left:4%;
+        right:4%;
+        top:70px;
+        padding:10px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        background:var(--surface);
+        border:1px solid var(--line);
+        border-radius:18px;
+        box-shadow:var(--shadow);
+      }
+      .nav-links.open{display:flex}
+      .nav-links a{width:100%}
+      .menu-btn{display:grid}
+      .intro-grid,.team-box{grid-template-columns:1fr}
+      .feature-grid{grid-template-columns:repeat(2,1fr)}
+      .steps{grid-template-columns:1fr}
+      .cta-inner{flex-direction:column;align-items:flex-start}
+    }
+
+    @media(max-width:620px){
+      .nav-actions .login-btn{display:none}
+      .feature-grid{grid-template-columns:1fr}
+      .hero{min-height:500px}
+      .hero h1{font-size:2.75rem}
+      section{padding:65px 0}
+      .intro-card,.purpose-card,.team-box{padding:27px}
+      .cta{padding-bottom:65px}
+      .cta-inner{padding:32px 26px}
+      .footer-inner{
+        grid-template-columns:1fr;
+        align-items:flex-start;
+      }
+      .footer-links{
+        justify-content:flex-start;
+      }
+      .footer-bottom{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+  </style>
+
+<style id="freshfind-shared-theme">
+html[data-theme="dark"] body{background:#0c1712 !important;color:#eff8f2 !important}
+html[data-theme="dark"] .navbar,html[data-theme="dark"] footer{background:#0b1410 !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] .navbar a,html[data-theme="dark"] .nav-link,html[data-theme="dark"] .footer-links a,html[data-theme="dark"] .footer-text,html[data-theme="dark"] .copyright,html[data-theme="dark"] .small.text-secondary{color:#a8bbb0 !important}
+html[data-theme="dark"] .nav-link.active,html[data-theme="dark"] .nav-link:hover{color:#58bd7f !important}
+html[data-theme="dark"] .product-card,html[data-theme="dark"] .market-card,html[data-theme="dark"] .stat-card,html[data-theme="dark"] .filter-bar,html[data-theme="dark"] .info-card,html[data-theme="dark"] .form-card,html[data-theme="dark"] .modal-content{background:#14241c !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] input,html[data-theme="dark"] textarea,html[data-theme="dark"] select,html[data-theme="dark"] .form-control{background:#12231a !important;color:#eff8f2 !important;border-color:#294237 !important}
+html[data-theme="dark"] input::placeholder,html[data-theme="dark"] textarea::placeholder{color:#8fa397 !important}
+.freshfind-theme-toggle{width:40px;height:40px;border:1px solid currentColor;border-radius:10px;background:transparent;color:inherit;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+.freshfind-theme-toggle:hover{transform:translateY(-2px)}
+</style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-mark"><i class="fa-solid fa-leaf"></i></span>
+        <span>FreshFind</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="market.html">Market Directory</a>
+        <a href="producesguide.html">Produce Guide</a>
+        <a href="budget.html">Budget Basket</a>
+        <a href="favourite.html">Favourite</a>
+        <a href="about.html" class="active">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="bookmarkBtn" title="Bookmarks">
+          <i class="fa-regular fa-bookmark"></i>
+        </button>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme">
+          <i class="fa-regular fa-moon"></i>
+        </button>
+        <a href="login.html" class="login-btn">Login</a>
+        <button class="icon-btn menu-btn" id="menuBtn" title="Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-content">
+        <span class="eyebrow"><i class="fa-solid fa-leaf"></i> Fresh All Along</span>
+        <h1>About FreshFind</h1>
+        <p>
+          A simple way to discover nearby farmers markets, explore seasonal produce,
+          and make local fresh food easier to find.
+        </p>
+
+        <div class="breadcrumbs">
+          <a href="index.html">Home</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span>About Us</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">Who we are</span>
+          <h2>Fresh food starts with knowing where to find it.</h2>
+          <p>
+            FreshFind brings farmers-market information and seasonal produce discovery
+            together in one accessible browser-based platform.
+          </p>
+        </div>
+
+        <div class="intro-grid">
+          <article class="intro-card">
+            <p>
+              Farmers markets connect communities with growers and fresh seasonal food,
+              but useful market information can often be scattered across flyers,
+              community boards, social media, and word of mouth.
+            </p>
+            <p>
+              FreshFind is designed to make that discovery easier. The platform brings
+              market locations, operating days and hours, and the types of produce
+              typically available into one convenient place.
+            </p>
+            <p>
+              Whether someone wants to find a nearby market or understand what produce
+              is in season, FreshFind keeps the experience simple, searchable, and easy
+              to explore.
+            </p>
+          </article>
+
+          <article class="purpose-card">
+            <div class="purpose-icon"><i class="fa-solid fa-basket-shopping"></i></div>
+            <h3>Our purpose</h3>
+            <p>
+              To help residents discover local farmers markets and make the most of
+              seasonal local produce through clear, organized, and accessible
+              information.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:10px">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">What FreshFind offers</span>
+          <h2>Everything in one fresh place.</h2>
+          <p>
+            Explore the main parts of FreshFind and use them together to plan your
+            next local-market visit.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="feature-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <h3>Market Directory</h3>
+            <p>Search and filter a catalog of farmers markets by area, day, and produce.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+            <h3>Market Details</h3>
+            <p>See market location, operating schedule, map information, and typical products.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon"><i class="fa-solid fa-carrot"></i></div>
+            <h3>Produce Guide</h3>
+            <p>Browse produce with descriptions, typical seasons, and markets where it can be found.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon"><i class="fa-solid fa-calendar-days"></i></div>
+            <h3>Seasonal Picks</h3>
+            <p>Discover seasonal recommendations and make your market exploration more useful.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon"><i class="fa-regular fa-comments"></i></div>
+            <h3>FreshFind Chatbot</h3>
+            <p>Get help with frequently asked questions through the platform's guided chatbot.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon"><i class="fa-regular fa-bookmark"></i></div>
+            <h3>Bookmarks</h3>
+            <p>Save favorite markets and produce entries so useful discoveries stay close at hand.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="section-kicker">The FreshFind experience</span>
+          <h2>Find it. Explore it. Plan it.</h2>
+          <p>
+            FreshFind keeps local-market discovery straightforward from the first search
+            to the final plan.
+          </p>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step-number">01</div>
+            <h3>Find a market</h3>
+            <p>Use the Market Directory to explore markets by area, day, and available produce.</p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">02</div>
+            <h3>Explore what is fresh</h3>
+            <p>Use the Produce Guide and seasonal recommendations to discover what is typically in season.</p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">03</div>
+            <h3>Save your finds</h3>
+            <p>Bookmark useful markets and produce entries and keep your favorite discoveries together.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:5px">
+      <div class="container">
+        <div class="team-box">
+          <div>
+            <span class="section-kicker">The people behind FreshFind</span>
+            <h2>Built around the FreshFind idea.</h2>
+            <p>
+              FreshFind is a focused web platform created around one clear goal:
+              making farmers-market discovery and seasonal produce information easier
+              to access.
+            </p>
+          </div>
+
+          <div class="team-points">
+            <div class="team-point">
+              <i class="fa-solid fa-seedling"></i>
+              <div>
+                <strong>Local discovery</strong>
+                <span>Helping residents find and explore nearby farmers markets.</span>
+              </div>
+            </div>
+
+            <div class="team-point">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <div>
+                <strong>Simple information</strong>
+                <span>Bringing locations, schedules, products, and seasonal information together.</span>
+              </div>
+            </div>
+
+            <div class="team-point">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+              <div>
+                <strong>Accessible experience</strong>
+                <span>Designed to work across desktop, tablet, and mobile screens.</span>
+              </div>
+            </div>
+
+            <div class="team-point">
+              <i class="fa-solid fa-people-group"></i>
+              <div>
+                <strong>Community-focused</strong>
+                <span>Supporting residents, community organizations, and farmers through easier discovery.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-inner">
+          <div>
+            <h2>Ready to find something fresh?</h2>
+            <p>Explore local markets or discover what produce is in season.</p>
+          </div>
+
+          <div class="cta-buttons">
+            <a href="market.html" class="cta-btn">
+              Explore Markets <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="producesguide.html" class="cta-btn alt">
+              Produce Guide
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand-wrap">
+        <a href="index.html" class="brand footer-brand-link">
+          <span class="brand-mark"><i class="fa-solid fa-leaf"></i></span>
+          <span>FreshFind</span>
+        </a>
+        <p class="footer-text">Fresh All Along — discover local markets and seasonal produce.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="market.html">Market Directory</a>
+        <a href="producesguide.html">Produce Guide</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+
+      <div class="footer-social">
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://x.com/" target="_blank" rel="noopener noreferrer" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <span>© 2025 FreshFind. All rights reserved.</span>
+      <span>Made for discovering fresh, local markets.</span>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    const bookmarkBtn = document.getElementById("bookmarkBtn");
+
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+      const icon = menuBtn.querySelector("i");
+      icon.className = navLinks.classList.contains("open")
+        ? "fa-solid fa-xmark"
+        : "fa-solid fa-bars";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuBtn.querySelector("i").className = "fa-solid fa-bars";
+      });
+    });
+
+    bookmarkBtn.addEventListener("click", () => {
+      try {
+        const count = Number(sessionStorage.getItem("freshfind-bookmarks") || 0);
+        sessionStorage.setItem("freshfind-bookmarks", count);
+      } catch(e) {}
+      window.location.href = "bookmarks.html";
+    });
+  </script>
+
+
+
+<script id="freshfind-shared-functionality">
+(function(){
+"use strict";
+const routes={"Home":"index.html","Find a Market":"market.html","Market Directory":"market.html","Produce Guide":"producesguide.html","Produce":"producesguide.html","Markets":"market.html","About":"about.html","About Us":"about.html","Contact Us":"contact.html","Favourites":"favourite.html","Bookmarks":"market.html?view=bookmarks","Help Center":"contact.html"};
+
+function getTheme(){
+  try { return localStorage.getItem("freshfind-theme") || localStorage.getItem("theme") || "light"; }
+  catch(e){ return "light"; }
+}
+function setTheme(theme){
+  theme=theme==="dark"?"dark":"light";
+  document.documentElement.setAttribute("data-theme",theme);
+  document.body.classList.toggle("dark",theme==="dark");
+  try {
+    localStorage.setItem("freshfind-theme",theme);
+    localStorage.removeItem("theme");
+  } catch(e){}
+  updateThemeButtons(theme);
+}
+function updateThemeButtons(theme){
+  document.querySelectorAll("#themeBtn,#themeToggleBtn,.freshfind-theme-toggle").forEach(function(btn){
+    const icon=btn.querySelector("i");
+    if(icon){ icon.className=theme==="dark"?"fa-solid fa-sun":"fa-regular fa-moon"; }
+    btn.setAttribute("aria-label",theme==="dark"?"Switch to light mode":"Switch to dark mode");
+    btn.title=theme==="dark"?"Switch to Light Mode":"Switch to Dark Mode";
+  });
+}
+function bindThemeButton(btn){
+  if(!btn||btn.dataset.themeBound)return;
+  btn.dataset.themeBound="1";
+  btn.addEventListener("click",function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
+  });
+}
+function addThemeButton(){
+  let btn=document.querySelector("#themeBtn,#themeToggleBtn,.freshfind-theme-toggle");
+  if(btn){ bindThemeButton(btn); return; }
+  const navActions=document.querySelector(".nav-actions");
+  if(navActions){
+    btn=document.createElement("button");
+    btn.type="button"; btn.className="freshfind-theme-toggle";
+    navActions.insertBefore(btn,navActions.firstChild); bindThemeButton(btn); return;
+  }
+  const collapse=document.querySelector(".navbar .navbar-collapse");
+  if(collapse){
+    btn=document.createElement("button");
+    btn.type="button"; btn.className="freshfind-theme-toggle";
+    const basket=collapse.querySelector(".basket-btn,.nav-btn");
+    collapse.insertBefore(btn,basket||collapse.firstChild); bindThemeButton(btn);
+  }
+}
+function fixLinks(){
+  document.querySelectorAll("a").forEach(function(a){
+    const t=(a.textContent||"").replace(/\s+/g," ").trim();
+    if(routes[t]&&(a.getAttribute("href")==="#"||a.classList.contains("nav-link"))) a.setAttribute("href",routes[t]);
+  });
+  document.querySelectorAll("a.navbar-brand,.logo").forEach(function(a){if((a.getAttribute("href")||"#")==="#")a.setAttribute("href","index.html")});
+  document.querySelectorAll("a.season-btn").forEach(function(a){if(a.getAttribute("href")==="#")a.setAttribute("href","#seasonal")});
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  fixLinks();
+  addThemeButton();
+  setTheme(getTheme());
+  document.querySelectorAll("button.login-btn").forEach(function(btn){btn.onclick=function(){window.location.href="login.html"}});
+  document.querySelectorAll("nav a,.nav-links a").forEach(function(a){a.addEventListener("click",function(){const m=document.querySelector("#navMenu,#navLinks");if(m)m.classList.remove("show","open")})});
+});
+
+window.addEventListener("storage",function(e){
+  if(e.key==="freshfind-theme") setTheme(e.newValue||"light");
+});
+})();
+</script>
+
+</body>
+</html>
